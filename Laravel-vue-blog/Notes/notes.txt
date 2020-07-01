@@ -1,0 +1,51 @@
+1. To install vue with Laravel-npm install vue 
+2.How Vue Js works in Laravel
+User visits Home page->It loads web.php file->calls method of a controller->Method returns json data
+3. For returning a method we must write 
+  public function newmethod(){
+        return response()->json([
+               'msg'=>'We must return only json'
+        ]);
+    }
+4.Instead of redirecting to 404 page if we want that while our routes does not match to return it to any specific page we should type
+Route::any('{slug}',function(){
+return view('welcome');
+});
+Relevant incase of SPA
+Whole process
+1. Users visits website 
+2. It loads web.php 
+3. Calls method of a controller
+4.Method returns Json data
+If no match found
+5. if then use spa route which is known as any route in Laravel 
+6.A route then calls a Controllers method 
+7.Method returns a view lers assume its welcome.blade.php
+8. In welcome.blade.php we return Vue js component
+9. The vue js components returns Vue routers
+10.The vue router tries to find a match for testpage route
+11.Vue router than loads a Vue element
+
+Another workprocess
+js/app.js
+Enry point starts from resources resources/js/app.js
+require('./bootstrap');
+
+window.Vue=require("vue");
+
+
+Vue.component('mainapp',require('./components/mainapp.vue').default)
+const app=new Vue({
+    el:'#app',
+})
+
+Loads vue,routes,stores everything related to Vue
+All vue files are useless with webpack.mix.js it becomes useful
+We have to copile everything in app.js mainapp.vue need to convert al into plain JS
+Go to Webpack.mix.js
+It says inside webpack.mix.js take all code and put it inside public folder
+Takes all files from resources.js and put it inside public folder
+For that write we need to run npm run dev 
+Browser only understands plain JS code.It will take and compile everything in plain JS.
+
+public app.js is teh whole Vue JS project
