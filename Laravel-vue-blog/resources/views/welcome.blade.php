@@ -15,9 +15,12 @@
         </style>
     </head>
     <body>
-            This is welcome page
+
             <div id="app">
-            <mainapp></mainapp>
+                <mainapp></mainapp>
+            <testapp></testapp>
+            <secondtest></secondtest>
+
             </div>
                 <script src="{{ mix('js/app.js')}}"></script>
     </body>

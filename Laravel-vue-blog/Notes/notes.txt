@@ -49,3 +49,32 @@ For that write we need to run npm run dev
 Browser only understands plain JS code.It will take and compile everything in plain JS.
 
 public app.js is teh whole Vue JS project
+
+To install Vue-router npm install vue-router
+After that create a route in route.js
+import Vue from 'vue';
+import Router from 'vue-router'
+import testapp from './components/testapp.vue';
+Vue.use(Router);
+
+const routes=[
+    {
+        path:'/test',
+        component:testapp
+    }
+]
+export default new Router({
+    mode:'history',
+    routes
+})
+In app.js 
+require('./bootstrap');
+
+window.Vue=require("vue");
+import router from './router'
+
+Vue.component('mainapp',require('./components/mainapp.vue').default)
+const app=new Vue({
+    el:'#app',
+    router
+})

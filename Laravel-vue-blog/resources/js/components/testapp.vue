@@ -1,7 +1,7 @@
 <template>
     <div>
-        Menu
-        <router-view></router-view>
+        <h1>Test Your routes</h1>
+
     </div>
 </template>
 <script>
@@ -9,3 +9,6 @@ export default {
 
 }
 </script>
+<style lang="">
+
+</style>
