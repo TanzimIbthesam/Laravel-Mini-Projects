@@ -9,7 +9,7 @@ class TestController extends Controller
     //
     public function new(){
     //    return view('welcome');
-        echo "Hello World";
+        echo "Hello Worldddd";
     }
     public function newmethod(){
         return response()->json([
