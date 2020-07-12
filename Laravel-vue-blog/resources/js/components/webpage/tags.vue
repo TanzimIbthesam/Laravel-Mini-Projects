@@ -6,19 +6,12 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Tags <Button type="primary" size="normal"> <Icon type="md-add" />  Add New tag</Button></p>
+					<p class="_title0">Tags<Button type="primary" @click="addModal = true">Add New Tag</Button></p>
 
 
 					<div class="_overflow _table_div">
-                         <Button type="primary" @click="modal1 = true">Display dialog box</Button>
-    <Modal
-        v-model="modal1"
-        title="Common Modal dialog box title"
-      >
-        <p>Content of dialog</p>
-        <p>Content of dialog</p>
-        <p>Content of dialog</p>
-    </Modal>
+
+
 
 						<table class="_table">
 								<!-- TABLE TITLE -->
@@ -32,16 +25,14 @@
 
 
 								<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Manhattan's art center "Shed" opening ceremony</td>
-								<td>Economy</td>
+								<tr v-for="(tag, i) in tags" :key="i" v-if="tags.length">
+								<td>{{tag.id}}</td>
+								<td class="_table_name">{{tag.tagName}}</td>
+								<td>{{tag.created_at}}</td>
 								<td>
-                                           <Button type="primary" size="small">Edit</Button>
-                                           <Button type="error" size="small">Delete</Button>
-									<!-- <button class="_btn _action_btn edit_btn1" type="button">Edit</button>
+									<Button type="info" size="small" @click="showEditModal(tag, i)" v-if="isUpdatePermitted">Edit</Button>
+									<Button type="error" size="small" @click="showDeletingModal(tag, i)"  :loading="tag.isDeleting" v-if="isDeletePermitted">Delete</Button>
 
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button> -->
 								</td>
 							</tr>
 
@@ -52,7 +43,20 @@
 
 					</div>
 				</div>
+ <Modal
+        v-model="addModal"
+        title="Common Modal dialog box title"
+        :mask-closeable="false"
+        :closeable="false"
+        >
+  <Input v-model="data.tagName" placeholder="Enter something..." style="width: 300px" />
+        <div slot="footer">
+            <Button type="default" v-on:click="addModal=false">Close</Button>
+              <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
 
+        </div>
+
+    </Modal>
 
 			</div>
 		</div>
@@ -60,22 +64,50 @@
 </template>
 <script>
 export default {
-data:{
-    return :{
-        tagName:' ',
-    },
-    modal1:false,
+data(){
+    return{
+      data:{
+          tagName:' '
+      },
+     addModal:false,
+     isAdding:false,
+     tags:[]
+    }
+
+},
+  methods:{
+   async addTag(){
+     if(this.data.tagName.trim( )=='') return this.error('Tag Name is required')
+     const res=await this.callApi('post','app/create_tag',this.data);
+     if(res.status===201){
+         this.success('Data has been added successfully');
+         this.addModal=false;
+     }else{
+         this.error();
+     }
+	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
+
+
+
+
+
+
+
+
+
+},
+
+
+},
+async created(){
+    // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
+    const res=await this.callApi('get', 'app/get_tags');
+    // console.log(res);
+    if(res.status==200){
+          this.tags = res.data;
+    }else{
+         this.error();
+    }
 }
-// async created(){
-//     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
-//     const res=await this.callApi('post', '/app/create_tag' ,{tagName:'testtag'});
-//     // console.log(res);
-//     if(res.status==200){
-//           console.log(res);
-//     }else{
-//           console.log(res);
-//         console.log('It has a error of  status 422');
-//     }
-// }
 }
 </script>
