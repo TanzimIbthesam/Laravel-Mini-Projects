@@ -17,6 +17,9 @@ class TestController extends Controller
         ]);
     }
     public function test(){
-           return `It is test`;
+          return response()->json([
+              'msg'=>'Some error occured'
+
+          ],422);
     }
 }

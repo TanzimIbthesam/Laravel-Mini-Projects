@@ -2124,17 +2124,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
 //
 //
 //
@@ -2196,34 +2185,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    var _this = this;
+  data: {
+    "return": {
+      tagName: ' '
+    },
+    modal1: false
+  } // async created(){
+  //     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
+  //     const res=await this.callApi('post', '/app/create_tag' ,{tagName:'testtag'});
+  //     // console.log(res);
+  //     if(res.status==200){
+  //           console.log(res);
+  //     }else{
+  //           console.log(res);
+  //         console.log('It has a error of  status 422');
+  //     }
+  // }
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.callApi('post', 'app/create_tag', {
-                tagName: 'testtag'
-              });
-
-            case 2:
-              res = _context.sent;
-              console.log(res);
-
-              if (res.status == 200) {}
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  }
 });
 
 /***/ }),
@@ -67694,39 +67672,78 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "_overflow _table_div" }, [
-              _c("table", { staticClass: "_table" }, [
-                _vm._m(0),
+            _c(
+              "div",
+              { staticClass: "_overflow _table_div" },
+              [
+                _c(
+                  "Button",
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        _vm.modal1 = true
+                      }
+                    }
+                  },
+                  [_vm._v("Display dialog box")]
+                ),
                 _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("25-05-19")]),
+                _c(
+                  "Modal",
+                  {
+                    attrs: { title: "Common Modal dialog box title" },
+                    model: {
+                      value: _vm.modal1,
+                      callback: function($$v) {
+                        _vm.modal1 = $$v
+                      },
+                      expression: "modal1"
+                    }
+                  },
+                  [
+                    _c("p", [_vm._v("Content of dialog")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Content of dialog")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Content of dialog")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("table", { staticClass: "_table" }, [
+                  _vm._m(0),
                   _vm._v(" "),
-                  _c("td", { staticClass: "_table_name" }, [
-                    _vm._v('Manhattan\'s art center "Shed" opening ceremony')
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Economy")]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
-                      _c(
-                        "Button",
-                        { attrs: { type: "primary", size: "small" } },
-                        [_vm._v("Edit")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "Button",
-                        { attrs: { type: "error", size: "small" } },
-                        [_vm._v("Delete")]
-                      )
-                    ],
-                    1
-                  )
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v('Manhattan\'s art center "Shed" opening ceremony')
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Economy")]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "Button",
+                          { attrs: { type: "primary", size: "small" } },
+                          [_vm._v("Edit")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "Button",
+                          { attrs: { type: "error", size: "small" } },
+                          [_vm._v("Delete")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
                 ])
-              ])
-            ])
+              ],
+              1
+            )
           ]
         )
       ])
@@ -82960,6 +82977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var view_design__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(view_design__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! view-design/dist/styles/iview.css */ "./node_modules/view-design/dist/styles/iview.css");
 /* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common.js */ "./resources/js/common.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -82968,6 +82986,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.use(view_design__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+Vue.mixin(_common_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
 Vue.component('mainapp', __webpack_require__(/*! ./components/mainapp.vue */ "./resources/js/components/mainapp.vue")["default"]);
 var app = new Vue({
   el: '#app',
@@ -83005,6 +83025,67 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/common.js":
+/*!********************************!*\
+  !*** ./resources/js/common.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  methods: {
+    callApi: function callApi(method, url, dataObj) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default()({
+                  method: method,
+                  url: url,
+                  data: dataObj
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0);
+                return _context.abrupt("return", _context.t0.response);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 6]]);
+      }))();
+    }
+  }
+});
 
 /***/ }),
 

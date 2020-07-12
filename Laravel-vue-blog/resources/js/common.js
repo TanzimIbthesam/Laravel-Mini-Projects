@@ -1,4 +1,4 @@
-import Axios from "axios"
+import axios from "axios"
 
 export default{
     data() {
@@ -8,17 +8,19 @@ export default{
     },
     methods: {
 
-             callApi(method,url,dataObj) {
+          async   callApi(method,url,dataObj) {
                  try{
-                     axios({
+                 return  await  axios({
                          method:method,
                          url:url,
                        data: dataObj
 
                      });
 
-                 }catch(e){
+                 }catch (e){
+                     console.log(e);
                      return e.response
+
                  }
 
 
