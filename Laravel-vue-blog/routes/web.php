@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','TestController@new');
 Route::get('/new','TestController@newmethod');
-
+Route::get('app/create_tag','TestController@test');
 Route::any('{slug}',function(){
 return view('welcome');
 });

@@ -16,4 +16,7 @@ class TestController extends Controller
                'msg'=>'We must return only json'
         ]);
     }
+    public function test(){
+           return `It is test`;
+    }
 }
