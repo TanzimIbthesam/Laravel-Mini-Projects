@@ -2212,6 +2212,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2225,7 +2238,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editData: {
         tagName: ' '
       },
-      index: -1
+      index: -1,
+      showDeleteModal: false,
+      deleteItem: {}
     };
   },
   methods: {
@@ -2347,35 +2362,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (confirm('Are you sure you want to delete this?')) {
-                  _context3.next = 2;
-                  break;
-                }
+                //     if(!confirm('Are you sure you want to delete this?')) return
+                //    tag.isDeleting=true
+                _this3.$set(tag, 'isDeleting', true);
 
-                return _context3.abrupt("return");
+                _context3.next = 3;
+                return _this3.callApi('post', 'app/delete_tag', _this3.deleteItem);
 
-              case 2:
-                _context3.next = 4;
-                return _this3.callApi('post', 'app/delete_tag', tag);
-
-              case 4:
+              case 3:
                 res = _context3.sent;
 
                 if (res.status === 200) {
-                  _this3.tags.splice(index, 1);
+                  _this3.tags.splice(_this3.index, 1);
 
                   _this3.success('Tags has been deleted successfully');
                 } else {
                   _this3.error();
                 }
 
-              case 6:
+              case 5:
               case "end":
                 return _context3.stop();
             }
           }
         }, _callee3);
       }))();
+    },
+    showDeletingModal: function showDeletingModal(tag, index) {
+      this.deleteItem = tag;
+      this.index = index;
+      this.showDeleteModal = true;
     }
   },
   created: function created() {
@@ -67923,7 +67939,7 @@ var render = function() {
                                 attrs: { type: "error", size: "small" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.deleteTag(tag, index)
+                                    return _vm.showDeletingModal(tag, index)
                                   }
                                 }
                               },
@@ -68073,6 +68089,56 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "Modal",
+            {
+              attrs: { width: "360" },
+              model: {
+                value: _vm.showDeleteModal,
+                callback: function($$v) {
+                  _vm.showDeleteModal = $$v
+                },
+                expression: " showDeleteModal"
+              }
+            },
+            [
+              _c(
+                "p",
+                {
+                  staticStyle: { color: "#f60", "text-align": "center" },
+                  attrs: { slot: "header" },
+                  slot: "header"
+                },
+                [
+                  _c("Icon", { attrs: { type: "ios-information-circle" } }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Delete confirmation")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "text-align": "center" } }, [
+                _c("p", [_vm._v("Are you sure you want to Delete it?")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { slot: "footer" }, slot: "footer" },
+                [
+                  _c(
+                    "Button",
+                    {
+                      attrs: { type: "error", size: "large" },
+                      on: { click: _vm.deleteTag }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ],
+                1
+              )
+            ]
           )
         ],
         1

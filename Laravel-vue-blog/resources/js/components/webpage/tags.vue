@@ -32,7 +32,7 @@
 								<td>
 
 									<Button size="small" type="primary" v-on:click="showEditModal(tag,index)">Edit</Button>
-									<Button type="error" size="small" v-on:click="deleteTag(tag,index)">Delete</Button>
+									<Button type="error" size="small" @click="showDeletingModal(tag, index)"  >Delete</Button>
 
 
 								</td>
@@ -74,6 +74,19 @@
         </div>
 
     </Modal>
+    <!-- Tag Deleting Modal -->
+    <Modal v-model=" showDeleteModal" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <Icon type="ios-information-circle"></Icon>
+            <span>Delete confirmation</span>
+        </p>
+        <div style="text-align:center">
+           <p>Are you sure you want to Delete it?</p>
+        </div>
+        <div slot="footer">
+            <Button type="error" size="large" @click="deleteTag">Delete</Button>
+        </div>
+    </Modal>
 			</div>
 		</div>
     </div>
@@ -95,6 +108,9 @@ data(){
 
      },
      index : -1,
+    showDeleteModal:false,
+     deleteItem: {},
+
     }
 
 },
@@ -160,17 +176,22 @@ showEditModal(tag,index){
 
 },
 async deleteTag(tag,index){
-    if(!confirm('Are you sure you want to delete this?')) return
-   // tag.isDeleting=true
-    // this.$set(tag,'isDeleting',true);
-    const res=await this.callApi('post','app/delete_tag',tag);
+//     if(!confirm('Are you sure you want to delete this?')) return
+//    tag.isDeleting=true
+    this.$set(tag,'isDeleting',true);
+    const res=await this.callApi('post','app/delete_tag',this.deleteItem);
     if(res.status===200){
-        this.tags.splice(index,1);
+        this.tags.splice(this.index,1);
         this.success('Tags has been deleted successfully');
     }else{
         this.error();
     }
 
+},
+showDeletingModal(tag,index){
+       this.deleteItem=tag;
+       this.index=index;
+       this.showDeleteModal=true;
 }
 },
 async created(){
