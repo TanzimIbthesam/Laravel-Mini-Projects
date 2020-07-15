@@ -31,7 +31,7 @@
 								<td>{{tag.created_at}}</td>
 								<td>
 
-									<Button type="primary" size="small">Edit</Button>
+									<Button type="primary" v-on:click="showEditModal(tag)">Edit</Button>
 									<Button type="error" size="small">Delete</Button>
 
 
@@ -59,8 +59,8 @@
         </div>
 
     </Modal>
-    <!-- Tag Editing Modal -->
-<!-- <Modal
+    <!-- Tag Editing Modal  -->
+<Modal
         v-model="editModal"
         title="Edit Tag"
         :mask-closeable="false"
@@ -68,12 +68,12 @@
         >
   <Input v-model="editData.tagName" placeholder="Enter something..." style="width: 300px" />
         <div slot="footer">
-            <Button type="default" v-on:click="addModal=false">Close</Button>
-              <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
+            <Button type="default" v-on:click="editModal=false">Close</Button>
+             	<Button type="primary" @click="editTag" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Editing..' : 'Edit tag'}}</Button>
 
         </div>
 
-    </Modal> -->
+    </Modal>
 			</div>
 		</div>
     </div>
@@ -88,7 +88,12 @@ data(){
       },
      addModal:false,
      isAdding:false,
-     tags:[]
+     editModal:false,
+     tags:[],
+     editData:{
+         tagName:' ',
+
+     }
     }
 
 },
@@ -114,28 +119,42 @@ data(){
      }
 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 },
-//   async editTag(){
-//      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
-//      const res=await this.callApi('post','app/create_tag',this.data);
-//      if(res.status===201){
-//          this.success('Tag has been added successfully');
+  async editTag(){
+     if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
+     const res=await this.callApi('post','app/edit_tag',this.editData);
+     if(res.status===200){
+         this.success('Tag has been edited successfully');
 
-//          this.addModal=false;
-//      }else{
-//          if(res.status=422){
-//              if(res.data.errors.tagName){
-//                      this.index(res.data.errors.tagName[0]);
-//              }
+         this.editModal=false;
+     }else{
+         if(res.status=422){
+             if(res.data.errors.tagName){
+                     this.index(res.data.errors.tagName[0]);
+             }
 
-//          }else{
-//               this.error();
-//          }
+         }else{
+              this.error();
+         }
 
-//      }
+     }
 // 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 // }
 
 
+},
+showEditModal(tag){
+    this.editData=tag
+    this.editModal=true
+    // let obj={
+    //     id:tag.id,
+    //     tagName:tag.tagName
+    // }
+    // this.editData=obj
+    // this.editModal=true
+    // console.log('Clicked')
+    // console.log(this.editData);
+
+},
 },
 async created(){
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
@@ -147,5 +166,6 @@ async created(){
          this.error();
     }
 }
+
 }
 </script>

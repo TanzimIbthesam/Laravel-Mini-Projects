@@ -20,6 +20,7 @@ Route::get('/new','TestController@newmethod');
 // Route::get('/app/createtag','TestController@test');
 // Route::post('/app/create_tag','TestController@test');
 Route::post('/app/create_tag','AdminController@addTag');
+Route::post('/app/edit_tag','AdminController@editTag');
 Route::get('/app/get_tags','AdminController@getTag');
 Route::any('{slug}',function(){
 return view('welcome');
