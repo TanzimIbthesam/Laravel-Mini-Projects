@@ -11,6 +11,10 @@ class AdminController extends Controller
     public function addTag(Request $request)
     {
         //validate
+        $this->validate($request,[
+            'tagName'=>'required'
+
+        ]);
          return Tag::create([
             'tagName'=>$request->tagName
         ]);

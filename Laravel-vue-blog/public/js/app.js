@@ -2196,6 +2196,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2232,11 +2248,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res.status === 201) {
-                  _this.success('Data has been added successfully');
+                  _this.tags.unshift(res.data);
+
+                  _this.success('Tag has been added successfully');
 
                   _this.addModal = false;
                 } else {
-                  _this.error();
+                  if (res.status = 422) {
+                    if (res.data.errors.tagName) {
+                      _this.index(res.data.errors.tagName[0]);
+                    }
+                  } else {
+                    _this.error();
+                  }
                 } // if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 
 
@@ -2247,7 +2271,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    }
+    } //   async editTag(){
+    //      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
+    //      const res=await this.callApi('post','app/create_tag',this.data);
+    //      if(res.status===201){
+    //          this.success('Tag has been added successfully');
+    //          this.addModal=false;
+    //      }else{
+    //          if(res.status=422){
+    //              if(res.data.errors.tagName){
+    //                      this.index(res.data.errors.tagName[0]);
+    //              }
+    //          }else{
+    //               this.error();
+    //          }
+    //      }
+    // 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
+    // }
+
   },
   created: function created() {
     var _this2 = this;
@@ -67762,58 +67803,34 @@ var render = function() {
                   [
                     _vm._m(0),
                     _vm._v(" "),
-                    _vm._l(_vm.tags, function(tag, i) {
-                      return _vm.tags.length
-                        ? _c("tr", { key: i }, [
-                            _c("td", [_vm._v(_vm._s(tag.id))]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "_table_name" }, [
-                              _vm._v(_vm._s(tag.tagName))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(tag.created_at))]),
+                    _vm._l(_vm.tags, function(tag, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [_vm._v(_vm._s(tag.id))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "_table_name" }, [
+                          _vm._v(_vm._s(tag.tagName))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(tag.created_at))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "Button",
+                              { attrs: { type: "primary", size: "small" } },
+                              [_vm._v("Edit")]
+                            ),
                             _vm._v(" "),
                             _c(
-                              "td",
-                              [
-                                _vm.isUpdatePermitted
-                                  ? _c(
-                                      "Button",
-                                      {
-                                        attrs: { type: "info", size: "small" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.showEditModal(tag, i)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Edit")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.isDeletePermitted
-                                  ? _c(
-                                      "Button",
-                                      {
-                                        attrs: {
-                                          type: "error",
-                                          size: "small",
-                                          loading: tag.isDeleting
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.showDeletingModal(tag, i)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Delete")]
-                                    )
-                                  : _vm._e()
-                              ],
-                              1
+                              "Button",
+                              { attrs: { type: "error", size: "small" } },
+                              [_vm._v("Delete")]
                             )
-                          ])
-                        : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
                     })
                   ],
                   2
@@ -67826,7 +67843,7 @@ var render = function() {
             "Modal",
             {
               attrs: {
-                title: "Common Modal dialog box title",
+                title: "Add Your Tags",
                 "mask-closeable": false,
                 closeable: false
               },

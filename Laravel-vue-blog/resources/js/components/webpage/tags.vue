@@ -25,13 +25,15 @@
 
 
 								<!-- ITEMS -->
-								<tr v-for="(tag, i) in tags" :key="i" v-if="tags.length">
+								<tr v-for="(tag, index) in tags" :key="index">
 								<td>{{tag.id}}</td>
 								<td class="_table_name">{{tag.tagName}}</td>
 								<td>{{tag.created_at}}</td>
 								<td>
-									<Button type="info" size="small" @click="showEditModal(tag, i)" v-if="isUpdatePermitted">Edit</Button>
-									<Button type="error" size="small" @click="showDeletingModal(tag, i)"  :loading="tag.isDeleting" v-if="isDeletePermitted">Delete</Button>
+
+									<Button type="primary" size="small">Edit</Button>
+									<Button type="error" size="small">Delete</Button>
+
 
 								</td>
 							</tr>
@@ -45,7 +47,7 @@
 				</div>
  <Modal
         v-model="addModal"
-        title="Common Modal dialog box title"
+        title="Add Your Tags"
         :mask-closeable="false"
         :closeable="false"
         >
@@ -57,7 +59,21 @@
         </div>
 
     </Modal>
+    <!-- Tag Editing Modal -->
+<!-- <Modal
+        v-model="editModal"
+        title="Edit Tag"
+        :mask-closeable="false"
+        :closeable="false"
+        >
+  <Input v-model="editData.tagName" placeholder="Enter something..." style="width: 300px" />
+        <div slot="footer">
+            <Button type="default" v-on:click="addModal=false">Close</Button>
+              <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
 
+        </div>
+
+    </Modal> -->
 			</div>
 		</div>
     </div>
@@ -67,7 +83,8 @@ export default {
 data(){
     return{
       data:{
-          tagName:' '
+          tagName:' ',
+
       },
      addModal:false,
      isAdding:false,
@@ -80,22 +97,43 @@ data(){
      if(this.data.tagName.trim( )=='') return this.error('Tag Name is required')
      const res=await this.callApi('post','app/create_tag',this.data);
      if(res.status===201){
-         this.success('Data has been added successfully');
+         this.tags.unshift(res.data);
+         this.success('Tag has been added successfully');
+
          this.addModal=false;
      }else{
-         this.error();
+         if(res.status=422){
+             if(res.data.errors.tagName){
+                     this.index(res.data.errors.tagName[0]);
+             }
+
+         }else{
+              this.error();
+         }
+
      }
 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
-
-
-
-
-
-
-
-
-
 },
+//   async editTag(){
+//      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
+//      const res=await this.callApi('post','app/create_tag',this.data);
+//      if(res.status===201){
+//          this.success('Tag has been added successfully');
+
+//          this.addModal=false;
+//      }else{
+//          if(res.status=422){
+//              if(res.data.errors.tagName){
+//                      this.index(res.data.errors.tagName[0]);
+//              }
+
+//          }else{
+//               this.error();
+//          }
+
+//      }
+// 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
+// }
 
 
 },
