@@ -2362,14 +2362,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                //     if(!confirm('Are you sure you want to delete this?')) return
-                //    tag.isDeleting=true
-                _this3.$set(tag, 'isDeleting', true);
-
-                _context3.next = 3;
+                _context3.next = 2;
                 return _this3.callApi('post', 'app/delete_tag', _this3.deleteItem);
 
-              case 3:
+              case 2:
                 res = _context3.sent;
 
                 if (res.status === 200) {
@@ -2380,7 +2376,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this3.error();
                 }
 
-              case 5:
+              case 4:
               case "end":
                 return _context3.stop();
             }

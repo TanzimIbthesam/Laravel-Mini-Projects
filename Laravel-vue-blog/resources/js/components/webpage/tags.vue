@@ -178,7 +178,7 @@ showEditModal(tag,index){
 async deleteTag(tag,index){
 //     if(!confirm('Are you sure you want to delete this?')) return
 //    tag.isDeleting=true
-    this.$set(tag,'isDeleting',true);
+    // this.$set(tag,'isDeleting',true);
     const res=await this.callApi('post','app/delete_tag',this.deleteItem);
     if(res.status===200){
         this.tags.splice(this.index,1);
