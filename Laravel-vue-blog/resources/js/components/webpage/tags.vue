@@ -31,8 +31,8 @@
 								<td>{{tag.created_at}}</td>
 								<td>
 
-									<Button type="primary" v-on:click="showEditModal(tag)">Edit</Button>
-									<Button type="error" size="small">Delete</Button>
+									<Button size="small" type="primary" v-on:click="showEditModal(tag,index)">Edit</Button>
+									<Button type="error" size="small" v-on:click="deleteTag(tag,index)">Delete</Button>
 
 
 								</td>
@@ -93,7 +93,8 @@ data(){
      editData:{
          tagName:' ',
 
-     }
+     },
+     index : -1,
     }
 
 },
@@ -123,6 +124,7 @@ data(){
      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
      const res=await this.callApi('post','app/edit_tag',this.editData);
      if(res.status===200){
+         this.tags[this.index].tagName=this.editData.tagName
          this.success('Tag has been edited successfully');
 
          this.editModal=false;
@@ -142,19 +144,34 @@ data(){
 
 
 },
-showEditModal(tag){
-    this.editData=tag
-    this.editModal=true
-    // let obj={
-    //     id:tag.id,
-    //     tagName:tag.tagName
-    // }
-    // this.editData=obj
+
+showEditModal(tag,index){
+    // this.editData=tag
     // this.editModal=true
+    let obj={
+        id:tag.id,
+        tagName:tag.tagName
+    }
+    this.editData=obj
+    this.editModal=true
+    this.index=index
     // console.log('Clicked')
     // console.log(this.editData);
 
 },
+async deleteTag(tag,index){
+    if(!confirm('Are you sure you want to delete this?')) return
+   // tag.isDeleting=true
+    // this.$set(tag,'isDeleting',true);
+    const res=await this.callApi('post','app/delete_tag',tag);
+    if(res.status===200){
+        this.tags.splice(index,1);
+        this.success('Tags has been deleted successfully');
+    }else{
+        this.error();
+    }
+
+}
 },
 async created(){
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
