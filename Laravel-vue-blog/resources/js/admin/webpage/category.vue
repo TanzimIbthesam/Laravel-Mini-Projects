@@ -6,7 +6,7 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Tags<Button type="primary" @click="addModal = true">Add New Category</Button></p>
+					<p class="_title0">Category<Button type="primary" @click="addModal = true">Add New Category</Button></p>
 
 
 					<div class="_overflow _table_div">
@@ -50,18 +50,35 @@
         title="Add category"
         :mask-closeable="false"
         :closeable="false"
+
         >
   <div class="space"></div>
     <Input v-model="data.tagName" placeholder="Add category" style="width: 300px" />
            <Upload
            type="drag"
-        :headers="{'x-csrf-token' : token}"
+        :headers="{'x-csrf-token' : token,'X-Requested-With' : 'XMLHttpRequest' }"
+        :on-success="handleSuccess"
+        :on-error="handleError"
+        :format="['jpg','jpeg','png']"
+
+         :max-size="2048"
+        :on-format-error="handleFormatError"
+        :on-exceeded-size="handleMaxSize"
         action="/app/upload">
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
             <p>Click or drag files here to upload here</p>
         </div>
     </Upload>
+    <div class="image_thumb" v-if="data.iconImage">
+
+							<img :src="`/uploads/${data.iconImage}`">
+							<!-- <div class="demo-upload-list-cover">
+								<Icon type="ios-trash-outline" @click="deleteImage"></Icon>
+							</div> -->
+
+
+					</div>
         <div slot="footer">
             <Button type="default" v-on:click="addModal=false">Close</Button>
               <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
@@ -106,7 +123,8 @@ export default {
 data(){
     return{
       data:{
-          tagName:' ',
+          categoryName:' ',
+          iconImage:' '
 
       },
      addModal:false,
@@ -207,8 +225,40 @@ showDeletingModal(tag,index){
        this.deleteItem=tag;
        this. deletingIndex=index;
        this.showDeleteModal=true;
-}
 },
+   handleSuccess (res, file) {
+               this.data.iconImage=res;
+            },
+   handleError (res, file) {
+               console.log('res',res);
+               console.log('file',file);
+                 this.$Notice.warning({
+                    title: 'The file format is wrong',
+                    desc:`${file.errors.file.length ? file.errors.file[0] : 'Something went wrong'}`
+                });
+            },
+            handleFormatError (file) {
+                this.$Notice.warning({
+                    title: 'The file format is incorrect',
+                    desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+                });
+            },
+            handleMaxSize (file) {
+                this.$Notice.warning({
+                    title: 'Exceeding file size limit',
+                    desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+                });
+            },
+            handleBeforeUpload () {
+                const check = this.uploadList.length < 5;
+                if (!check) {
+                    this.$Notice.warning({
+                        title: 'Up to five pictures can be uploaded.'
+                    });
+                }
+},
+},
+
 async created(){
     this.token=window.Laravel.csrfToken
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
