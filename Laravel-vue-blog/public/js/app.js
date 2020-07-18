@@ -67574,7 +67574,9 @@ var render = function() {
                         attrs: { type: "ios-cloud-upload", size: "52" }
                       }),
                       _vm._v(" "),
-                      _c("p", [_vm._v("Click or drag files here to upload")])
+                      _c("p", [
+                        _vm._v("Click or drag files here to upload here")
+                      ])
                     ],
                     1
                   )
