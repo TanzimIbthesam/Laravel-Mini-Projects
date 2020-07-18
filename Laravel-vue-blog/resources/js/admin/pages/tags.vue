@@ -2,7 +2,7 @@
     <div>
        <div class="content">
 			<div class="container-fluid">
-				
+
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
 					<p class="_title0">Tags <Button @click="addModal=true" v-if="isWritePermitted"><Icon type="md-add" /> Add tag</Button></p>
@@ -27,7 +27,7 @@
 								<td>
 									<Button type="info" size="small" @click="showEditModal(tag, i)" v-if="isUpdatePermitted">Edit</Button>
 									<Button type="error" size="small" @click="showDeletingModal(tag, i)"  :loading="tag.isDeleting" v-if="isDeletePermitted">Delete</Button>
-									
+
 								</td>
 							</tr>
 								<!-- ITEMS -->
@@ -76,7 +76,7 @@
 					</p>
 					<div style="text-align:center">
 						<p>Are you sure you want to delete tag?.</p>
-						
+
 					</div>
 					<div slot="footer">
 						<Button type="error" size="large" long :loading="isDeleing" :disabled="isDeleing" @click="deleteTag" >Delete</Button>
@@ -98,19 +98,19 @@ export default {
 		return {
 			data : {
 				tagName: ''
-			}, 
-			addModal : false, 
-			editModal : false, 
-			isAdding : false, 
-			tags : [], 
+			},
+			addModal : false,
+			editModal : false,
+			isAdding : false,
+			tags : [],
 			editData : {
 				tagName: ''
-			}, 
-			index : -1, 
-			showDeleteModal: false, 
+			},
+			index : -1,
+			showDeleteModal: false,
 			isDeleing : false,
-			deleteItem: {}, 
-			deletingIndex: -1, 
+			deleteItem: {},
+			deletingIndex: -1,
 			websiteSettings: []
 
 		}
@@ -130,11 +130,11 @@ export default {
 					if(res.data.errors.tagName){
 						this.e(res.data.errors.tagName[0])
 					}
-					
+
 				}else{
 					this.swr()
 				}
-				
+
 			}
 
 		},
@@ -145,29 +145,29 @@ export default {
 				this.tags[this.index].tagName = this.editData.tagName
 				this.s('Tag has been edited successfully!')
 				this.editModal = false
-				
+
 			}else{
 				if(res.status==422){
 					if(res.data.errors.tagName){
 						this.e(res.data.errors.tagName[0])
 					}
-					
+
 				}else{
 					this.swr()
 				}
-				
+
 			}
 
 		},
 		showEditModal(tag, index){
 			let obj = {
-				id : tag.id, 
+				id : tag.id,
 				tagName : tag.tagName
 			}
 			this.editData = obj
 			this.editModal = true
 			this.index = index
-		}, 
+		},
 		async deleteTag(){
 			this.isDeleing = true
 			const res = await this.callApi('post', 'app/delete_tag', this.deleteItem)
@@ -180,13 +180,13 @@ export default {
 			this.isDeleing = false
 			this.showDeleteModal = false
 
-		}, 
+		},
 		showDeletingModal(tag, i){
 			const deleteModalObj  =  {
-				showDeleteModal: true, 
-				deleteUrl : 'app/delete_tag', 
-				data : tag, 
-				deletingIndex: i, 
+				showDeleteModal: true,
+				deleteUrl : 'app/delete_tag',
+				data : tag,
+				deletingIndex: i,
 				isDeleted : false,
 			}
 			this.$store.commit('setDeletingModalObj', deleteModalObj)
@@ -196,7 +196,7 @@ export default {
 			// this.showDeleteModal = true
 
 		}
-	}, 
+	},
 
 	async created(){
 		const res = await this.callApi('get', 'app/get_tags')
@@ -205,10 +205,10 @@ export default {
 		}else{
 			this.swr()
 		}
-	}, 
+	},
 	components : {
 		deleteModal
-	}, 
+	},
 	computed : {
 		...mapGetters(['getDeleteModalObj'])
 	},
@@ -219,9 +219,9 @@ export default {
 			}
 		}
 	}
-	
 
 
-	
+
+
 }
 </script>
