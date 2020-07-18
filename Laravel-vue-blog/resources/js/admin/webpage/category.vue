@@ -55,6 +55,7 @@
   <div class="space"></div>
     <Input v-model="data.tagName" placeholder="Add category" style="width: 300px" />
            <Upload
+           ref="uploads"
            type="drag"
         :headers="{'x-csrf-token' : token,'X-Requested-With' : 'XMLHttpRequest' }"
         :on-success="handleSuccess"
@@ -68,20 +69,28 @@
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
             <p>Click or drag files here to upload here</p>
+
         </div>
     </Upload>
-    <div class="image_thumb" v-if="data.iconImage">
+    <div class="demo-upload-list" v-if="data.iconImage">
 
-							<img :src="`/uploads/${data.iconImage}`">
-							<!-- <div class="demo-upload-list-cover">
-								<Icon type="ios-trash-outline" @click="deleteImage"></Icon>
-							</div> -->
+ <img :src="`/uploads/${data.iconImage}`">
+<div class="demo-upload-list-cover">
+<Icon type="ios-trash-outline" @click="deleteImage"></Icon>
+</div>
+
+
+
 
 
 					</div>
+
         <div slot="footer">
             <Button type="default" v-on:click="addModal=false">Close</Button>
               <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
+
+
+
 
         </div>
 
@@ -257,6 +266,19 @@ showDeletingModal(tag,index){
                     });
                 }
 },
+ async deleteImage(){
+               let image=this.data.iconImage
+               this.data.iconImage='';
+               this.$refs.uploads.clearFiles();
+               const res=await this.callApi('post','app/delete_image',{imageName:image});
+               if(res.status!=200){
+                   this.data.iconImage=image;
+                   this.error('Something went wrong please try again');
+
+               }
+
+
+                }
 },
 
 async created(){
