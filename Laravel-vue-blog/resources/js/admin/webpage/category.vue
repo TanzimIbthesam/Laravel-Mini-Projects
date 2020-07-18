@@ -1,3 +1,4 @@
+
 <template>
     <div>
        <div class="content">
@@ -163,7 +164,7 @@ data(){
      this.data.iconImage=`/uploads/${this.data.iconImage}`;
      const res=await this.callApi('post','app/create_category',this.data);
      if(res.status===201){
-         this.tags.unshift(res.data);
+         this.categories.unshift(res.data);
          this.success('Category been added successfully');
          this.data.categoryName='';
          this.data.iconImage='';
