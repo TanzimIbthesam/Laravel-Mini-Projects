@@ -84,7 +84,7 @@
            <p>Are you sure you want to Delete it?</p>
         </div>
         <div slot="footer">
-            <Button type="error" size="large" @click="deleteTag">Delete</Button>
+            <Button type="error" :loading="isDeleting" size="large" @click="deleteTag">Delete</Button>
         </div>
     </Modal>
 			</div>
@@ -109,7 +109,9 @@ data(){
      },
      index : -1,
     showDeleteModal:false,
+    isDeleting:false,
      deleteItem: {},
+     deletingIndex:-1,
 
     }
 
@@ -176,21 +178,23 @@ showEditModal(tag,index){
 
 },
 async deleteTag(tag,index){
+    this.isDeleting=true;
 //     if(!confirm('Are you sure you want to delete this?')) return
 //    tag.isDeleting=true
     // this.$set(tag,'isDeleting',true);
     const res=await this.callApi('post','app/delete_tag',this.deleteItem);
     if(res.status===200){
-        this.tags.splice(this.index,1);
+        this.tags.splice(this.deletingIndex,1);
         this.success('Tags has been deleted successfully');
     }else{
         this.error();
     }
-
+     this.isDeleting=true;
+       this.showDeleteModal=false;
 },
 showDeletingModal(tag,index){
        this.deleteItem=tag;
-       this.index=index;
+       this. deletingIndex=index;
        this.showDeleteModal=true;
 }
 },

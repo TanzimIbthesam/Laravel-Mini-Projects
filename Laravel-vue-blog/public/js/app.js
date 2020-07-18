@@ -2240,7 +2240,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       index: -1,
       showDeleteModal: false,
-      deleteItem: {}
+      isDeleting: false,
+      deleteItem: {},
+      deletingIndex: -1
     };
   },
   methods: {
@@ -2362,21 +2364,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _this3.isDeleting = true; //     if(!confirm('Are you sure you want to delete this?')) return
+                //    tag.isDeleting=true
+                // this.$set(tag,'isDeleting',true);
+
+                _context3.next = 3;
                 return _this3.callApi('post', 'app/delete_tag', _this3.deleteItem);
 
-              case 2:
+              case 3:
                 res = _context3.sent;
 
                 if (res.status === 200) {
-                  _this3.tags.splice(_this3.index, 1);
+                  _this3.tags.splice(_this3.deletingIndex, 1);
 
                   _this3.success('Tags has been deleted successfully');
                 } else {
                   _this3.error();
                 }
 
-              case 4:
+                _this3.isDeleting = true;
+                _this3.showDeleteModal = false;
+
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -2386,7 +2395,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     showDeletingModal: function showDeletingModal(tag, index) {
       this.deleteItem = tag;
-      this.index = index;
+      this.deletingIndex = index;
       this.showDeleteModal = true;
     }
   },
@@ -68126,7 +68135,11 @@ var render = function() {
                   _c(
                     "Button",
                     {
-                      attrs: { type: "error", size: "large" },
+                      attrs: {
+                        type: "error",
+                        loading: _vm.isDeleting,
+                        size: "large"
+                      },
                       on: { click: _vm.deleteTag }
                     },
                     [_vm._v("Delete")]
