@@ -6,7 +6,7 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Tags<Button type="primary" @click="addModal = true">Add New Tag</Button></p>
+					<p class="_title0">Tags<Button type="primary" @click="addModal = true">Add New Category</Button></p>
 
 
 					<div class="_overflow _table_div">
@@ -47,11 +47,21 @@
 				</div>
  <Modal
         v-model="addModal"
-        title="Add Your Tags"
+        title="Add category"
         :mask-closeable="false"
         :closeable="false"
         >
-  <Input v-model="data.tagName" placeholder="Enter something..." style="width: 300px" />
+  <div class="space"></div>
+    <Input v-model="data.tagName" placeholder="Add category" style="width: 300px" />
+           <Upload
+           type="drag"
+        :headers="{'x-csrf-token' : token}"
+        action="/app/upload">
+        <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+            <p>Click or drag files here to upload</p>
+        </div>
+    </Upload>
         <div slot="footer">
             <Button type="default" v-on:click="addModal=false">Close</Button>
               <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
@@ -112,6 +122,7 @@ data(){
     isDeleting:false,
      deleteItem: {},
      deletingIndex:-1,
+     token:''
 
     }
 
@@ -199,6 +210,7 @@ showDeletingModal(tag,index){
 }
 },
 async created(){
+    this.token=window.Laravel.csrfToken
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
     const res=await this.callApi('get', 'app/get_tags');
     // console.log(res);
@@ -211,5 +223,4 @@ async created(){
 
 }
 </script>
-
 

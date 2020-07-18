@@ -4,8 +4,10 @@ import testapp from './components/testapp.vue'
 import secondtest from './components/secondtest.vue'
 import hooks from './components/basics/hooks.vue'
 import basicmethods from './components/basics/basicmethods.vue'
-import home from './components/webpage/home.vue'
-import tags from './components/webpage/tags.vue'
+//Admin pages
+import home from './admin/webpage/home.vue'
+import tags from './admin/webpage/tags.vue'
+import category from './admin/webpage/category.vue'
 
 Vue.use(Router);
 
@@ -38,6 +40,10 @@ const routes=[
       {
           path: '/basicmethods',
           component:basicmethods
+      },
+    {
+        path: '/category',
+        component:category
       }
 
 
