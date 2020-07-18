@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Category;
 use App\Tag;
 
 use Illuminate\Http\Request;
+use App\BlogCategory;
 
 class AdminController extends Controller
 {
@@ -78,5 +81,21 @@ class AdminController extends Controller
         $fileName = $request->imageName;
         $this->deleteFileFromServer($fileName);
         return "done";
+    }
+    public function addCategory(Request $request){
+        $this->validate($request, [
+            'categoryName' => 'required',
+            'iconImage'=>'required'
+
+
+        ]);
+        return Category::create([
+            'categoryName' => $request->categoryName,
+             'iconImage'=>$request->iconImage
+        ]);
+    }
+    public function getCategory()
+    {
+        return Category::all();
     }
 }

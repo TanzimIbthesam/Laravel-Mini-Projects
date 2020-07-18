@@ -17,7 +17,8 @@
 								<!-- TABLE TITLE -->
 							<tr>
 								<th>Id</th>
-								<th>TagName</th>
+								<th>Category</th>
+                                 <th>Category Image</th>
 								<th>CreatedAt</th>
 								<th>Action</th>
 							</tr>
@@ -25,14 +26,15 @@
 
 
 								<!-- ITEMS -->
-								<tr v-for="(tag, index) in tags" :key="index">
-								<td>{{tag.id}}</td>
-								<td class="_table_name">{{tag.tagName}}</td>
-								<td>{{tag.created_at}}</td>
+								<tr v-for="(category, index) in categories" :key="index">
+								<td>{{category.id}}</td>
+                                 <td style="width:40px"><img :src="category.iconImage" alt=""></td>
+								<td class="_table_name">{{category.categoryName}}</td>
+								<td>{{category.created_at}}</td>
 								<td>
 
-									<Button size="small" type="primary" v-on:click="showEditModal(tag,index)">Edit</Button>
-									<Button type="error" size="small" @click="showDeletingModal(tag, index)"  >Delete</Button>
+									<Button size="small" type="primary" v-on:click="showEditModal(category,index)">Edit</Button>
+									<Button type="error" size="small" @click="showDeletingModal(category, index)"  >Delete</Button>
 
 
 								</td>
@@ -53,7 +55,7 @@
 
         >
   <div class="space"></div>
-    <Input v-model="data.tagName" placeholder="Add category" style="width: 300px" />
+    <Input v-model="data.categoryName" placeholder="Add category" style="width: 300px" />
            <Upload
            ref="uploads"
            type="drag"
@@ -87,7 +89,7 @@
 
         <div slot="footer">
             <Button type="default" v-on:click="addModal=false">Close</Button>
-              <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
+        <Button type="primary" @click="addCategory" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Category'}}</Button>
 
 
 
@@ -105,7 +107,7 @@
   <Input v-model="editData.tagName" placeholder="Enter something..." style="width: 300px" />
         <div slot="footer">
             <Button type="default" v-on:click="editModal=false">Close</Button>
-             	<Button type="primary" @click="editTag" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Editing..' : 'Edit tag'}}</Button>
+             	<!-- <Button type="primary" @click="editCategory" :disabled="" :loading="">{{isAdding ? 'Editing..' : 'Edit tag'}}</Button> -->
 
         </div>
 
@@ -139,7 +141,7 @@ data(){
      addModal:false,
      isAdding:false,
      editModal:false,
-     tags:[],
+     categories:[],
      editData:{
          tagName:' ',
 
@@ -155,18 +157,24 @@ data(){
 
 },
   methods:{
-   async addTag(){
-     if(this.data.tagName.trim( )=='') return this.error('Tag Name is required')
-     const res=await this.callApi('post','app/create_tag',this.data);
+   async addCategory(){
+     if(this.data.categoryName.trim( )=='') return this.error('Category Name is required');
+     if(this.data.iconImage.trim( )=='') return this.error('Icon Image is required');
+     this.data.iconImage=`/uploads/${this.data.iconImage}`;
+     const res=await this.callApi('post','app/create_category',this.data);
      if(res.status===201){
          this.tags.unshift(res.data);
-         this.success('Tag has been added successfully');
-
+         this.success('Category been added successfully');
+         this.data.categoryName='';
+         this.data.iconImage='';
          this.addModal=false;
      }else{
          if(res.status=422){
-             if(res.data.errors.tagName){
+             if(res.data.errors.categoryName){
                      this.index(res.data.errors.tagName[0]);
+             }
+             if(res.data.errors.iconImage){
+                     this.index(res.data.errors.iconImage[0]);
              }
 
          }else{
@@ -176,30 +184,30 @@ data(){
      }
 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 },
-  async editTag(){
-     if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
-     const res=await this.callApi('post','app/edit_tag',this.editData);
-     if(res.status===200){
-         this.tags[this.index].tagName=this.editData.tagName
-         this.success('Tag has been edited successfully');
+//   async editCategory(){
+//      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
+//      const res=await this.callApi('post','app/edit_tag',this.editData);
+//      if(res.status===200){
+//          this.tags[this.index].tagName=this.editData.tagName
+//          this.success('Tag has been edited successfully');
 
-         this.editModal=false;
-     }else{
-         if(res.status=422){
-             if(res.data.errors.tagName){
-                     this.index(res.data.errors.tagName[0]);
-             }
+//          this.editModal=false;
+//      }else{
+//          if(res.status=422){
+//              if(res.data.errors.tagName){
+//                      this.index(res.data.errors.tagName[0]);
+//              }
 
-         }else{
-              this.error();
-         }
+//          }else{
+//               this.error();
+//          }
 
-     }
-// 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
-// }
+//      }
+// // 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
+// // }
 
 
-},
+// },
 
 showEditModal(tag,index){
     // this.editData=tag
@@ -284,10 +292,10 @@ showDeletingModal(tag,index){
 async created(){
     this.token=window.Laravel.csrfToken
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
-    const res=await this.callApi('get', 'app/get_tags');
+    const res=await this.callApi('get', 'app/get_category');
     // console.log(res);
     if(res.status==200){
-          this.tags = res.data;
+          this.categories = res.data;
     }else{
          this.error();
     }
