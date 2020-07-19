@@ -321,9 +321,10 @@ showDeletingModal(tag,index){
                 }
 },
  async deleteImage(isAdd=true){
+     let image;
              if(!isAdd){
                  this.isIconImagenew=true;
-                   let image=this.editData.iconImage;
+                    image=this.editData.iconImage;
                 this.editData.iconImage = "";
                this.$refs.uploads.clearFiles();
              }else{
