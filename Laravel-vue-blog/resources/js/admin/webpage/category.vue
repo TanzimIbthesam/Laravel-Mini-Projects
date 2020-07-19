@@ -1,3 +1,4 @@
+
 <template>
     <div>
        <div class="content">
@@ -47,6 +48,7 @@
 
 					</div>
 				</div>
+                <!-- Add category Modal -->
  <Modal
         v-model="addModal"
         title="Add category"
@@ -76,7 +78,7 @@
     </Upload>
     <div class="demo-upload-list" v-if="data.iconImage">
 
- <img :src="`/uploads/${data.iconImage}`">
+ <img :src="`${data.iconImage}`">
 <div class="demo-upload-list-cover">
 <Icon type="ios-trash-outline" @click="deleteImage"></Icon>
 </div>
@@ -97,17 +99,47 @@
         </div>
 
     </Modal>
-    <!-- Tag Editing Modal  -->
+    <!-- Category Editing Modal  -->
 <Modal
         v-model="editModal"
-        title="Edit Tag"
+        title="Edit Category"
         :mask-closeable="false"
         :closeable="false"
         >
-  <Input v-model="editData.tagName" placeholder="Enter something..." style="width: 300px" />
-        <div slot="footer">
-            <Button type="default" v-on:click="editModal=false">Close</Button>
-             	<!-- <Button type="primary" @click="editCategory" :disabled="" :loading="">{{isAdding ? 'Editing..' : 'Edit tag'}}</Button> -->
+  <Input v-model="editData.categoryName" placeholder="Add category Name" style="width: 300px" />
+  <div class="space"></div>
+   <Upload
+          v-show="isIconImagenew"
+           ref="editDataUploads"
+           type="drag"
+        :headers="{'x-csrf-token' : token,'X-Requested-With' : 'XMLHttpRequest' }"
+        :on-success="handleSuccess"
+        :on-error="handleError"
+        :format="['jpg','jpeg','png']"
+
+         :max-size="2048"
+        :on-format-error="handleFormatError"
+        :on-exceeded-size="handleMaxSize"
+        action="/app/upload">
+        <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+            <p>Click or drag files here to upload here</p>
+
+        </div>
+    </Upload>
+      <div class="demo-upload-list" v-if="editData.iconImage">
+
+ <img :src="`${editData.iconImage}`">
+<div class="demo-upload-list-cover">
+<Icon type="ios-trash-outline" @click="deleteImage(false)"></Icon>
+</div>
+</div>
+<div slot="footer">
+            <Button type="default" v-on:click="  closeEditModal">Close</Button>
+        <Button type="primary" @click="editCategory" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Editing..' : 'Edit Category'}}</Button>
+
+
+
 
         </div>
 
@@ -143,7 +175,8 @@ data(){
      editModal:false,
      categories:[],
      editData:{
-         tagName:' ',
+          categoryName:' ',
+          iconImage:' '
 
      },
      index : -1,
@@ -151,7 +184,8 @@ data(){
     isDeleting:false,
      deleteItem: {},
      deletingIndex:-1,
-     token:''
+     token:'',
+     isIconImagenew:false
 
     }
 
@@ -163,7 +197,7 @@ data(){
      this.data.iconImage=`/uploads/${this.data.iconImage}`;
      const res=await this.callApi('post','app/create_category',this.data);
      if(res.status===201){
-         this.tags.unshift(res.data);
+         this.categories.unshift(res.data);
          this.success('Category been added successfully');
          this.data.categoryName='';
          this.data.iconImage='';
@@ -184,41 +218,46 @@ data(){
      }
 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 },
-//   async editCategory(){
-//      if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
-//      const res=await this.callApi('post','app/edit_tag',this.editData);
-//      if(res.status===200){
-//          this.tags[this.index].tagName=this.editData.tagName
-//          this.success('Tag has been edited successfully');
+  async editCategory(){
+     if(this.editData.categoryName.trim( )=='') return this.error('Category Name is required')
+     if(this.editData.iconImage.trim( )=='') return this.error('Image is required')
+     const res=await this.callApi('post','app/edit_category',this.editData);
+     if(res.status===200){
+         this.categories[this.index].categoryName=this.editData.categoryName;
+         this.success('Category has been edited successfully');
 
-//          this.editModal=false;
-//      }else{
-//          if(res.status=422){
-//              if(res.data.errors.tagName){
-//                      this.index(res.data.errors.tagName[0]);
-//              }
+         this.editModal=false;
+     }else{
+         if(res.status=422){
+             if(res.data.errors.categoryName){
+                     this.index(res.data.errors.categoryName[0]);
+             }
+             if(res.data.errors.iconImage){
+                     this.index(res.data.errors.iconImage[0]);
+             }
 
-//          }else{
-//               this.error();
-//          }
+         }else{
+              this.error();
+         }
 
-//      }
-// // 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
-// // }
+     }
+// 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
+// }
 
 
-// },
+},
 
-showEditModal(tag,index){
+showEditModal(category,index){
     // this.editData=tag
     // this.editModal=true
-    let obj={
-        id:tag.id,
-        tagName:tag.tagName
-    }
-    this.editData=obj
+    // let obj={
+    //     id:tag.id,
+    //     tagName:tag.tagName
+    // }
+    this.editData=category
     this.editModal=true
     this.index=index
+    this.isEditingItem=true
     // console.log('Clicked')
     // console.log(this.editData);
 
@@ -244,7 +283,14 @@ showDeletingModal(tag,index){
        this.showDeleteModal=true;
 },
    handleSuccess (res, file) {
-               this.data.iconImage=res;
+       res=`/uploads/${res}`;
+            //    this.data.iconImage=res;
+                 if (this.isEditingItem) {
+        console.log("inside");
+        return (this.editData.iconImage = res);
+      }
+    //   console.log(res);
+   this.data.iconImage = res;
             },
    handleError (res, file) {
                console.log('res',res);
@@ -274,10 +320,19 @@ showDeletingModal(tag,index){
                     });
                 }
 },
- async deleteImage(){
-               let image=this.data.iconImage
-               this.data.iconImage='';
+ async deleteImage(isAdd=true){
+             if(!isAdd){
+                 this.isIconImagenew=true;
+                   let image=this.editData.iconImage;
+                this.editData.iconImage = "";
                this.$refs.uploads.clearFiles();
+             }else{
+                   image = this.data.iconImage;
+        this.data.iconImage = "";
+        this.$refs.uploads.clearFiles();
+
+             }
+
                const res=await this.callApi('post','app/delete_image',{imageName:image});
                if(res.status!=200){
                    this.data.iconImage=image;
@@ -286,6 +341,10 @@ showDeletingModal(tag,index){
                }
 
 
+                },
+                closeEditModal(){
+                    this.isEditingItem=false;
+                    this.editModal=false;
                 }
 },
 

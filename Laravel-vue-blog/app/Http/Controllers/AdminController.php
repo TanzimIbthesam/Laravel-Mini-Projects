@@ -98,4 +98,17 @@ class AdminController extends Controller
     {
         return Category::all();
     }
+    public function editCategory(Request $request)
+    {
+        //validate
+        $this->validate($request, [
+            'categoryName' => 'required',
+            'iconImage'=>'required'
+
+        ]);
+        return Category::where('id',$request->id)->update([
+            'categoryName' => $request->categoryName,
+            'iconImage'=>$request->iconImage
+        ]);
+    }
 }
