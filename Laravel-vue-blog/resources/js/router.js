@@ -8,6 +8,7 @@ import basicmethods from './components/basics/basicmethods.vue'
 import home from './admin/webpage/home.vue'
 import tags from './admin/webpage/tags.vue'
 import category from './admin/webpage/category.vue'
+import allcom from './Vuex/allcom'
 
 Vue.use(Router);
 
@@ -44,8 +45,12 @@ const routes=[
     {
         path: '/category',
         component:category
-      }
-
+      },
+// other routes for practice
+{
+    path:'/allvuex',
+    component:allcom
+}
 
 
 ]
