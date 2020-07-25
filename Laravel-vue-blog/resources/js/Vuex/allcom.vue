@@ -2,12 +2,13 @@
     <div>
          <div class="content">
              <div class="container-fluid">
-                <h1>Current state of counter is {{$store.state.counter}}</h1>
+                <h1> {{$store.getters.getCounter}}</h1>
              </div>
              <div>
-                 <comone />
-                 <comtwo />
-                 <comthree />
+                 <comone/>
+                 <comtwo/>
+                 <comthree/>
+
              </div>
              <div>
                  <Button type="info" size="small" @click="changeCounter">Change Counter</Button>
@@ -19,17 +20,34 @@
 import comone from './comone'
 import comtwo from './comtwo'
 import comthree from './comthree'
+import {mapGetters,mapActions} from 'vuex'
 export default {
+    data() {
+        return {
+
+        }
+    },
     components:{
         comone,
         comtwo,
         comthree
     },
-    methods: {
+
+     computed:{
+               ...mapGetters(['getCounter'])
+            },
+              methods: {
         changeCounter(){
-            this.$store.commit('increaseCounter',1);
-        }
+            // this.$store.commit('increaseCounter',1);
+            this.$store.dispatch('increasetheCounter',1);
+        },
+        ...mapActions(
+            ['increasetheCounter']
+            )
     },
+    created(){
+        console.log(this.$store.state.counter);
+    }
 
 }
 </script>
