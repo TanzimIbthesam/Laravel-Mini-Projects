@@ -75,7 +75,7 @@
 
     </Modal>
     <!-- Tag Deleting Modal -->
-    <Modal v-model=" showDeleteModal" width="360">
+    <!-- <Modal v-model=" showDeleteModal" width="360">
         <p slot="header" style="color:#f60;text-align:center">
             <Icon type="ios-information-circle"></Icon>
             <span>Delete confirmation</span>
@@ -86,12 +86,14 @@
         <div slot="footer">
             <Button type="error" :loading="isDeleting" size="large" @click="deleteTag">Delete</Button>
         </div>
-    </Modal>
+    </Modal> -->
+     <deleteModal></deleteModal>
 			</div>
 		</div>
     </div>
 </template>
 <script>
+import deleteModal from '../components/deleteModal'
 export default {
 data(){
     return{
@@ -192,11 +194,25 @@ async deleteTag(tag,index){
      this.isDeleting=true;
        this.showDeleteModal=false;
 },
-showDeletingModal(tag,index){
-       this.deleteItem=tag;
-       this. deletingIndex=index;
-       this.showDeleteModal=true;
-}
+
+
+
+      	showDeletingModal(tag, index){
+			const deleteModalObj  =  {
+				showDeleteModal: true,
+				deleteUrl : 'app/delete_tag',
+				data : tag,
+				deletingIndex: index,
+				isDeleted : false,
+			}
+
+			this.$store.commit('setdeletingModalObj', deleteModalObj)
+			console.log('delete method called')
+
+    },
+
+
+
 },
 async created(){
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
@@ -207,6 +223,9 @@ async created(){
     }else{
          this.error();
     }
+},
+components:{
+    deleteModal
 }
 
 }

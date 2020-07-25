@@ -144,8 +144,8 @@
         </div>
 
     </Modal>
-    <!-- Tag Deleting Modal -->
-    <Modal v-model=" showDeleteModal" width="360">
+    <!-- Category Deleting Modal -->
+    <!-- <Modal v-model=" showDeleteModal" width="360">
         <p slot="header" style="color:#f60;text-align:center">
             <Icon type="ios-information-circle"></Icon>
             <span>Delete confirmation</span>
@@ -156,18 +156,24 @@
         <div slot="footer">
             <Button type="error" :loading="isDeleting" size="large" @click="deleteTag">Delete</Button>
         </div>
-    </Modal>
+    </Modal> -->
+    <deleteModal></deleteModal>
 			</div>
 		</div>
     </div>
 </template>
 <script>
+import deleteModal from '../components/deleteModal.vue'
 export default {
 data(){
     return{
       data:{
           categoryName:' ',
           iconImage:' '
+
+      },
+      components:{
+          deleteModal
 
       },
      addModal:false,
@@ -277,11 +283,20 @@ async deleteTag(tag,index){
      this.isDeleting=true;
        this.showDeleteModal=false;
 },
-showDeletingModal(tag,index){
-       this.deleteItem=tag;
-       this. deletingIndex=index;
-       this.showDeleteModal=true;
-},
+	showDeletingModal(tag, index){
+			const deleteModalObj  =  {
+				showDeleteModal: true,
+				deleteUrl : 'app/delete_tag',
+				data : tag,
+				deletingIndex: index,
+				isDeleted : false,
+			}
+			this.$store.commit('setDeletingModalObj', deleteModalObj)
+			console.log('delete method called')
+			// this.deleteItem = tag
+			// this.deletingIndex = i
+			// this.showDeleteModal = true
+    },
    handleSuccess (res, file) {
        res=`/uploads/${res}`;
             //    this.data.iconImage=res;
@@ -359,6 +374,9 @@ async created(){
     }else{
          this.error();
     }
+},
+components:{
+    deleteModal
 }
 
 }
