@@ -94,7 +94,9 @@
 </template>
 <script>
 import deleteModal from '../components/deleteModal'
+import {mapGetters} from 'vuex'
 export default {
+
 data(){
     return{
       data:{
@@ -179,7 +181,7 @@ showEditModal(tag,index){
     // console.log(this.editData);
 
 },
-async deleteTag(tag,index){
+async deleteTag(){
     this.isDeleting=true;
 //     if(!confirm('Are you sure you want to delete this?')) return
 //    tag.isDeleting=true
@@ -187,9 +189,7 @@ async deleteTag(tag,index){
     const res=await this.callApi('post','app/delete_tag',this.deleteItem);
     if(res.status===200){
         this.tags.splice(this.deletingIndex,1);
-        this.success('Tags has been deleted successfully');
-    }else{
-        this.error();
+
     }
      this.isDeleting=true;
        this.showDeleteModal=false;
@@ -207,7 +207,7 @@ async deleteTag(tag,index){
 			}
 
 			this.$store.commit('setdeletingModalObj', deleteModalObj)
-			console.log('delete method called')
+			// console.log('delete method called')
 
     },
 
@@ -226,7 +226,19 @@ async created(){
 },
 components:{
     deleteModal
-}
+},
+computed:{
+        ...mapGetters(['getDeleteModalObj'])
+    },
+
+  watch : {
+		getDeleteModalObj(obj){
+			if(obj.isDeleted){
+				this.tags.splice(obj.deletingIndex,1)
+			}
+		}
+},
+
 
 }
 </script>
