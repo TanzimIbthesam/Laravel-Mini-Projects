@@ -144,26 +144,15 @@
         </div>
 
     </Modal>
-    <!-- Category Deleting Modal -->
-    <!-- <Modal v-model=" showDeleteModal" width="360">
-        <p slot="header" style="color:#f60;text-align:center">
-            <Icon type="ios-information-circle"></Icon>
-            <span>Delete confirmation</span>
-        </p>
-        <div style="text-align:center">
-           <p>Are you sure you want to Delete it?</p>
-        </div>
-        <div slot="footer">
-            <Button type="error" :loading="isDeleting" size="large" @click="deleteTag">Delete</Button>
-        </div>
-    </Modal> -->
+
     <deleteModal></deleteModal>
 			</div>
 		</div>
     </div>
 </template>
 <script>
-import deleteModal from '../components/deleteModal.vue'
+import deleteModal from "../components/deleteModal.vue";
+import { mapGetters } from "vuex";
 export default {
 data(){
     return{
@@ -200,7 +189,7 @@ data(){
    async addCategory(){
      if(this.data.categoryName.trim( )=='') return this.error('Category Name is required');
      if(this.data.iconImage.trim( )=='') return this.error('Icon Image is required');
-     this.data.iconImage=`/uploads/${this.data.iconImage}`;
+     this.data.iconImage=`${this.data.iconImage}`;
      const res=await this.callApi('post','app/create_category',this.data);
      if(res.status===201){
          this.categories.unshift(res.data);
@@ -254,12 +243,7 @@ data(){
 },
 
 showEditModal(category,index){
-    // this.editData=tag
-    // this.editModal=true
-    // let obj={
-    //     id:tag.id,
-    //     tagName:tag.tagName
-    // }
+
     this.editData=category
     this.editModal=true
     this.index=index
@@ -268,35 +252,7 @@ showEditModal(category,index){
     // console.log(this.editData);
 
 },
-async deleteTag(tag,index){
-    this.isDeleting=true;
-//     if(!confirm('Are you sure you want to delete this?')) return
-//    tag.isDeleting=true
-    // this.$set(tag,'isDeleting',true);
-    const res=await this.callApi('post','app/delete_tag',this.deleteItem);
-    if(res.status===200){
-        this.tags.splice(this.deletingIndex,1);
-        this.success('Tags has been deleted successfully');
-    }else{
-        this.error();
-    }
-     this.isDeleting=true;
-       this.showDeleteModal=false;
-},
-	showDeletingModal(tag, index){
-			const deleteModalObj  =  {
-				showDeleteModal: true,
-				deleteUrl : 'app/delete_tag',
-				data : tag,
-				deletingIndex: index,
-				isDeleted : false,
-			}
-			this.$store.commit('setDeletingModalObj', deleteModalObj)
-			console.log('delete method called')
-			// this.deleteItem = tag
-			// this.deletingIndex = i
-			// this.showDeleteModal = true
-    },
+
    handleSuccess (res, file) {
        res=`/uploads/${res}`;
             //    this.data.iconImage=res;
@@ -361,8 +317,21 @@ async deleteTag(tag,index){
                 closeEditModal(){
                     this.isEditingItem=false;
                     this.editModal=false;
-                }
+                },
+                 showDeletingModal(category, index) {
+                    const deleteModalObj = {
+        showDeleteModal: true,
+        deleteUrl: "app/delete_category",
+        data: category,
+        deletingIndex: index,
+        isDeleted: false
+      };
+      this.$store.commit("setdeletingModalObj", deleteModalObj);
+  },
 },
+
+
+
 
 async created(){
     this.token=window.Laravel.csrfToken
@@ -377,7 +346,18 @@ async created(){
 },
 components:{
     deleteModal
-}
+},
+computed:{
+        ...mapGetters(['getDeleteModalObj'])
+    },
+
+  watch : {
+		getDeleteModalObj(obj){
+			if(obj.isDeleted){
+				this.categories.splice(obj.deletingIndex,1)
+			}
+		}
+},
 
 }
 </script>

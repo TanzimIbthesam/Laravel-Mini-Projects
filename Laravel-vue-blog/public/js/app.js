@@ -2182,7 +2182,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$store.commit('setDeleteModal', false);
                 }
 
-              case 5:
+                _this.isDeleting = false;
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -2208,7 +2210,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_deleteModal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/deleteModal.vue */ "./resources/js/admin/components/deleteModal.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -2366,18 +2375,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2432,7 +2430,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", _this.error('Icon Image is required'));
 
               case 4:
-                _this.data.iconImage = "/uploads/".concat(_this.data.iconImage);
+                _this.data.iconImage = "".concat(_this.data.iconImage);
                 _context.next = 7;
                 return _this.callApi('post', 'app/create_category', _this.data);
 
@@ -2532,68 +2530,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     showEditModal: function showEditModal(category, index) {
-      // this.editData=tag
-      // this.editModal=true
-      // let obj={
-      //     id:tag.id,
-      //     tagName:tag.tagName
-      // }
       this.editData = category;
       this.editModal = true;
       this.index = index;
       this.isEditingItem = true; // console.log('Clicked')
       // console.log(this.editData);
-    },
-    deleteTag: function deleteTag(tag, index) {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this3.isDeleting = true; //     if(!confirm('Are you sure you want to delete this?')) return
-                //    tag.isDeleting=true
-                // this.$set(tag,'isDeleting',true);
-
-                _context3.next = 3;
-                return _this3.callApi('post', 'app/delete_tag', _this3.deleteItem);
-
-              case 3:
-                res = _context3.sent;
-
-                if (res.status === 200) {
-                  _this3.tags.splice(_this3.deletingIndex, 1);
-
-                  _this3.success('Tags has been deleted successfully');
-                } else {
-                  _this3.error();
-                }
-
-                _this3.isDeleting = true;
-                _this3.showDeleteModal = false;
-
-              case 7:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    showDeletingModal: function showDeletingModal(tag, index) {
-      var deleteModalObj = {
-        showDeleteModal: true,
-        deleteUrl: 'app/delete_tag',
-        data: tag,
-        deletingIndex: index,
-        isDeleted: false
-      };
-      this.$store.commit('setDeletingModalObj', deleteModalObj);
-      console.log('delete method called'); // this.deleteItem = tag
-      // this.deletingIndex = i
-      // this.showDeleteModal = true
     },
     handleSuccess: function handleSuccess(res, file) {
       res = "/uploads/".concat(res); //    this.data.iconImage=res;
@@ -2637,90 +2578,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deleteImage: function deleteImage() {
       var _arguments = arguments,
-          _this4 = this;
+          _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var isAdd, image, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 isAdd = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : true;
 
                 if (!isAdd) {
-                  _this4.isIconImagenew = true;
-                  image = _this4.editData.iconImage;
-                  _this4.editData.iconImage = "";
+                  _this3.isIconImagenew = true;
+                  image = _this3.editData.iconImage;
+                  _this3.editData.iconImage = "";
 
-                  _this4.$refs.uploads.clearFiles();
+                  _this3.$refs.uploads.clearFiles();
                 } else {
-                  image = _this4.data.iconImage;
-                  _this4.data.iconImage = "";
+                  image = _this3.data.iconImage;
+                  _this3.data.iconImage = "";
 
-                  _this4.$refs.uploads.clearFiles();
+                  _this3.$refs.uploads.clearFiles();
                 }
 
-                _context4.next = 4;
-                return _this4.callApi('post', 'app/delete_image', {
+                _context3.next = 4;
+                return _this3.callApi('post', 'app/delete_image', {
                   imageName: image
                 });
 
               case 4:
-                res = _context4.sent;
+                res = _context3.sent;
 
                 if (res.status != 200) {
-                  _this4.data.iconImage = image;
+                  _this3.data.iconImage = image;
 
-                  _this4.error('Something went wrong please try again');
+                  _this3.error('Something went wrong please try again');
                 }
 
               case 6:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }))();
     },
     closeEditModal: function closeEditModal() {
       this.isEditingItem = false;
       this.editModal = false;
+    },
+    showDeletingModal: function showDeletingModal(category, index) {
+      var deleteModalObj = {
+        showDeleteModal: true,
+        deleteUrl: "app/delete_category",
+        data: category,
+        deletingIndex: index,
+        isDeleted: false
+      };
+      this.$store.commit("setdeletingModalObj", deleteModalObj);
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this4 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _this5.token = window.Laravel.csrfToken; // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
+              _this4.token = window.Laravel.csrfToken; // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
 
-              _context5.next = 3;
-              return _this5.callApi('get', 'app/get_category');
+              _context4.next = 3;
+              return _this4.callApi('get', 'app/get_category');
 
             case 3:
-              res = _context5.sent;
+              res = _context4.sent;
 
               // console.log(res);
               if (res.status == 200) {
-                _this5.categories = res.data;
+                _this4.categories = res.data;
               } else {
-                _this5.error();
+                _this4.error();
               }
 
             case 5:
             case "end":
-              return _context5.stop();
+              return _context4.stop();
           }
         }
-      }, _callee5);
+      }, _callee4);
     }))();
   },
   components: {
     deleteModal: _components_deleteModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['getDeleteModalObj'])),
+  watch: {
+    getDeleteModalObj: function getDeleteModalObj(obj) {
+      if (obj.isDeleted) {
+        this.categories.splice(obj.deletingIndex, 1);
+      }
+    }
   }
 });
 
@@ -68149,7 +68108,12 @@ var render = function() {
               _c(
                 "Button",
                 {
-                  attrs: { type: "error", size: "large" },
+                  attrs: {
+                    type: "error",
+                    loading: _vm.isDeleting,
+                    disabled: _vm.isDeleting,
+                    size: "large"
+                  },
                   on: { click: _vm.deleteTag }
                 },
                 [_vm._v("Delete")]

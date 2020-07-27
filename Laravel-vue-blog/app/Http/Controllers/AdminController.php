@@ -52,14 +52,7 @@ class AdminController extends Controller
 
    }
    public function upload(Request $request){
-        //     $this->validate($request, [
-        //         'file' => 'required|mimes:jpeg,jpg,png',
-        //         'iconImage' => 'required'
 
-        //     ]);
-        //   $picname=time() . ' . ' .$request->file->extension();
-        //    $request->file->move(public_path('uploads'),$picname);
-        //    return $picname;
         $this->validate($request, [
             'file' => 'required|mimes:jpeg,jpg,png',
         ]);
@@ -69,8 +62,11 @@ class AdminController extends Controller
 
    }
 
-   public function deleteFileFromServer($fileName){
-        $filePath = public_path() . '/uploads/' . $fileName;
+   public function deleteFileFromServer($fileName,$hasfullPath=false){
+       if(!$hasfullPath){
+            $filePath = public_path() . '/uploads/' . $fileName;
+       }
+
         if (file_exists($filePath)) {
             @unlink($filePath);
         }
@@ -79,7 +75,7 @@ class AdminController extends Controller
     public function deleteImage(Request $request)
     {
         $fileName = $request->imageName;
-        $this->deleteFileFromServer($fileName);
+        $this->deleteFileFromServer($fileName,false);
         return "done";
     }
     public function addCategory(Request $request){
@@ -110,5 +106,15 @@ class AdminController extends Controller
             'categoryName' => $request->categoryName,
             'iconImage'=>$request->iconImage
         ]);
+    }
+    public function deleteCategory(Request $request)
+    {
+        // first delete the original file from the server
+        $this->deleteFileFromServer($request->iconImage);
+        // validate request
+        $this->validate($request, [
+            'id' => 'required',
+        ]);
+        return Category::where('id', $request->id)->delete();
     }
 }

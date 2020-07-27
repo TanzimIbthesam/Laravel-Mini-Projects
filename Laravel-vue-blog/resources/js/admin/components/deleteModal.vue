@@ -16,8 +16,8 @@
         </div>
         <div slot="footer">
 
-            <!-- <Button type="error" :loading="isDeleting" :disabled="isDeleting"   size="large" @click="deleteTag">Delete</Button> -->
-            <Button type="error"    size="large" @click="deleteTag">Delete</Button>
+            <Button type="error" :loading="isDeleting" :disabled="isDeleting"   size="large" @click="deleteTag">Delete</Button>
+            <!-- <Button type="error"    size="large" @click="deleteTag">Delete</Button> -->
 
         </div>
     </Modal>
@@ -46,6 +46,7 @@ export default {
         this.error();
         this.$store.commit('setDeleteModal',false);
     }
+       this.isDeleting=false;
 
 },
     },
