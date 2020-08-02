@@ -9,6 +9,7 @@ import home from './admin/webpage/home.vue'
 import tags from './admin/webpage/tags.vue'
 import category from './admin/webpage/category.vue'
 import allcom from './Vuex/allcom'
+import adminusers from './admin/webpage/adminusers'
 
 Vue.use(Router);
 
@@ -45,6 +46,10 @@ const routes=[
     {
         path: '/category',
         component:category
+      },
+    {
+        path: '/admin',
+        component:adminusers
       },
 // other routes for practice
 {
