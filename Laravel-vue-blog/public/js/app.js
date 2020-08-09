@@ -2314,21 +2314,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       data: {
-        fullName: ' ',
+        fullname: ' ',
         email: ' ',
         password: ' ',
         userType: ' '
       },
       addModal: false,
       isAdding: false,
+      users: [],
       editModal: false,
-      tags: [],
+      //  tags:[],
       editData: {
         tagName: ' '
       },
@@ -2340,39 +2353,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    addTag: function addTag() {
+    addAdmin: function addAdmin() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res;
+        var res, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.data.tagName.trim() == '')) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt("return", _this.error('Tag Name is required'));
+                _context.next = 2;
+                return _this.callApi('post', 'app/create_user', _this.data);
 
               case 2:
-                _context.next = 4;
-                return _this.callApi('post', 'app/create_tag', _this.data);
-
-              case 4:
                 res = _context.sent;
 
                 if (res.status === 201) {
-                  _this.tags.unshift(res.data);
+                  _this.users.unshift(res.data);
 
-                  _this.success('Tag has been added successfully');
+                  _this.success('Admin has  has been added successfully');
 
                   _this.addModal = false;
                 } else {
                   if (res.status = 422) {
-                    if (res.data.errors.tagName) {
-                      _this.index(res.data.errors.tagName[0]);
+                    // console.log(res.data.errors)
+                    for (i in res.data.errors) {
+                      _this.error(res.data.errors[i][0]);
                     }
                   } else {
                     _this.error();
@@ -2380,7 +2386,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } // if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 
 
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2504,14 +2510,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return _this4.callApi('get', 'app/get_tags');
+              return _this4.callApi('get', 'app/get_users');
 
             case 2:
               res = _context4.sent;
 
               // console.log(res);
               if (res.status == 200) {
-                _this4.tags = res.data;
+                _this4.users = res.data;
               } else {
                 _this4.error();
               }
@@ -3487,6 +3493,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+//
 //
 //
 //
@@ -68531,15 +68538,17 @@ var render = function() {
                   [
                     _vm._m(0),
                     _vm._v(" "),
-                    _vm._l(_vm.tags, function(tag, index) {
+                    _vm._l(_vm.users, function(user, index) {
                       return _c("tr", { key: index }, [
-                        _c("td", [_vm._v(_vm._s(tag.id))]),
+                        _c("td", [_vm._v(_vm._s(user.id))]),
                         _vm._v(" "),
-                        _c("td", { staticClass: "_table_name" }, [
-                          _vm._v(_vm._s(tag.tagName))
-                        ]),
+                        _c("td", [_vm._v(_vm._s(user.fullname))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(tag.created_at))]),
+                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.userType))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.created_at))]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -68550,7 +68559,7 @@ var render = function() {
                                 attrs: { size: "small", type: "primary" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.showEditModal(tag, index)
+                                    return _vm.showEditModal(_vm.tag, index)
                                   }
                                 }
                               },
@@ -68563,7 +68572,7 @@ var render = function() {
                                 attrs: { type: "error", size: "small" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.showDeletingModal(tag, index)
+                                    return _vm.showDeletingModal(_vm.tag, index)
                                   }
                                 }
                               },
@@ -68598,21 +68607,27 @@ var render = function() {
               }
             },
             [
+              _c("label", { attrs: { for: "" } }, [_vm._v("Enter your name")]),
+              _c("br"),
+              _vm._v(" "),
               _c("Input", {
-                staticStyle: { width: "200px" },
-                attrs: { type: "text", placeholder: "Enter your name." },
+                staticStyle: { width: "300px" },
+                attrs: { type: "text", placeholder: "Enter your name" },
                 model: {
-                  value: _vm.data.fullName,
+                  value: _vm.data.fullname,
                   callback: function($$v) {
-                    _vm.$set(_vm.data, "fullName", $$v)
+                    _vm.$set(_vm.data, "fullname", $$v)
                   },
-                  expression: "data.fullName"
+                  expression: "data.fullname"
                 }
               }),
               _c("br"),
               _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [_vm._v("Enter your email")]),
+              _c("br"),
+              _vm._v(" "),
               _c("Input", {
-                staticStyle: { width: "200px", margin: "5px 0px" },
+                staticStyle: { width: "300px", margin: "5px 0px" },
                 attrs: { type: "email", placeholder: "Enter email" },
                 model: {
                   value: _vm.data.email,
@@ -68624,13 +68639,14 @@ var render = function() {
               }),
               _c("br"),
               _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("Enter your password")
+              ]),
+              _c("br"),
+              _vm._v(" "),
               _c("Input", {
-                staticStyle: { width: "200px" },
-                attrs: {
-                  type: "password",
-                  password: "",
-                  placeholder: "Enter your password"
-                },
+                staticStyle: { width: "300px" },
+                attrs: { type: "password", placeholder: "Enter your password" },
                 model: {
                   value: _vm.data.password,
                   callback: function($$v) {
@@ -68646,6 +68662,7 @@ var render = function() {
                 "Select",
                 {
                   staticStyle: { width: "200px" },
+                  attrs: { placeholder: "Select admin type" },
                   model: {
                     value: _vm.data.userType,
                     callback: function($$v) {
@@ -68691,11 +68708,12 @@ var render = function() {
                         disabled: _vm.isAdding,
                         loading: _vm.isAdding
                       },
-                      on: { click: _vm.addTag }
+                      on: { click: _vm.addAdmin }
                     },
                     [
                       _vm._v(
-                        " " + _vm._s(_vm.isAdding ? "Adding.." : "Add Tag")
+                        "\n                  " +
+                          _vm._s(_vm.isAdding ? "Adding.." : "Add Admin")
                       )
                     ]
                   )
@@ -68786,9 +68804,13 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Id")]),
       _vm._v(" "),
-      _c("th", [_vm._v("TagName")]),
+      _c("th", [_vm._v("Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("CreatedAt")]),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("User Type")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Created At")]),
       _vm._v(" "),
       _c("th", [_vm._v("Action")])
     ])
@@ -70138,6 +70160,16 @@ var render = function() {
                       [
                         _c("Icon", { attrs: { type: "ios-speedometer" } }),
                         _vm._v("Category")
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      { attrs: { to: "/admin" } },
+                      [
+                        _c("Icon", { attrs: { type: "ios-speedometer" } }),
+                        _vm._v("Admin Users")
                       ],
                       1
                     )

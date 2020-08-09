@@ -7,6 +7,7 @@ use App\Tag;
 
 use Illuminate\Http\Request;
 use App\BlogCategory;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -116,5 +117,31 @@ class AdminController extends Controller
             'id' => 'required',
         ]);
         return Category::where('id', $request->id)->delete();
+    }
+    public function createUser(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'fullname' => 'required',
+            'email' => 'bail|required|email|unique:users',
+            'password' => 'bail|required|min:6',
+             'userType'=>'required'
+
+        ]);
+        $password = bcrypt($request->password);
+        $user = User::create([
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'password' => $password,
+            'userType'=>$request->userType
+
+        ]);
+        return $user;
+    }
+    public function getUser()
+    {
+        // $users=User::all();
+        // return $users;
+        return User::all();
     }
 }

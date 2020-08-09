@@ -30,6 +30,8 @@ Route::post('app/delete_category', 'AdminController@deleteCategory');
 
 Route::get('/app/get_tags','AdminController@getTag');
 Route::get('/app/get_category','AdminController@getCategory');
+Route::post('/app/create_user', 'AdminController@createUser');
+Route::get('/app/get_users', 'AdminController@getUser');
 Route::any('{slug}',function(){
 return view('welcome');
 });

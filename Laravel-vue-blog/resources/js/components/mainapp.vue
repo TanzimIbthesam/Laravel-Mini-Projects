@@ -22,6 +22,7 @@
                   <router-link to="/"> <Icon type="ios-speedometer" /> DashBoard</router-link>
                   <router-link to="/tags"> <Icon type="ios-speedometer" /> Tags</router-link>
                   <router-link to="/category"> <Icon type="ios-speedometer" />Category</router-link>
+                  <router-link to="/admin"> <Icon type="ios-speedometer" />Admin Users</router-link>
 
 
 

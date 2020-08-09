@@ -17,18 +17,22 @@
 								<!-- TABLE TITLE -->
 							<tr>
 								<th>Id</th>
-								<th>TagName</th>
-								<th>CreatedAt</th>
-								<th>Action</th>
+                                 <th>Name</th>
+								<th>Email</th>
+								<th>User Type</th>
+								<th>Created At</th>
+                                 <th>Action</th>
 							</tr>
 								<!-- TABLE TITLE -->
 
 
 								<!-- ITEMS -->
-								<tr v-for="(tag, index) in tags" :key="index">
-								<td>{{tag.id}}</td>
-								<td class="_table_name">{{tag.tagName}}</td>
-								<td>{{tag.created_at}}</td>
+								<tr v-for="(user, index) in users" :key="index">
+								<td>{{user.id}}</td>
+								<td>{{user.fullname}}</td>
+								<td>{{user.email}}</td>
+								<td>{{user.userType}}</td>
+								<td>{{user.created_at}}</td>
 								<td>
 
 									<Button size="small" type="primary" v-on:click="showEditModal(tag,index)">Edit</Button>
@@ -52,23 +56,31 @@
         :closeable="false"
         >
 
-     <Input v-model="data.fullName" type="text"  placeholder="Enter your name." style="width: 200px" /><br>
-     <Input v-model="data.email" type="email"  placeholder="Enter email" style="width: 200px;margin:5px 0px" /><br>
-     <Input v-model="data.password" type="password"  password placeholder="Enter your password" style="width: 200px" />
+      <label for="">Enter your name</label><br>
+       <Input type="text"  v-model="data.fullname"   placeholder="Enter your name" style="width: 300px" /><br>
+       <label for="">Enter your email</label><br>
+     <Input type="email"  v-model="data.email"   placeholder="Enter email" style="width: 300px;margin:5px 0px" /><br>
+     <label for="">Enter your password</label><br>
+       <Input type="password" v-model="data.password"  placeholder="Enter your password" style="width: 300px" />
+
+
+
+
      <div class="space"></div>
-     <Select v-model="data.userType" style="width:200px">
+     <Select v-model="data.userType" placeholder="Select admin type" style="width:200px">
         <Option value="Admin">Admin New</Option>
         <Option value="Admin">Editor</Option>
     </Select>
 
         <div slot="footer">
             <Button type="default" v-on:click="addModal=false">Close</Button>
-              <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding"> {{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
+              <Button type="primary" @click="addAdmin" :disabled="isAdding" :loading="isAdding">
+                  {{isAdding ? 'Adding..' : 'Add Admin'}}</Button>
 
         </div>
 
     </Modal>
-    <!-- Tag Editing Modal  -->
+    <!-- <-- Tag Editing Modal  -->
 <Modal
         v-model="editModal"
         title="Edit Tag"
@@ -97,7 +109,7 @@ export default {
 data(){
     return{
       data:{
-          fullName:' ',
+          fullname:' ',
           email:' ',
           password:' ',
           userType:' '
@@ -105,8 +117,9 @@ data(){
       },
      addModal:false,
      isAdding:false,
+      users :[],
      editModal:false,
-     tags:[],
+    //  tags:[],
      editData:{
          tagName:' ',
 
@@ -121,19 +134,23 @@ data(){
 
 },
   methods:{
-   async addTag(){
-     if(this.data.tagName.trim( )=='') return this.error('Tag Name is required')
-     const res=await this.callApi('post','app/create_tag',this.data);
+   async addAdmin(){
+    //  if(this.data.fullname.trim( )=='') return this.error('Full Name Name is required')
+    //  if(this.data.email.trim( )=='') return this.error('Email is required')
+    //  if(this.data.password.trim( )=='') return this.error('Password is required')
+    //  if(this.data.userType.trim( )=='') return this.error('UserType is required')
+     const res=await this.callApi('post','app/create_user',this.data);
      if(res.status===201){
-         this.tags.unshift(res.data);
-         this.success('Tag has been added successfully');
+         this.users.unshift(res.data);
+         this.success('Admin has  has been added successfully');
 
          this.addModal=false;
      }else{
          if(res.status=422){
-             if(res.data.errors.tagName){
-                     this.index(res.data.errors.tagName[0]);
-             }
+            // console.log(res.data.errors)
+            for(let i in res.data.errors){
+                this.error(res.data.errors[i][0]);
+            }
 
          }else{
               this.error();
@@ -216,10 +233,10 @@ async deleteTag(){
 },
 async created(){
     // const res=await this.callApi('post', '/createtag' ,{tagName:'testtag'});
-    const res=await this.callApi('get', 'app/get_tags');
+    const res=await this.callApi('get', 'app/get_users');
     // console.log(res);
     if(res.status==200){
-          this.tags = res.data;
+          this.users = res.data;
     }else{
          this.error();
     }
