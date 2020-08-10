@@ -35,8 +35,8 @@
 								<td>{{user.created_at}}</td>
 								<td>
 
-									<Button size="small" type="primary" v-on:click="showEditModal(tag,index)">Edit</Button>
-									<Button type="error" size="small" @click="showDeletingModal(tag, index)"  >Delete</Button>
+									<Button size="small" type="primary" v-on:click="showEditModal(user,index)">Edit</Button>
+									<Button type="error" size="small" @click="showDeletingModal(user, index)"  >Delete</Button>
 
 
 								</td>
@@ -69,7 +69,7 @@
      <div class="space"></div>
      <Select v-model="data.userType" placeholder="Select admin type" style="width:200px">
         <Option value="Admin">Admin New</Option>
-        <Option value="Admin">Editor</Option>
+        <Option value="Editor">Editor</Option>
     </Select>
 
         <div slot="footer">
@@ -83,17 +83,27 @@
     <!-- <-- Tag Editing Modal  -->
 <Modal
         v-model="editModal"
-        title="Edit Tag"
+        title="Edit Users"
         :mask-closeable="false"
         :closeable="false"
         >
-  <Input v-model="editData.tagName" placeholder="Enter something..." style="width: 300px" />
-        <div slot="footer">
+   <label for="">Enter your name</label><br>
+       <Input type="text"  v-model="editData.fullname"   placeholder="Enter your name" style="width: 300px" /><br>
+       <label for="">Enter your email</label><br>
+     <Input type="email"  v-model="editData.email"   placeholder="Enter email" style="width: 300px;margin:5px 0px" /><br>
+     <label for="">Enter your password</label><br>
+       <Input type="password" v-model="editData.password"  placeholder="Enter your password" style="width: 300px" />
+       <div class="space"></div>
+     <Select v-model="editData.userType" placeholder="Select admin type" style="width:200px">
+        <Option value="Admin">Admin New</Option>
+        <Option value="Editor">Editor</Option>
+    </Select>
+ <div slot="footer">
             <Button type="default" v-on:click="editModal=false">Close</Button>
-             	<Button type="primary" @click="editTag" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Editing..' : 'Edit tag'}}</Button>
+              <Button type="primary" @click="editAdmin" :disabled="isAdding" :loading="isAdding">
+                  {{isAdding ? 'Editing..' : 'Edit Admin'}}</Button>
 
         </div>
-
     </Modal>
 
      <deleteModal></deleteModal>
@@ -159,19 +169,24 @@ data(){
      }
 	// if(this.data.tagName.trim()=='') return this.e('Tag name is required')
 },
-  async editTag(){
-     if(this.editData.tagName.trim( )=='') return this.error('Tag Name is required')
-     const res=await this.callApi('post','app/edit_tag',this.editData);
+  async editAdmin(){
+        if(this.editData.fullname.trim( )=='') return this.error('Full Name Name is required')
+        if(this.editData.email.trim( )=='') return this.error('Email is required')
+        if(this.editData.userType.trim( )=='') return this.error('User Type is required')
+
+
+
+     const res=await this.callApi('post','app/edit_user',this.editData);
      if(res.status===200){
-         this.tags[this.index].tagName=this.editData.tagName
+        this.users[this.index] = this.editData
          this.success('Tag has been edited successfully');
 
          this.editModal=false;
      }else{
          if(res.status=422){
-             if(res.data.errors.tagName){
-                     this.index(res.data.errors.tagName[0]);
-             }
+              for(let i in res.data.errors){
+                this.error(res.data.errors[i][0]);
+            }
 
          }else{
               this.error();
@@ -184,16 +199,21 @@ data(){
 
 },
 
-showEditModal(tag,index){
+showEditModal(user,index){
     // this.editData=tag
     // this.editModal=true
-    let obj={
-        id:tag.id,
-        tagName:tag.tagName
-    }
-    this.editData=obj
-    this.editModal=true
-    this.index=index
+   let obj = {
+				id : user.id,
+				fullname : user.fullname,
+				email : user.email,
+				userType : user.userType,
+			}
+			this.editData = obj
+			this.editModal = true
+			this.index = index
+    // this.editData=obj
+    // this.editModal=true
+    // this.index=index
     // console.log('Clicked')
     // console.log(this.editData);
 

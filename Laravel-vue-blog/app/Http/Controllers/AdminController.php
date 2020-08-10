@@ -144,4 +144,25 @@ class AdminController extends Controller
         // return $users;
         return User::all();
     }
+    public function editUser(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'fullname' => 'required',
+            'email' => "bail|required|email|unique:users,email,$request->id",
+            'password' => 'min:6',
+            'userType' => 'required',
+        ]);
+        $data = [
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'userType' => $request->userType,
+        ];
+        if ($request->password) {
+            $password = bcrypt($request->password);
+            $data['password'] = $password;
+        }
+        $user = User::where('id', $request->id)->update($data);
+        return $user;
+    }
 }
