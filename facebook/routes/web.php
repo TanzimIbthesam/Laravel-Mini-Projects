@@ -23,3 +23,5 @@ Route::get('{any}', 'AppController@index')
     ->where('any', '.*')
     ->middleware('auth')
     ->name('home');
+
+Route::get('/newshow', 'AppController@show');

@@ -1934,6 +1934,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Start"
 });
@@ -37550,9 +37556,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n hiiiiiiiiiiiiiiiiiiiiiiii\n")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "bg-black" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "bg-blue-600 flex justify-center items-center w-4/5 mx-auto"
+        },
+        [
+          _vm._v(
+            "\n Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem natus, eligendi quaerat obcaecati soluta laudantium id est sint rerum. Asperiores, ad voluptates aperiam dolore magnam pariatur impedit iste voluptate incidunt ab enim accusantium animi molestiae alias quod similique, nisi eius nobis. Quasi hic blanditiis voluptatum accusamus nostrum maxime aliquid dolor. Natus sunt maxime enim minima dicta? Tempore recusandae a obcaecati adipisci, quaerat ut sapiente deserunt, illo atque facere ullam necessitatibus eveniet perferendis dolor repellendus ea quisquam iste molestiae nulla provident? Maxime incidunt animi temporibus libero exercitationem numquam ut aut molestiae? Ut amet exercitationem beatae rem voluptate, alias voluptates ipsum aliquam?\n"
+          )
+        ]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -53050,8 +53076,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\TANZIM\Desktop\RestFulAPI\facebook\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\TANZIM\Desktop\RestFulAPI\facebook\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\TANZIM\Desktop\Laravelproject\Git\Laravel-Mini-Projects\facebook\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\TANZIM\Desktop\Laravelproject\Git\Laravel-Mini-Projects\facebook\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

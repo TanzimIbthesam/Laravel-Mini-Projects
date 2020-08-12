@@ -11,4 +11,8 @@ class AppController extends Controller
     {
         return view('home');
     }
+    public function show()
+    {
+        return view('newshow');
+    }
 }
