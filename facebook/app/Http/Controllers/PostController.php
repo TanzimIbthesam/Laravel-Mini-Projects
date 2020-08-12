@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Post as ResourcesPost;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -18,17 +19,7 @@ class PostController extends Controller
         //  dd($data);
         $post=request()->user()->posts()->create
         ($data['data']['attributes']);
-        return response(
-            ['data' => [
-                'type' => 'posts',
-                'post_id' => $post->id,
-                'attributes' => [
-                    'body' => $post->body,
-                ]
-            ],
-            'links' => [
-                'self' => url('/posts/' . $post->id),
-            ]
-        ], 201);
+        return new ResourcesPost($post);
+        // return response([], 201);
     }
 }
