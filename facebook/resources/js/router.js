@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Start from './components/Start.vue';
+import NewsFeed from './views/NewsFeed.vue';
 
 Vue.use(Router);
 
@@ -10,7 +10,7 @@ const app = new Vue({
 
 const routes = [{
     path: '/',
-    component: Start
+    component:NewsFeed
 }]
 
 export default new Router({
