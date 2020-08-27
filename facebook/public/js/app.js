@@ -2165,16 +2165,39 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Post__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Post */ "./resources/js/components/Post.vue");
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Post: _components_Post__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       user: null,
-      loading: true
+      posts: null,
+      userLoading: true,
+      postLoading: true
     };
   },
   mounted: function mounted() {
@@ -2185,14 +2208,14 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       console.log('Unable to fetch the user from the server..'); //   this.loading=false;
     })["finally"](function () {
-      _this.loading = false;
+      _this.userLoading = false;
     });
-    axios.get('/api/posts/' + this.$route.params.userId).then(function (res) {
-      _this.posts = res.data;
-      _this.loading = false;
+    axios.get('/api/users/' + this.$route.params.userId + '/posts').then(function (res) {
+      _this.posts = res.data; //    this.loading=false
     })["catch"](function (error) {
-      console.log('Unable to fetch posts');
-      _this.loading = false;
+      console.log('Unable to fetch posts'); //    this.loading=false
+    })["finally"](function () {
+      _this.postLoading = false;
     });
   }
 });
@@ -38345,6 +38368,8 @@ var render = function() {
     [
       _c("NewPost"),
       _vm._v(" "),
+      _vm.loading ? _c("p", [_vm._v("Loading Posts")]) : _vm._e(),
+      _vm._v(" "),
       _vm._l(_vm.posts.data, function(post) {
         return _c("Post", { key: post.data.post_id, attrs: { post: post } })
       })
@@ -38374,16 +38399,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "flex flex-col items-center" },
+    [
+      _c("div", { staticClass: "relative" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20"
+          },
+          [
+            _c("img", {
+              staticClass:
+                "w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg",
+              attrs: {
+                src:
+                  "https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg",
+                alt: "profile image for user"
+              }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-black text-2xl" }, [
+              _vm._v(_vm._s(_vm.user.data.attributes.name))
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _vm.postLoading
+        ? _c("p", [_vm._v("Loading Posts")])
+        : _vm._l(_vm.posts.data, function(post) {
+            return _c("Post", { key: post.data.post_id, attrs: { post: post } })
+          }),
+      _vm._v(" "),
+      !_vm.postLoading && _vm.posts.data.length < 1
+        ? _c("p", { staticClass: "text-red-300 text-2xl" }, [
+            _vm._v("No Posts available")
+          ])
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full  overflow-hidden" }, [
+    return _c("div", { staticClass: "w-full  overflow-hidden z-10" }, [
       _c("img", {
-        staticClass: "object-cover w-full",
+        staticClass: "object-cover w-full h-64",
         attrs: {
           src:
             "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
