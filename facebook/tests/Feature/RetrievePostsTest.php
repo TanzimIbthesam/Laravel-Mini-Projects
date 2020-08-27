@@ -17,7 +17,7 @@ class RetrievePostTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $this->actingAs($user = factory(User::class)->create(), 'api');
-        $posts = factory(\App\Post::class, 2)->create(['user_id' => $user->id]);
+        $posts = factory(\App\Post::class, 2)->create();
 
         $response = $this->get('/api/posts');
 
@@ -70,13 +70,18 @@ class RetrievePostTest extends TestCase
                             'attributes' => [
                                 'body' => $posts->first()->body,
                                  'image'=> $posts->first()->image,
-                            'posted_at' => $posts->first()->created_at->diffForHumans()
+                            'posted_at' => $posts->first()->created_at->diffForHumans(),
+                            'posted_by'=>[
+                                'data'=>[
+                                    'name'=>'',
+                                ]
+                            ]
                             ]
                         ]
                     ]
                 ],
                 'links' => [
-                    'self' => url('/posts'),
+                    'self' => url('/posts/'),
                 ]
             ]);
     }
