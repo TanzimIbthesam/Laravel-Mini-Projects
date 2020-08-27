@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
         \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+
     ];
 
     /**

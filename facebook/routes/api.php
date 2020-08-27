@@ -5,15 +5,28 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware('auth:api')->group(function(){
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+Route::middleware('auth:api')->group(function () {
+    // Route::get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
+
 
 });
-Route::get('/posts', 'PostController@index');
-Route::post('/posts','PostController@store');
+Route::apiResources([
 
+    'posts' => 'PostController',
+    'users' => 'UserController'
+]);
+// Route::apiResources([
+
+//     'posts' => 'PostController',
+//     'users'=>'UserController'
+// ]);
+// Route::resource('users', 'UserController');
+// Route::resource('posts', 'PostController');
+// Route::get('/posts', 'PostController@index');
+// Route::post('/posts', 'PostController@store');
+// Route::get('/users','UserController@show');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
