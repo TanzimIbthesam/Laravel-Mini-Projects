@@ -1934,6 +1934,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch('fetchAuthUser');
+  },
+  created: function created() {
+    this.$store.dispatch('setPageTitle', this.$route.meta.title);
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.$store.dispatch('setPageTitle', to.meta.title);
+    }
   }
 });
 
@@ -55434,11 +55442,17 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 var routes = [{
   path: '/',
   name: 'home',
-  component: _views_NewsFeed_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _views_NewsFeed_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  meta: {
+    title: 'News Feed'
+  }
 }, {
   path: '/users/:userId',
   name: 'users.show',
-  component: _views_users_Show_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _views_users_Show_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  meta: {
+    title: 'Profile'
+  }
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
@@ -55460,15 +55474,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/user */ "./resources/js/store/modules/user.js");
+/* harmony import */ var _modules_test__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/test */ "./resources/js/store/modules/test.js");
+
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    User: _modules_user__WEBPACK_IMPORTED_MODULE_2__["default"]
+    User: _modules_user__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Title: _modules_test__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/test.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/test.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  title: 'Welcome'
+};
+var getters = {
+  pageTitle: function pageTitle(state) {
+    state.title;
+  }
+};
+var actions = {
+  setPageTitle: function setPageTitle(_ref, title) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    commit('setTitle', title);
+  }
+};
+var mutations = {
+  setTitle: function setTitle(state, title) {
+    state.title = title + ' | Facebook ';
+    document.title = state.title;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 
