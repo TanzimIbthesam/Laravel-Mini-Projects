@@ -19,6 +19,7 @@ Route::apiResources([
     '/posts' => 'PostController',
     '/users' => 'UserController',
     '/users/{user}/posts' => 'UserPostController',
+    '/friend-request'=>'FriendRequestController'
 
 ]);
 // Route::apiResources([
