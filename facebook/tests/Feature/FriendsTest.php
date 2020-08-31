@@ -44,4 +44,27 @@ class FriendsTest extends TestCase
         ]);
 
     }
+    /** @test */
+    public function only_valid_users_can_be_friend_requested()
+    {
+        // $this->withoutExceptionHandling();
+        $this->actingAs($user = factory(User::class)->create(), 'api');
+
+
+        $response = $this->post('/api/friend-request', [
+            'friend_id' =>123,
+
+        ])->assertStatus(404);
+
+        // $friendRequest = \App\Friend::first();
+
+         $this->assertNull(\App\Friend::first());
+         $response->assertJson([
+             'errors'=>[
+                 'code'=>404,
+                 'title'=>'User not found',
+                 'detail'=>'Unable to locate user with given information'
+             ]
+         ]);
+    }
 }
