@@ -32,7 +32,7 @@ class FriendRequestController extends Controller
     return new FriendResource(
           Friend::where('user_id',auth()->user()->id)
           ->where('friend_id',$data['friend_id'])
-          ->first()
+          ->firstOrFail()
     );
     }
 }
