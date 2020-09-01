@@ -17,37 +17,13 @@ class RetrievePostTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $this->actingAs($user = factory(User::class)->create(), 'api');
-        $posts = factory(\App\Post::class, 2)->create();
+        $posts = factory(\App\Post::class, 2)->create(['user_id' => $user->id]);
 
         $response = $this->get('/api/posts');
 
-        //  $response->assertStatus(200)
-        //  ->assertJson([
-        //      'data'=>[
-        //         'data' => [
-        //             'type' => 'posts',
-        //             'post_id ' => $posts->first()->id,
-        //             'attributes' => [
-        //                 'body' => $posts->first()->body,
-        //             ]
-        //         ],
-        //         'data' => [
-        //             'type' => 'posts',
-        //             'post_id ' => $posts->last()->id,
-        //             'attributes' => [
-        //                 'body' => $posts->last()->body,
-        //             ]
-        //         ],
 
-
-        //     ],
-        //     'links' => [
-        //         'self' => url('/posts')
-        //     ]
-
-
-        //  ]);
-        $response->assertStatus(200)
+        $response
+        ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     [
@@ -71,20 +47,17 @@ class RetrievePostTest extends TestCase
                                 'body' => $posts->first()->body,
                                  'image'=> $posts->first()->image,
                             'posted_at' => $posts->first()->created_at->diffForHumans(),
-                            'posted_by'=>[
-                                'data'=>[
-                                    'name'=>'',
-                                ]
-                            ]
+
                             ]
                         ]
                     ]
                 ],
                 'links' => [
-                    'self' => url('/posts/'),
+                    'self' => url('/posts'),
                 ]
             ]);
     }
+
     /**
      * @test
      */
