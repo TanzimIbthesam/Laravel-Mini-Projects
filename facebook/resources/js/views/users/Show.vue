@@ -8,6 +8,9 @@
       <img  src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user" class="w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg">
             <p class="text-black text-2xl">{{user.data.attributes.name}}</p>
     </div>
+    <div class="absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20">
+<button  class="px-3 py-1 bg-gray-300 text-black">Add friend</button>
+    </div>
 
     </div>
      <p v-if="postLoading">Loading Posts</p>
@@ -20,32 +23,34 @@
 
 </template>
 <script>
-import Post from '../../components/Post'
+import Post from '../../components/Post';
+import { mapGetters } from 'vuex';
 export default {
     components:{
          Post
     },
 data() {
     return {
-        user:null,
+        // user:null,
         posts:null,
-        userLoading:true,
+        // userLoading:true,
         postLoading:true
     }
 },
 mounted() {
-    axios.get('/api/users/'+this.$route.params.userId)
-    .then(res=>{
-        this.user=res.data;
-        // this.loading=false;
-    })
-    .catch(error=>{
-      console.log('Unable to fetch the user from the server..');
-    //   this.loading=false;
-    })
-    .finally(()=>{
-        this.userLoading=false;
-    });
+    // axios.get('/api/users/'+this.$route.params.userId)
+    // .then(res=>{
+    //     this.user=res.data;
+    //     // this.loading=false;
+    // })
+    // .catch(error=>{
+    //   console.log('Unable to fetch the user from the server..');
+    // //   this.loading=false;
+    // })
+    // .finally(()=>{
+    //     this.userLoading=false;
+    // });
+    this.$store.dispatch('fetchUser',+this.$route.params.userId)
      axios.get('/api/users/'+this.$route.params.userId+'/posts')
        .then(res=>{
            this.posts=res.data;
@@ -59,6 +64,11 @@ mounted() {
         this.postLoading=false;
     });
 },
+computed:{
+    ...mapGetters({
+        user:'user'
+    })
+}
 }
 </script>
 <style scoped>
