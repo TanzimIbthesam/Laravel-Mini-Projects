@@ -1,31 +1,61 @@
 const state = {
     user: null,
     userStatus: null,
+    friendButtonText:null
 };
 const getters = {
     user: state => {
         return state.user;
+    },
+    friendship:state=>{
+        return state.user.data.attributes.friendship;
+    },
+    friendButtonText:state=>{
+       return state.friendButtonText;
     }
 
 };
 const actions = {
 
-    fetchUser({commit, state
+    fetchUser({commit, dispatch
     },userId) {
             commit('setUserStatus', 'loading');
        axios.get('/api/users/' + userId)
            .then(res => {
                commit('setUser',res.data);
                commit('setUserStatus','success');
-
+               dispatch('setFriendButton');
 
            })
            .catch(error => {
               commit('setUserStatus', 'error');
 
-           })
+           });
 
+
+    },
+    sendFriendRequest({commit,state},friendId){
+         commit('sendButtonText','loading');
+           axios.post('/api/friend-request', {
+               'friend_id':friendId
+           })
+           .then(res=>{
+              commit('sendButtonText', 'Pending Friend Request');
+           })
+           .catch(error=>{
+                commit('sendButtonText', 'Add Friend');
+           })
+           ;
+
+    },
+    setFriendButton({commit,getters}){
+        if(getters.friendship===null){
+            commit('sendButtonText', 'Add Friend');
+        } else if (getters.friendship.data.attributes.confirmed_at === null) {
+             commit('sendButtonText', 'Pending Friend Requests');
+        }
     }
+
 };
 const mutations = {
     setUser(state, user) {
@@ -34,6 +64,9 @@ const mutations = {
     setUserStatus(state, status) {
         state.userStatus = status;
     },
+    sendButtonText(state,text){
+        state.friendButtonText=text;
+    }
 
 };
 export default {
