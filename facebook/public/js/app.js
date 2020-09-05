@@ -55537,8 +55537,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 var state = {
   user: null,
-  userStatus: null,
-  friendButtonText: null
+  userStatus: null // friendButtonText:null
+
 };
 var getters = {
   user: function user(state) {
@@ -55547,8 +55547,15 @@ var getters = {
   friendship: function friendship(state) {
     return state.user.data.attributes.friendship;
   },
-  friendButtonText: function friendButtonText(state) {
-    return state.friendButtonText;
+  friendButtonText: function friendButtonText(state, getters, rootState) {
+    if (getters.friendship === null) {
+      //   commit('sendButtonText', 'Add Friend');
+      return 'Add Friend';
+    } else if (getters.friendship.data.attributes.confirmed_at === null) {
+      //   commit('sendButtonText', 'Pending Friend Requests');
+      return 'Pending Friend Requests';
+    } //    return state.friendButtonText;
+
   }
 };
 var actions = {
@@ -55558,8 +55565,7 @@ var actions = {
     commit('setUserStatus', 'loading');
     axios.get('/api/users/' + userId).then(function (res) {
       commit('setUser', res.data);
-      commit('setUserStatus', 'success');
-      dispatch('setFriendButton');
+      commit('setUserStatus', 'success'); //    dispatch('setFriendButton');
     })["catch"](function (error) {
       commit('setUserStatus', 'error');
     });
@@ -55571,25 +55577,24 @@ var actions = {
     axios.post('/api/friend-request', {
       'friend_id': friendId
     }).then(function (res) {
-      commit('sendButtonText', 'Pending Friend Request');
-    })["catch"](function (error) {
-      commit('sendButtonText', 'Add Friend');
+      commit('setUserFriendship', res.data);
+    })["catch"](function (error) {// commit('sendButtonText', 'Add Friend');
     });
-  },
-  setFriendButton: function setFriendButton(_ref3) {
-    var commit = _ref3.commit,
-        getters = _ref3.getters;
+  } // setFriendButton({commit,getters}){
+  //     if(getters.friendship===null){
+  //         commit('sendButtonText', 'Add Friend');
+  //     } else if (getters.friendship.data.attributes.confirmed_at === null) {
+  //          commit('sendButtonText', 'Pending Friend Requests');
+  //     }
+  // }
 
-    if (getters.friendship === null) {
-      commit('sendButtonText', 'Add Friend');
-    } else if (getters.friendship.data.attributes.confirmed_at === null) {
-      commit('sendButtonText', 'Pending Friend Requests');
-    }
-  }
 };
 var mutations = {
   setUser: function setUser(state, user) {
     state.user = user;
+  },
+  setUserFriendship: function setUserFriendship(state, friendship) {
+    state.user.data.attributes.friendship = friendship;
   },
   setUserStatus: function setUserStatus(state, status) {
     state.userStatus = status;
