@@ -22,7 +22,9 @@ const getters = {
         return state.user.data.attributes.friendship;
     },
     friendButtonText:(state,getters,rootState)=>{
-          if (getters.friendship === null) {
+        if(rootState.User.user.data.user_id===state.user.data.user_id){
+              return ' ';
+        }else if (getters.friendship === null) {
             //   commit('sendButtonText', 'Add Friend');
             return 'Add Friend';
           } else if (getters.friendship.data.attributes.confirmed_at === null && getters.friendship.data.attributes.friend_id !== rootState.User.user.data.user_id) {
@@ -56,7 +58,7 @@ const actions = {
     },
     fetchUserPosts({commit, dispatch
     },userId) {
-            commit(' setPostsStatus', 'loading');
+            commit('setPostsStatus', 'loading');
 
                 axios.get('/api/users/' + userId + '/posts')
                    .then(res=>{
@@ -65,7 +67,7 @@ const actions = {
 
                    })
                    .catch(error=>{
-                         commit(' setPostsStatus', 'error');
+                         commit('setPostsStatus', 'error');
 
                    });
 
@@ -76,7 +78,10 @@ const actions = {
 
     },
 
-    sendFriendRequest({commit,state},friendId){
+    sendFriendRequest({commit,getters},friendId){
+        if(getters.friendButtonText !== 'Add Friend'){
+            return;
+        }
         //  commit('sendButtonText','loading');
            axios.post('/api/friend-request', {
                'friend_id':friendId

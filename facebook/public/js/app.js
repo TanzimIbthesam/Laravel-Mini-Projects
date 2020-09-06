@@ -2261,6 +2261,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: {},
   name: "Show",
   components: {
     Post: _components_Post__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -38562,11 +38563,12 @@ var render = function() {
             ? _c("div", { staticClass: "text-red-300 text-2xl" }, [
                 _vm._v("No Posts available")
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.posts.data, function(post) {
-            return _c("Post", { key: post.data.post_id, attrs: { post: post } })
-          })
+            : _vm._l(_vm.posts.data, function(post) {
+                return _c("Post", {
+                  key: post.data.post_id,
+                  attrs: { post: post }
+                })
+              })
         ],
         2
       )
@@ -55616,7 +55618,9 @@ var getters = {
     return state.user.data.attributes.friendship;
   },
   friendButtonText: function friendButtonText(state, getters, rootState) {
-    if (getters.friendship === null) {
+    if (rootState.User.user.data.user_id === state.user.data.user_id) {
+      return ' ';
+    } else if (getters.friendship === null) {
       //   commit('sendButtonText', 'Add Friend');
       return 'Add Friend';
     } else if (getters.friendship.data.attributes.confirmed_at === null && getters.friendship.data.attributes.friend_id !== rootState.User.user.data.user_id) {
@@ -55643,18 +55647,23 @@ var actions = {
   fetchUserPosts: function fetchUserPosts(_ref2, userId) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
-    commit(' setPostsStatus', 'loading');
+    commit('setPostsStatus', 'loading');
     axios.get('/api/users/' + userId + '/posts').then(function (res) {
       commit('setPosts', res.data);
       commit('setPostsStatus', 'success');
     })["catch"](function (error) {
-      commit(' setPostsStatus', 'error');
+      commit('setPostsStatus', 'error');
     });
   },
   sendFriendRequest: function sendFriendRequest(_ref3, friendId) {
     var commit = _ref3.commit,
-        state = _ref3.state;
-    //  commit('sendButtonText','loading');
+        getters = _ref3.getters;
+
+    if (getters.friendButtonText !== 'Add Friend') {
+      return;
+    } //  commit('sendButtonText','loading');
+
+
     axios.post('/api/friend-request', {
       'friend_id': friendId
     }).then(function (res) {

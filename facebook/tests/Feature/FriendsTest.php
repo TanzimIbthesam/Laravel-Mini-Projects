@@ -330,6 +330,46 @@ class FriendsTest extends TestCase
         $this->assertArrayHasKey('user_id', $responseString['errors']['meta']);
 
     }
+    /** @test */
+    use RefreshDatabase;
+    public function a_user_can_send_a_friend_request_only_once()
+    {
+       $this->withoutExceptionHandling();
+        $this->actingAs($user = factory(User::class)->create(), 'api');
+        $anotherUser = factory(User::class)->create();
+
+        $this->post('/api/friend-request', [
+            'friend_id' => $anotherUser->id,
+
+        ])->assertStatus(200);
+        $this->post('/api/friend-request', [
+            'friend_id' => $anotherUser->id,
+
+        ])->assertStatus(200);
+
+        $friendRequest = \App\Friend::all();
+        $this->assertCount(1,$friendRequest);
+
+        // $this->assertNotNull($friendRequest);
+
+        // $this->assertEquals($anotherUser->id, $friendRequest->friend_id);
+        // $this->assertEquals($user->id, $friendRequest->user_id);
+
+        // $response->assertJson([
+        //     'data' => [
+        //         'type' => 'friend-request',
+        //         'friend_request_id' => $friendRequest->id,
+        //         'attributes' => [
+        //             'confirmed_at' => null,
+
+        //         ]
+        //     ],
+        //     'links' => [
+        //         'self' => url('/users/' . $anotherUser->id)
+        //     ]
+
+        // ]);
+    }
 
     }
 

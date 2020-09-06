@@ -35,7 +35,7 @@ Ignore
 
 
 <div class="text-red-300 text-2xl" v-else-if="posts.data.length<1">No Posts available</div>
-<Post  v-for="post in posts.data" :key="post.data.post_id" :post="post"/>
+<Post v-else  v-for="post in posts.data" :key="post.data.post_id" :post="post"/>
 </div>
 
 
@@ -44,6 +44,9 @@ Ignore
 import Post from '../../components/Post';
 import { mapGetters } from 'vuex';
 export default {
+    data:{
+
+    },
     name:"Show",
     components:{
 
@@ -53,7 +56,9 @@ export default {
 mounted() {
 
     this.$store.dispatch('fetchUser',+this.$route.params.userId);
-      this.$store.dispatch('fetchUserPosts',+this.$route.params.userId)
+      this.$store.dispatch('fetchUserPosts',+this.$route.params.userId);
+
+
 
 },
 computed:{
