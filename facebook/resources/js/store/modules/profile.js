@@ -14,11 +14,13 @@ const getters = {
           if (getters.friendship === null) {
             //   commit('sendButtonText', 'Add Friend');
             return 'Add Friend';
-          } else if (getters.friendship.data.attributes.confirmed_at === null) {
-            //   commit('sendButtonText', 'Pending Friend Requests');
+          } else if (getters.friendship.data.attributes.confirmed_at === null && getters.friendship.data.attributes.friend_id !== rootState.User.user.data.user_id) {
+
             return 'Pending Friend Requests';
+          } else if (getters.friendship.data.attributes.confirmed_at !== null){
+              return '';
           }
-    //    return state.friendButtonText;
+             return 'Accept';
     }
 
 };
@@ -42,7 +44,7 @@ const actions = {
 
     },
     sendFriendRequest({commit,state},friendId){
-         commit('sendButtonText','loading');
+        //  commit('sendButtonText','loading');
            axios.post('/api/friend-request', {
                'friend_id':friendId
            })
@@ -55,13 +57,42 @@ const actions = {
            ;
 
     },
-    // setFriendButton({commit,getters}){
-    //     if(getters.friendship===null){
-    //         commit('sendButtonText', 'Add Friend');
-    //     } else if (getters.friendship.data.attributes.confirmed_at === null) {
-    //          commit('sendButtonText', 'Pending Friend Requests');
-    //     }
-    // }
+    acceptFriendRequest({commit,state},userId){
+
+           axios.post('/api/friend-request-response', {
+               'user_id':userId,
+               'status':1,
+           })
+           .then(res=>{
+              commit('setUserFriendship', res.data);
+           })
+           .catch(error=>{
+                // commit('sendButtonText', 'Add Friend');
+           })
+           ;
+
+    },
+
+
+      ignoreFriendRequest({
+          commit,
+          state
+      }, userId) {
+
+          axios.delete('/api/friend-request-response/delete', {
+                 data: {
+                     'user_id': userId
+                 }
+              })
+              .then(res => {
+                  commit('setUserFriendship', null);
+              })
+              .catch(error => {
+
+              });
+
+      },
+
 
 };
 const mutations = {
@@ -74,9 +105,9 @@ const mutations = {
     setUserStatus(state, status) {
         state.userStatus = status;
     },
-    sendButtonText(state,text){
-        state.friendButtonText=text;
-    }
+    // sendButtonText(state,text){
+    //     state.friendButtonText=text;
+    // }
 
 };
 export default {

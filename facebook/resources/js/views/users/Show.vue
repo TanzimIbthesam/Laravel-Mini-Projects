@@ -9,9 +9,24 @@
             <p class="text-black text-2xl">{{user.data.attributes.name}}</p>
     </div>
     <div class="absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20">
-<button v-if="friendButtonText"
+<button v-if="friendButtonText && friendButtonText !=='Accept'"
 @click="$store.dispatch('sendFriendRequest',$route.params.userId)"
-class="px-3 py-1 bg-gray-300 text-black">{{ friendButtonText}}</button>
+class="mr-2 rounded px-3 py-1 bg-gray-300 text-black">
+{{ friendButtonText}}
+
+</button>
+<button v-if="friendButtonText && friendButtonText ==='Accept'"
+@click="$store.dispatch('acceptFriendRequest',$route.params.userId)"
+class="mr-2 rounded px-3 py-1 bg-blue-400 text-black">
+
+Accept
+</button>
+<button v-if="friendButtonText && friendButtonText ==='Accept'"
+@click="$store.dispatch('ignoreFriendRequest',$route.params.userId)"
+class="mr-2 rounded px-3 py-1 bg-gray-300 text-black">
+
+Ignore
+</button>
     </div>
 
     </div>
