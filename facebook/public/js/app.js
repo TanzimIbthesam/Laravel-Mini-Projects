@@ -55619,7 +55619,7 @@ var getters = {
   },
   friendButtonText: function friendButtonText(state, getters, rootState) {
     if (rootState.User.user.data.user_id === state.user.data.user_id) {
-      return ' ';
+      return '';
     } else if (getters.friendship === null) {
       //   commit('sendButtonText', 'Add Friend');
       return 'Add Friend';
@@ -55630,7 +55630,20 @@ var getters = {
     }
 
     return 'Accept';
-  }
+  } //  friendButtonText: (state, getters, rootState) => {
+  //      if (rootState.User.user.data.user_id === state.user.data.user_id) {
+  //          return '';
+  //      } else if (getters.friendship === null) {
+  //          return 'Add Friend';
+  //      } else if (getters.friendship.data.attributes.confirmed_at === null &&
+  //          getters.friendship.data.attributes.friend_id !== rootState.User.user.data.user_id) {
+  //          return 'Pending Friend Request';
+  //      } else if (getters.friendship.data.attributes.confirmed_at !== null) {
+  //          return '';
+  //      }
+  //      return 'Accept';
+  //  }
+
 };
 var actions = {
   fetchUser: function fetchUser(_ref, userId) {
