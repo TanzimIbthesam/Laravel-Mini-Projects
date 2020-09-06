@@ -2257,34 +2257,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Show",
   components: {
     Post: _components_Post__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  data: function data() {
-    return {
-      // user:null,
-      posts: null,
-      // userLoading:true,
-      postLoading: true
-    };
-  },
   mounted: function mounted() {
-    var _this = this;
-
     this.$store.dispatch('fetchUser', +this.$route.params.userId);
-    axios.get('/api/users/' + this.$route.params.userId + '/posts').then(function (res) {
-      _this.posts = res.data;
-    })["catch"](function (error) {
-      console.log('Unable to fetch posts'); //    this.loading=false
-    })["finally"](function () {
-      _this.postLoading = false;
-    });
+    this.$store.dispatch('fetchUserPosts', +this.$route.params.userId);
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     user: 'user',
+    posts: 'posts',
+    status: 'status',
     friendButtonText: 'friendButtonText'
   }))
 });
@@ -38470,117 +38458,119 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-col items-center" },
-    [
-      _c("div", { staticClass: "relative" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20"
-          },
-          [
-            _c("img", {
-              staticClass:
-                "w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg",
-              attrs: {
-                src:
-                  "https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg",
-                alt: "profile image for user"
-              }
-            }),
+  return _vm.status.user === "success" && _vm.user
+    ? _c(
+        "div",
+        { staticClass: "flex flex-col items-center" },
+        [
+          _c("div", { staticClass: "relative" }, [
+            _vm._m(0),
             _vm._v(" "),
-            _c("p", { staticClass: "text-black text-2xl" }, [
-              _vm._v(_vm._s(_vm.user.data.attributes.name))
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20"
-          },
-          [
-            _vm.friendButtonText && _vm.friendButtonText !== "Accept"
-              ? _c(
-                  "button",
-                  {
-                    staticClass:
-                      "mr-2 rounded px-3 py-1 bg-gray-300 text-black",
-                    on: {
-                      click: function($event) {
-                        return _vm.$store.dispatch(
-                          "sendFriendRequest",
-                          _vm.$route.params.userId
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v("\n" + _vm._s(_vm.friendButtonText) + "\n\n")]
-                )
-              : _vm._e(),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20"
+              },
+              [
+                _c("img", {
+                  staticClass:
+                    "w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg",
+                  attrs: {
+                    src:
+                      "https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg",
+                    alt: "profile image for user"
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-black text-2xl" }, [
+                  _vm._v(_vm._s(_vm.user.data.attributes.name))
+                ])
+              ]
+            ),
             _vm._v(" "),
-            _vm.friendButtonText && _vm.friendButtonText === "Accept"
-              ? _c(
-                  "button",
-                  {
-                    staticClass:
-                      "mr-2 rounded px-3 py-1 bg-blue-400 text-black",
-                    on: {
-                      click: function($event) {
-                        return _vm.$store.dispatch(
-                          "acceptFriendRequest",
-                          _vm.$route.params.userId
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v("\n\nAccept\n")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.friendButtonText && _vm.friendButtonText === "Accept"
-              ? _c(
-                  "button",
-                  {
-                    staticClass:
-                      "mr-2 rounded px-3 py-1 bg-gray-300 text-black",
-                    on: {
-                      click: function($event) {
-                        return _vm.$store.dispatch(
-                          "ignoreFriendRequest",
-                          _vm.$route.params.userId
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v("\n\nIgnore\n")]
-                )
-              : _vm._e()
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _vm.postLoading
-        ? _c("p", [_vm._v("Loading Posts")])
-        : _vm._l(_vm.posts.data, function(post) {
+            _c(
+              "div",
+              {
+                staticClass:
+                  "absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20"
+              },
+              [
+                _vm.friendButtonText && _vm.friendButtonText !== "Accept"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mr-2 rounded px-3 py-1 bg-gray-300 text-black",
+                        on: {
+                          click: function($event) {
+                            return _vm.$store.dispatch(
+                              "sendFriendRequest",
+                              _vm.$route.params.userId
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v("\n" + _vm._s(_vm.friendButtonText) + "\n\n")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.friendButtonText && _vm.friendButtonText === "Accept"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mr-2 rounded px-3 py-1 bg-blue-400 text-black",
+                        on: {
+                          click: function($event) {
+                            return _vm.$store.dispatch(
+                              "acceptFriendRequest",
+                              _vm.$route.params.userId
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v("\n\nAccept\n")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.friendButtonText && _vm.friendButtonText === "Accept"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mr-2 rounded px-3 py-1 bg-gray-300 text-black",
+                        on: {
+                          click: function($event) {
+                            return _vm.$store.dispatch(
+                              "ignoreFriendRequest",
+                              _vm.$route.params.userId
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v("\n\nIgnore\n")]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.status.posts === "Loading"
+            ? _c("div", [_vm._v("Loading Posts")])
+            : _vm.posts.data.length < 1
+            ? _c("div", { staticClass: "text-red-300 text-2xl" }, [
+                _vm._v("No Posts available")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.posts.data, function(post) {
             return _c("Post", { key: post.data.post_id, attrs: { post: post } })
-          }),
-      _vm._v(" "),
-      !_vm.postLoading && _vm.posts.data.length < 1
-        ? _c("p", { staticClass: "text-red-300 text-2xl" }, [
-            _vm._v("No Posts available")
-          ])
-        : _vm._e()
-    ],
-    2
-  )
+          })
+        ],
+        2
+      )
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
@@ -55604,12 +55594,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 var state = {
   user: null,
-  userStatus: null // friendButtonText:null
+  userStatus: null,
+  posts: null,
+  postsStatus: null // friendButtonText:null
 
 };
 var getters = {
   user: function user(state) {
     return state.user;
+  },
+  posts: function posts(state) {
+    return state.posts;
+  },
+  status: function status(state) {
+    return {
+      user: state.userStatus,
+      posts: state.postsStatus
+    };
   },
   friendship: function friendship(state) {
     return state.user.data.attributes.friendship;
@@ -55634,14 +55635,25 @@ var actions = {
     commit('setUserStatus', 'loading');
     axios.get('/api/users/' + userId).then(function (res) {
       commit('setUser', res.data);
-      commit('setUserStatus', 'success'); //    dispatch('setFriendButton');
+      commit('setUserStatus', 'success');
     })["catch"](function (error) {
       commit('setUserStatus', 'error');
     });
   },
-  sendFriendRequest: function sendFriendRequest(_ref2, friendId) {
+  fetchUserPosts: function fetchUserPosts(_ref2, userId) {
     var commit = _ref2.commit,
-        state = _ref2.state;
+        dispatch = _ref2.dispatch;
+    commit(' setPostsStatus', 'loading');
+    axios.get('/api/users/' + userId + '/posts').then(function (res) {
+      commit('setPosts', res.data);
+      commit('setPostsStatus', 'success');
+    })["catch"](function (error) {
+      commit(' setPostsStatus', 'error');
+    });
+  },
+  sendFriendRequest: function sendFriendRequest(_ref3, friendId) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     //  commit('sendButtonText','loading');
     axios.post('/api/friend-request', {
       'friend_id': friendId
@@ -55650,9 +55662,9 @@ var actions = {
     })["catch"](function (error) {// commit('sendButtonText', 'Add Friend');
     });
   },
-  acceptFriendRequest: function acceptFriendRequest(_ref3, userId) {
-    var commit = _ref3.commit,
-        state = _ref3.state;
+  acceptFriendRequest: function acceptFriendRequest(_ref4, userId) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
     axios.post('/api/friend-request-response', {
       'user_id': userId,
       'status': 1
@@ -55661,9 +55673,9 @@ var actions = {
     })["catch"](function (error) {// commit('sendButtonText', 'Add Friend');
     });
   },
-  ignoreFriendRequest: function ignoreFriendRequest(_ref4, userId) {
-    var commit = _ref4.commit,
-        state = _ref4.state;
+  ignoreFriendRequest: function ignoreFriendRequest(_ref5, userId) {
+    var commit = _ref5.commit,
+        state = _ref5.state;
     axios["delete"]('/api/friend-request-response/delete', {
       data: {
         'user_id': userId
@@ -55677,15 +55689,18 @@ var mutations = {
   setUser: function setUser(state, user) {
     state.user = user;
   },
+  setPosts: function setPosts(state, posts) {
+    state.posts = posts;
+  },
   setUserFriendship: function setUserFriendship(state, friendship) {
     state.user.data.attributes.friendship = friendship;
   },
   setUserStatus: function setUserStatus(state, status) {
     state.userStatus = status;
-  } // sendButtonText(state,text){
-  //     state.friendButtonText=text;
-  // }
-
+  },
+  setPostsStatus: function setPostsStatus(state, status) {
+    state.postsStatus = status;
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
