@@ -1931,6 +1931,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2038,6 +2040,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2058,8 +2062,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "NewPost"
+  name: "NewPost",
+  computed: {
+    postMessage: {
+      get: function get() {
+        return this.$store.getters.postMessage;
+      },
+      // set(postMessage){
+      // this.$store.commit('updateMessage',postMessage);
+      // }
+      set: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (postMessage) {
+        this.$store.commit('updateMessage', postMessage);
+      }, 1000)
+    }
+  }
 });
 
 /***/ }),
@@ -2160,6 +2181,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_NewPost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/NewPost */ "./resources/js/components/NewPost.vue");
 /* harmony import */ var _components_Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Post */ "./resources/js/components/Post.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2169,6 +2197,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2178,23 +2207,15 @@ __webpack_require__.r(__webpack_exports__);
     Post: _components_Post__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {
-      //    posts:null,
-      posts: [],
-      loading: true
-    };
+    return {};
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('/api/posts').then(function (res) {
-      _this.posts = res.data;
-      _this.loading = false;
-    })["catch"](function (error) {
-      console.log('Unable to fetch posts');
-      _this.loading = false;
-    });
-  }
+    this.$store.dispatch('fetchNewsPosts');
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
+    posts: 'newsPosts',
+    newsStatus: 'newsStatus'
+  }))
 });
 
 /***/ }),
@@ -37862,32 +37883,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.authUser
-    ? _c(
-        "div",
-        { staticClass: "flex flex-col flex-1 h-screen overflow-y-hidden" },
-        [
-          _c("Nav"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex overflow-y-hidden flex-1" },
-            [
-              _c("Sidebar"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "overflow-x-hidden w-2/3" },
-                [_c("router-view", { key: _vm.$route.fullPath })],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    : _vm._e()
+  return _c("div", { attrs: { id: "app" } }, [
+    _vm.authUser
+      ? _c(
+          "div",
+          { staticClass: "flex flex-col flex-1 h-screen overflow-y-hidden" },
+          [
+            _c("Nav"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex overflow-y-hidden flex-1" },
+              [
+                _c("Sidebar"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "overflow-x-hidden w-2/3" },
+                  [_c("router-view", { key: _vm.$route.fullPath })],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38111,14 +38134,52 @@ var render = function() {
     _c("div", { staticClass: "flex justify-between items-center" }, [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "flex-1 flex mx-4" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.postMessage,
+              expression: "postMessage"
+            }
+          ],
+          staticClass:
+            "w-full pl-4 h-8 bg-gray-200 rounded-full focus:outline-none focus:shadow-outline text-sm",
+          attrs: { type: "text", name: "body", placeholder: "Add a post" },
+          domProps: { value: _vm.postMessage },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.postMessage = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm.postMessage
+          ? _c(
+              "button",
+              {
+                staticClass: "bg-gray-300 ml-2 px-2 py-1 rounded-lg",
+                on: {
+                  click: function($event) {
+                    return _vm.$store.dispatch("postMessage")
+                  }
+                }
+              },
+              [_vm._v("Post")]
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("div", [
         _c(
           "button",
           {
             staticClass:
-              "flex justify-center items-center rounded-full w-10 h-10 bg-gray-200"
+              "flex justify-center items-center rounded-full w-10 h-10 bg-gray-200 font-sans font-bold"
           },
           [
             _c(
@@ -38161,18 +38222,6 @@ var staticRenderFns = [
           }
         })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-1 mx-4" }, [
-      _c("input", {
-        staticClass:
-          "w-full pl-4 h-8 bg-gray-200 rounded-full focus:outline-none focus:shadow-outline text-sm",
-        attrs: { type: "text", name: "body", placeholder: "Add a post" }
-      })
     ])
   }
 ]
@@ -38428,7 +38477,9 @@ var render = function() {
     [
       _c("NewPost"),
       _vm._v(" "),
-      _vm.loading ? _c("p", [_vm._v("Loading Posts")]) : _vm._e(),
+      _vm.newsStatus.postsStatus === "loading"
+        ? _c("p", [_vm._v("Loading Posts")])
+        : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.posts.data, function(post) {
         return _c("Post", { key: post.data.post_id, attrs: { post: post } })
@@ -55569,6 +55620,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/user */ "./resources/js/store/modules/user.js");
 /* harmony import */ var _modules_test__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/test */ "./resources/js/store/modules/test.js");
 /* harmony import */ var _modules_profile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/profile */ "./resources/js/store/modules/profile.js");
+/* harmony import */ var _modules_posts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/posts */ "./resources/js/store/modules/posts.js");
+
 
 
 
@@ -55579,9 +55632,89 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   modules: {
     User: _modules_user__WEBPACK_IMPORTED_MODULE_2__["default"],
     Title: _modules_test__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Profile: _modules_profile__WEBPACK_IMPORTED_MODULE_4__["default"]
+    Profile: _modules_profile__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Posts: _modules_posts__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/posts.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/posts.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var state = {
+  newsPosts: null,
+  newsPostsStatus: null,
+  postMessage: ''
+};
+var getters = {
+  newsPosts: function newsPosts(state) {
+    return state.newsPosts;
+  },
+  newsStatus: function newsStatus(state) {
+    return {
+      newsPostsStatus: state.newsPostsStatus
+    };
+  },
+  postMessage: function postMessage(state) {
+    return state.postMessage;
+  }
+};
+var actions = {
+  fetchNewsPosts: function fetchNewsPosts(_ref) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    commit('setPostsStatus', 'loading');
+    axios.get('/api/posts').then(function (res) {
+      commit('setPosts'.res.data);
+      commit('setPostsStatus', 'success');
+    })["catch"](function (error) {
+      commit('setPostsStatus', 'error');
+    });
+  },
+  postMessage: function postMessage(_ref2) {
+    var commit = _ref2.commit,
+        state = _ref2.state;
+    commit('setPostsStatus', 'loading');
+    axios.post('/api/posts', {
+      body: state.postMessage
+    }).then(function (res) {
+      commit('pushPost'.res.data);
+      commit('updateMessage', '');
+    })["catch"](function (error) {// commit('setPostsStatus', 'error');
+    });
+  }
+};
+var mutations = (_mutations = {
+  setPosts: function setPosts(state, posts) {
+    state.newsPosts = posts;
+  },
+  setPostsStatus: function setPostsStatus(state, posts) {
+    state.newsPostsStatus = posts;
+  }
+}, _defineProperty(_mutations, "setPostsStatus", function setPostsStatus(state, posts) {
+  state.newsPostsStatus = posts;
+}), _defineProperty(_mutations, "updateMessage", function updateMessage(state, message) {
+  state.postMessage = message;
+}), _defineProperty(_mutations, "pushPost", function pushPost(state, post) {
+  state.newsPosts.data.unshift(post);
+}), _mutations);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 

@@ -28,14 +28,15 @@ class PostController extends Controller
     {
 
         $data=request()->validate([
-            'data.attributes.body'=>' ',
+            // 'data.attributes.body'=>' ',
+            'body'=>' ',
 
         ]);
-        //  dd($data);
-        $post=request()->user()->posts()->create
-        ($data['data']['attributes']);
+
+        $post=request()->user()->posts()->create($data);
+
         return new ResourcesPost($post);
-        // return response([], 201);
+
     }
 
 }

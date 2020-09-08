@@ -1,4 +1,5 @@
 <template>
+<div id="app">
     <div class="flex flex-col flex-1 h-screen overflow-y-hidden" v-if="authUser">
         <Nav/>
 
@@ -9,6 +10,7 @@
                 <router-view :key="$route.fullPath"></router-view>
             </div>
         </div>
+    </div>
     </div>
 </template>
 

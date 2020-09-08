@@ -21,7 +21,7 @@
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
 </head>
-<body class="bg-gray-200 text-gray-400 antiliased font-sans">
+<body class="bg-gray-400 text-gray-800 antiliased font-sans">
     <div id="app">
 
 
