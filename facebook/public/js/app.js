@@ -38169,7 +38169,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Post")]
+              [_vm._v("Post Now")]
             )
           : _vm._e()
       ]),
