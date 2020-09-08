@@ -2078,7 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
       // }
       set: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (postMessage) {
         this.$store.commit('updateMessage', postMessage);
-      }, 1000)
+      }, 300)
     }
   }
 });
@@ -55676,20 +55676,32 @@ var actions = {
         state = _ref.state;
     commit('setPostsStatus', 'loading');
     axios.get('/api/posts').then(function (res) {
-      commit('setPosts'.res.data);
+      commit('setPosts', res.data);
       commit('setPostsStatus', 'success');
     })["catch"](function (error) {
       commit('setPostsStatus', 'error');
     });
   },
-  postMessage: function postMessage(_ref2) {
+  fetchUserPosts: function fetchUserPosts(_ref2, userId) {
     var commit = _ref2.commit,
-        state = _ref2.state;
+        dispatch = _ref2.dispatch;
+    commit('setPostsStatus', 'loading');
+    axios.get('/api/users/' + userId + '/posts').then(function (res) {
+      commit('setPosts', res.data);
+      commit('setPostsStatus', 'success');
+    })["catch"](function (error) {
+      commit('setPostsStatus', 'error');
+    });
+  },
+  postMessage: function postMessage(_ref3) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     commit('setPostsStatus', 'loading');
     axios.post('/api/posts', {
       body: state.postMessage
     }).then(function (res) {
-      commit('pushPost'.res.data);
+      commit('pushPost', res.data);
+      commit('setPostsStatus', 'success');
       commit('updateMessage', '');
     })["catch"](function (error) {// commit('setPostsStatus', 'error');
     });

@@ -25,7 +25,6 @@
  import _  from 'lodash';
     export default {
         name: "NewPost",
-
         computed: {
             postMessage:{
             get(){
@@ -36,13 +35,11 @@
             // }
             set: _.debounce(function(postMessage){
                       this.$store.commit('updateMessage',postMessage);
-            },1000)
+            },300)
             }
-
         },
     }
 </script>
 
 <style scoped>
-
 </style>
