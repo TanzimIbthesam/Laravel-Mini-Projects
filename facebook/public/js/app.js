@@ -38563,7 +38563,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n" + _vm._s(_vm.friendButtonText) + "\n\n")]
+                      [
+                        _vm._v(
+                          "\r\n" + _vm._s(_vm.friendButtonText) + "\r\n\r\n"
+                        )
+                      ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -38582,7 +38586,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n\nAccept\n")]
+                      [_vm._v("\r\n\r\nAccept\r\n")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -38601,7 +38605,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n\nIgnore\n")]
+                      [_vm._v("\r\n\r\nIgnore\r\n")]
                     )
                   : _vm._e()
               ]
