@@ -70,7 +70,7 @@ class LikesTest extends TestCase
                                         ]
                                     ],
                                     'like_count' => 1,
-                                    'user_likes_post' => true,
+                                    'user_likes_post' =>true,
                                 ],
                             ]
                         ]

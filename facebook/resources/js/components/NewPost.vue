@@ -10,7 +10,7 @@
                 <input v-model="postMessage" type="text" name="body" class="w-full pl-4 h-8 bg-gray-200 rounded-full focus:outline-none focus:shadow-outline text-sm" placeholder="Add a post">
                 <button
                 v-if="postMessage"
-                @click="$store.dispatch('postMessage')" class="bg-gray-300 ml-2 px-2 py-1 rounded-lg">Post Now</button>
+                @click="$store.dispatch('postMessage')" class="bg-gray-300 ml-2 px-2 py-1 rounded-lg">Post</button>
             </div>
             <div>
                 <button class="flex justify-center items-center rounded-full w-10 h-10 bg-gray-200 font-sans font-bold">
