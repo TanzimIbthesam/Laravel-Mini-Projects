@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Post;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
