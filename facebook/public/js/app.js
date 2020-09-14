@@ -2181,6 +2181,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Post",
   props: ['post'],
@@ -2258,7 +2259,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$store.dispatch('fetchNewsPosts');
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
-    posts: 'newsPosts',
+    posts: 'posts',
     newsStatus: 'newsStatus'
   }))
 });
@@ -38470,7 +38471,12 @@ var render = function() {
                     }
                   ],
                   staticClass: "w-full pl-4 h-8 bg-gray-200 rounded",
-                  attrs: { type: "text", name: "comments", id: "" },
+                  attrs: {
+                    placeholder: "Write your comment here",
+                    type: "text",
+                    name: "comments",
+                    id: ""
+                  },
                   domProps: { value: _vm.commentBody },
                   on: {
                     input: function($event) {
@@ -38505,51 +38511,55 @@ var render = function() {
               ]),
               _vm._v(" "),
               _vm._l(_vm.post.data.attributes.comments.data, function(comment) {
-                return _c("div", { staticClass: "flex my-4 items-center" }, [
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "ml-4 flex-1" }, [
-                    _c(
-                      "div",
-                      { staticClass: "bg-gray-200 rounded-lg p-2 text-sm" },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "font-bold text-blue-700",
-                            attrs: {
-                              href:
-                                "/users/" +
-                                comment.data.attributes.commented_by.data
-                                  .user_id,
-                              target: "_blank"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  comment.data.attributes.commented_by.data
-                                    .attributes.name
-                                ) +
-                                "\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "inline" }, [
-                          _vm._v(_vm._s(comment.data.attributes.body))
-                        ])
-                      ]
-                    ),
+                return _c(
+                  "div",
+                  { key: comment, staticClass: "flex my-4 items-center" },
+                  [
+                    _vm._m(1, true),
                     _vm._v(" "),
-                    _c("div", { staticClass: "text-xs pl-2" }, [
-                      _c("p", [
-                        _vm._v(_vm._s(comment.data.attributes.commented_at))
+                    _c("div", { staticClass: "ml-4 flex-1" }, [
+                      _c(
+                        "div",
+                        { staticClass: "bg-gray-200 rounded-lg p-2 text-sm" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "font-bold text-blue-700",
+                              attrs: {
+                                href:
+                                  "/users/" +
+                                  comment.data.attributes.commented_by.data
+                                    .user_id,
+                                target: "_blank"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(
+                                    comment.data.attributes.commented_by.data
+                                      .attributes.name
+                                  ) +
+                                  "\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "inline" }, [
+                            _vm._v(" " + _vm._s(comment.data.attributes.body))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-xs pl-2" }, [
+                        _c("p", [
+                          _vm._v(_vm._s(comment.data.attributes.commented_at))
+                        ])
                       ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               })
             ],
             2
@@ -38658,7 +38668,7 @@ var render = function() {
     [
       _c("NewPost"),
       _vm._v(" "),
-      _vm.newsStatus.postsStatus === "loading"
+      _vm.newsStatus.postsStats === "loading"
         ? _c("p", [_vm._v("Loading Posts")])
         : _vm._l(_vm.posts.data, function(post, postKey) {
             return _c("Post", { key: postKey, attrs: { post: post } })
@@ -38742,11 +38752,7 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\r\n" + _vm._s(_vm.friendButtonText) + "\r\n\r\n"
-                        )
-                      ]
+                      [_vm._v("\n" + _vm._s(_vm.friendButtonText) + "\n\n")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -38765,7 +38771,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\r\n\r\nAccept\r\n")]
+                      [_vm._v("\n\nAccept\n")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -38784,7 +38790,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\r\n\r\nIgnore\r\n")]
+                      [_vm._v("\n\nIgnore\n")]
                     )
                   : _vm._e()
               ]
@@ -38797,11 +38803,8 @@ var render = function() {
             ? _c("div", { staticClass: "text-red-300 text-2xl" }, [
                 _vm._v("No Posts available")
               ])
-            : _vm._l(_vm.posts.data, function(post) {
-                return _c("Post", {
-                  key: post.data.post_id,
-                  attrs: { post: post }
-                })
+            : _vm._l(_vm.posts.data, function(post, postKey) {
+                return _c("Post", { key: postKey, attrs: { post: post } })
               })
         ],
         2
@@ -55836,13 +55839,13 @@ var _mutations;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var state = {
-  newsPosts: null,
+  posts: null,
   newsPostsStatus: null,
   postMessage: ''
 };
 var getters = {
-  newsPosts: function newsPosts(state) {
-    return state.newsPosts;
+  posts: function posts(state) {
+    return state.posts;
   },
   newsStatus: function newsStatus(state) {
     return {
@@ -55916,7 +55919,7 @@ var actions = {
 };
 var mutations = (_mutations = {
   setPosts: function setPosts(state, posts) {
-    state.newsPosts = posts;
+    state.posts = posts;
   },
   setPostsStatus: function setPostsStatus(state, posts) {
     state.newsPostsStatus = posts;
@@ -55926,11 +55929,11 @@ var mutations = (_mutations = {
 }), _defineProperty(_mutations, "updateMessage", function updateMessage(state, message) {
   state.postMessage = message;
 }), _defineProperty(_mutations, "pushPost", function pushPost(state, post) {
-  state.newsPosts.data.unshift(post);
+  state.posts.data.unshift(post);
 }), _defineProperty(_mutations, "pushLikes", function pushLikes(state, data) {
-  state["new"], sPosts.data[data.postKey].data.attributes.likes = data.likes;
+  state.posts.data[data.postKey].data.attributes.likes = data.likes;
 }), _defineProperty(_mutations, "pushComments", function pushComments(state, data) {
-  state.newsPosts.data[data.postKey].data.attributes.comments = data.comments;
+  state.posts.data[data.postKey].data.attributes.comments = data.comments;
 }), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
@@ -55952,18 +55955,18 @@ var mutations = (_mutations = {
 __webpack_require__.r(__webpack_exports__);
 var state = {
   user: null,
-  userStatus: null,
-  posts: null,
-  postsStatus: null // friendButtonText:null
+  userStatus: null // posts:null,
+  // postsStatus:null,
+  // friendButtonText:null
 
 };
 var getters = {
   user: function user(state) {
     return state.user;
   },
-  posts: function posts(state) {
-    return state.posts;
-  },
+  // posts: state => {
+  //     return state.posts;
+  // },
   status: function status(state) {
     return {
       user: state.userStatus,
@@ -55986,20 +55989,7 @@ var getters = {
     }
 
     return 'Accept';
-  } //  friendButtonText: (state, getters, rootState) => {
-  //      if (rootState.User.user.data.user_id === state.user.data.user_id) {
-  //          return '';
-  //      } else if (getters.friendship === null) {
-  //          return 'Add Friend';
-  //      } else if (getters.friendship.data.attributes.confirmed_at === null &&
-  //          getters.friendship.data.attributes.friend_id !== rootState.User.user.data.user_id) {
-  //          return 'Pending Friend Request';
-  //      } else if (getters.friendship.data.attributes.confirmed_at !== null) {
-  //          return '';
-  //      }
-  //      return 'Accept';
-  //  }
-
+  }
 };
 var actions = {
   fetchUser: function fetchUser(_ref, userId) {
@@ -56013,20 +56003,21 @@ var actions = {
       commit('setUserStatus', 'error');
     });
   },
-  fetchUserPosts: function fetchUserPosts(_ref2, userId) {
+  // fetchUserPosts({commit, dispatch
+  // },userId) {
+  //         commit('setPostsStatus', 'loading');
+  //             axios.get('/api/users/' + userId + '/posts')
+  //                .then(res=>{
+  //                  commit('setPosts', res.data);
+  //                   commit('setPostsStatus', 'success');
+  //                })
+  //                .catch(error=>{
+  //                      commit('setPostsStatus', 'error');
+  //                });
+  // },
+  sendFriendRequest: function sendFriendRequest(_ref2, friendId) {
     var commit = _ref2.commit,
-        dispatch = _ref2.dispatch;
-    commit('setPostsStatus', 'loading');
-    axios.get('/api/users/' + userId + '/posts').then(function (res) {
-      commit('setPosts', res.data);
-      commit('setPostsStatus', 'success');
-    })["catch"](function (error) {
-      commit('setPostsStatus', 'error');
-    });
-  },
-  sendFriendRequest: function sendFriendRequest(_ref3, friendId) {
-    var commit = _ref3.commit,
-        getters = _ref3.getters;
+        getters = _ref2.getters;
 
     if (getters.friendButtonText !== 'Add Friend') {
       return;
@@ -56040,9 +56031,9 @@ var actions = {
     })["catch"](function (error) {// commit('sendButtonText', 'Add Friend');
     });
   },
-  acceptFriendRequest: function acceptFriendRequest(_ref4, userId) {
-    var commit = _ref4.commit,
-        state = _ref4.state;
+  acceptFriendRequest: function acceptFriendRequest(_ref3, userId) {
+    var commit = _ref3.commit,
+        state = _ref3.state;
     axios.post('/api/friend-request-response', {
       'user_id': userId,
       'status': 1
@@ -56051,9 +56042,9 @@ var actions = {
     })["catch"](function (error) {// commit('sendButtonText', 'Add Friend');
     });
   },
-  ignoreFriendRequest: function ignoreFriendRequest(_ref5, userId) {
-    var commit = _ref5.commit,
-        state = _ref5.state;
+  ignoreFriendRequest: function ignoreFriendRequest(_ref4, userId) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
     axios["delete"]('/api/friend-request-response/delete', {
       data: {
         'user_id': userId
@@ -56067,18 +56058,18 @@ var mutations = {
   setUser: function setUser(state, user) {
     state.user = user;
   },
-  setPosts: function setPosts(state, posts) {
-    state.posts = posts;
-  },
+  // setPosts(state, posts) {
+  //     state.posts =posts;
+  // },
   setUserFriendship: function setUserFriendship(state, friendship) {
     state.user.data.attributes.friendship = friendship;
   },
   setUserStatus: function setUserStatus(state, status) {
     state.userStatus = status;
-  },
-  setPostsStatus: function setPostsStatus(state, status) {
-    state.postsStatus = status;
-  }
+  } // setPostsStatus(state,status){
+  //     state.postsStatus=status;
+  // }
+
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,

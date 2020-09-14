@@ -35,7 +35,7 @@ Ignore
 
 
 <div class="text-red-300 text-2xl" v-else-if="posts.data.length<1">No Posts available</div>
-<Post v-else  v-for="post in posts.data" :key="post.data.post_id" :post="post"/>
+<Post v-else  v-for="(post,postKey) in posts.data" :key="postKey" :post="post"/>
 </div>
 
 

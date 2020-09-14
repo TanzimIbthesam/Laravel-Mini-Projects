@@ -1,11 +1,11 @@
 const state = {
-    newsPosts: null,
+    posts: null,
     newsPostsStatus: null,
     postMessage: ''
 };
 const getters = {
-    newsPosts: state => {
-        return state.newsPosts;
+    posts: state => {
+        return state.posts;
     },
     newsStatus: state => {
         return {
@@ -102,7 +102,7 @@ const actions = {
 };
 const mutations = {
     setPosts(state, posts) {
-        state.newsPosts = posts;
+        state.posts = posts;
     },
     setPostsStatus(state, posts) {
         state.newsPostsStatus = posts;
@@ -114,13 +114,13 @@ const mutations = {
         state.postMessage = message;
     },
     pushPost(state, post) {
-        state.newsPosts.data.unshift(post);
+        state.posts.data.unshift(post);
     },
     pushLikes(state,data){
-        state.new,sPosts.data[data.postKey].data.attributes.likes=data.likes
+        state.posts.data[data.postKey].data.attributes.likes=data.likes
     },
     pushComments(state,data){
-        state.newsPosts.data[data.postKey].data.attributes.comments=data.comments
+        state.posts.data[data.postKey].data.attributes.comments=data.comments
     }
 
 };

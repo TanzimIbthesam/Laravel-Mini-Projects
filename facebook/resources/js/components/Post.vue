@@ -52,7 +52,7 @@
         </div>
         <div v-if="comments" class="border-gray-400 p-4 pt-2">
         <div class="flex">
-            <input v-model=" commentBody" type="text" name="comments" id="" class="w-full pl-4 h-8 bg-gray-200 rounded">
+            <input placeholder="Write your comment here" v-model=" commentBody"  type="text" name="comments" id="" class="w-full pl-4 h-8 bg-gray-200 rounded">
             <button v-if="commentBody"
             class="bg-gray-200 ml-2 px-2 py-1 rounded focus:outline-none"
             @click="$store.dispatch('commentPost',{body:commentBody,postId:post.data.post_id,postKey:$vnode.key}); commentBody='' "
@@ -61,7 +61,7 @@
             </button>
 
     </div>
-    <div class="flex my-4 items-center" v-for="comment in post.data.attributes.comments.data" >
+    <div class="flex my-4 items-center" v-for="comment in post.data.attributes.comments.data" :key="comment">
            <div class="w-8">
                <img src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user" class="w-8 h-8 object-cover rounded-full">
            </div>
@@ -71,7 +71,8 @@
                             {{ comment.data.attributes.commented_by.data.attributes.name }}
                         </a>
 
-                   <p class="inline">{{comment.data.attributes.body}}</p>
+                   <p class="inline"> {{comment.data.attributes.body}}</p>
+
                </div>
                <div class="text-xs pl-2">
                         <p>{{ comment.data.attributes.commented_at }}</p>
