@@ -83,7 +83,22 @@ const actions = {
                 // commit('setPostsStatus', 'error');
             });
 
-    }
+    },
+    commentPost({ commit, state }, data) {
+        axios.post('/api/posts/' + data.postId + '/comment',{body:data.body})
+            .then(res => {
+                commit('pushComments', {
+                    comments: res.data,
+                    postKey: data.postKey
+                });
+
+            })
+            .catch(error => {
+                // commit('setPostsStatus', 'error');
+            });
+
+    },
+
 };
 const mutations = {
     setPosts(state, posts) {
@@ -102,7 +117,10 @@ const mutations = {
         state.newsPosts.data.unshift(post);
     },
     pushLikes(state,data){
-        state.newsPosts.data[data.postKey].data.attributes.likes=data.likes
+        state.new,sPosts.data[data.postKey].data.attributes.likes=data.likes
+    },
+    pushComments(state,data){
+        state.newsPosts.data[data.postKey].data.attributes.comments=data.comments
     }
 
 };

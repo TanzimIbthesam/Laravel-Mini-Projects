@@ -2180,6 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Post",
   props: ['post'],
@@ -38486,7 +38487,17 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "bg-gray-200 ml-2 px-2 py-1 rounded focus:outline-none"
+                          "bg-gray-200 ml-2 px-2 py-1 rounded focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            _vm.$store.dispatch("commentPost", {
+                              body: _vm.commentBody,
+                              postId: _vm.post.data.post_id,
+                              postKey: _vm.$vnode.key
+                            })
+                            _vm.commentBody = ""
+                          }
+                        }
                       },
                       [_vm._v("\n        Post\n        ")]
                     )
@@ -55888,6 +55899,19 @@ var actions = {
       });
     })["catch"](function (error) {// commit('setPostsStatus', 'error');
     });
+  },
+  commentPost: function commentPost(_ref5, data) {
+    var commit = _ref5.commit,
+        state = _ref5.state;
+    axios.post('/api/posts/' + data.postId + '/comment', {
+      body: data.body
+    }).then(function (res) {
+      commit('pushComments', {
+        comments: res.data,
+        postKey: data.postKey
+      });
+    })["catch"](function (error) {// commit('setPostsStatus', 'error');
+    });
   }
 };
 var mutations = (_mutations = {
@@ -55904,7 +55928,9 @@ var mutations = (_mutations = {
 }), _defineProperty(_mutations, "pushPost", function pushPost(state, post) {
   state.newsPosts.data.unshift(post);
 }), _defineProperty(_mutations, "pushLikes", function pushLikes(state, data) {
-  state.newsPosts.data[data.postKey].data.attributes.likes = data.likes;
+  state["new"], sPosts.data[data.postKey].data.attributes.likes = data.likes;
+}), _defineProperty(_mutations, "pushComments", function pushComments(state, data) {
+  state.newsPosts.data[data.postKey].data.attributes.comments = data.comments;
 }), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
