@@ -23,6 +23,7 @@ class Comment extends JsonResource
                     'commented_by' => new UserResource($this->user),
                     'body' => $this->body,
                     'commented_at' => $this->created_at->diffForHumans(),
+                    
                 ]
             ],
             'links' => [
