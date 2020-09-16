@@ -1,9 +1,14 @@
 <template>
 <div class="flex flex-col items-center" v-if="status.user==='success' && user ">
     <div class="relative">
-        <div class="w-full  overflow-hidden z-10">
-            <UploadableImage image-width="1500" image-height="300" location="cover"/>
-    </div>
+      <div class="w-full h-64 overflow-hidden z-10">
+                <UploadableImage image-width="1500"
+                                 image-height="500"
+                                 location="cover"
+                                 alt="user background image"
+                                 classes="object-cover w-full"
+                                 :user-image="user.data.attributes.cover_image"/>
+            </div>
     <div class="absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20">
          <img  src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user"
        class="w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg"

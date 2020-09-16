@@ -2240,12 +2240,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['imageWidth', 'imageHeight', 'location'],
+  props: ['userImage', 'imageWidth', 'imageHeight', 'location', 'classes', 'alt'],
   data: function data() {
     return {
-      dropzone: null
+      dropzone: null,
+      uploadedImage: null
     };
   },
   mounted: function mounted() {
@@ -2253,6 +2255,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     settings: function settings() {
+      var _this = this;
+
       return {
         paramName: 'image',
         url: '/api/user-images',
@@ -2266,9 +2270,12 @@ __webpack_require__.r(__webpack_exports__);
           'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
         },
         success: function success(e, res) {
-          alert('Uploaded');
+          _this.uploadedImage = res;
         }
       };
+    },
+    imageObject: function imageObject() {
+      return this.uploadedImage || this.userImage;
     }
   }
 });
@@ -2345,6 +2352,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42255,12 +42267,8 @@ var render = function() {
   return _c("div", [
     _c("img", {
       ref: "userImage",
-      staticClass: "object-cover w-full h-64",
-      attrs: {
-        src:
-          "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-        alt: ""
-      }
+      class: _vm.classes,
+      attrs: { src: _vm.imageObject.data.attributes.path, alt: _vm.alt }
     })
   ])
 }
@@ -42331,13 +42339,16 @@ var render = function() {
           _c("div", { staticClass: "relative" }, [
             _c(
               "div",
-              { staticClass: "w-full  overflow-hidden z-10" },
+              { staticClass: "w-full h-64 overflow-hidden z-10" },
               [
                 _c("UploadableImage", {
                   attrs: {
                     "image-width": "1500",
-                    "image-height": "300",
-                    location: "cover"
+                    "image-height": "500",
+                    location: "cover",
+                    alt: "user background image",
+                    classes: "object-cover w-full",
+                    "user-image": _vm.user.data.attributes.cover_image
                   }
                 })
               ],

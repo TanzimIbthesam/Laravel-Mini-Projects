@@ -1,11 +1,12 @@
 <template>
    <div>
 
-        <img
-        src="https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-        class="object-cover w-full h-64"
-        alt=""
-         ref="userImage">
+
+      <img :src="imageObject.data.attributes.path"
+
+             ref="userImage"
+             :class="classes"
+             :alt="alt">
    </div>
 
 
@@ -15,13 +16,17 @@
 import Dropzone from 'dropzone';
 export default {
     props:[
+            'userImage',
             'imageWidth',
             'imageHeight',
-            'location'
+            'location',
+            'classes',
+            'alt'
     ],
     data() {
         return {
             dropzone:null,
+            uploadedImage:null,
         }
     },
     mounted() {
@@ -42,9 +47,13 @@ export default {
                     'X-CSRF-TOKEN':document.head.querySelector('meta[name=csrf-token]').content
                 },
                 success:(e,res)=>{
-                  alert('Uploaded');
+                  this.uploadedImage=res;
+
                 }
             };
+        },
+        imageObject(){
+            return this.uploadedImage || this.userImage;
         }
     }
 
