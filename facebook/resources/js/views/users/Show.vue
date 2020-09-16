@@ -10,11 +10,13 @@
                                  :user-image="user.data.attributes.cover_image"/>
             </div>
     <div class="absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20">
-         <img  src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user"
-       class="w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg"
 
-       >
-
+      <UploadableImage image-width="750"
+                                     image-height="750"
+                                     location="profile"
+                                     alt="user profile image"
+                                     classes="object-cover w-32 h-32 border-4 border-gray-200 rounded-full shadow-lg"
+                                     :user-image="user.data.attributes.profile_image"/>
             <p class="text-black text-2xl">{{user.data.attributes.name}}</p>
     </div>
     <div class="absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20">
@@ -68,8 +70,8 @@ export default {
 
 mounted() {
 
-    this.$store.dispatch('fetchUser',+this.$route.params.userId);
-      this.$store.dispatch('fetchUserPosts',+this.$route.params.userId);
+    this.$store.dispatch('fetchUser',this.$route.params.userId);
+      this.$store.dispatch('fetchUserPosts',this.$route.params.userId);
 
 
 
