@@ -2,10 +2,14 @@
 <div class="flex flex-col items-center" v-if="status.user==='success' && user ">
     <div class="relative">
         <div class="w-full  overflow-hidden z-10">
-               <img src="https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="object-cover w-full h-64" alt="">
+            <UploadableImage image-width="1500" image-height="300" location="cover"/>
     </div>
     <div class="absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20">
-      <img  src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user" class="w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg">
+         <img  src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user"
+       class="w-32 h-32 object-cover   border-4 border-gray-400 rounded-full shadow-lg"
+
+       >
+
             <p class="text-black text-2xl">{{user.data.attributes.name}}</p>
     </div>
     <div class="absolute flex items-center bottom-0 right-0 mb-8 mr-12 z-20">
@@ -42,7 +46,9 @@ Ignore
 </template>
 <script>
 import Post from '../../components/Post';
+import UploadableImage from '../../components/UploadableImage';
 import { mapGetters } from 'vuex';
+import Dropzone from 'dropzone';
 export default {
     data:{
 
@@ -51,6 +57,8 @@ export default {
     components:{
 
          Post,
+         UploadableImage,
+         Dropzone
     },
 
 mounted() {
