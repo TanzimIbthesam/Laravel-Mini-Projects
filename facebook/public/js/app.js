@@ -42356,7 +42356,7 @@ var render = function() {
               [
                 _c("UploadableImage", {
                   attrs: {
-                    "image-width": "1500",
+                    "image-width": "1200",
                     "image-height": "500",
                     location: "cover",
                     alt: "user background image",
