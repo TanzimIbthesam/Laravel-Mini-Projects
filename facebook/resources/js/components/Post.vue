@@ -6,7 +6,8 @@
                     <img :src="post.data.attributes.posted_by.data.attributes.profile_image.data.attributes.path" alt="profile image for user" class="w-8 h-8 object-cover rounded-full">
                 </div>
                 <div class="ml-6">
-                    <div class="text-sm font-bold">{{post.data.attributes.posted_by.data.attributes.name}}</div>
+                    <router-link :to=" '/users/' +post.data.attributes.posted_by.data.user_id" target="_blank"><div class="text-sm font-bold">{{post.data.attributes.posted_by.data.attributes.name}}</div></router-link>
+
                     <div class="text-sm text-gray-600">{{post.data.attributes.posted_at}}</div>
                 </div>
             </div>
@@ -89,9 +90,7 @@
 <script>
 import mapGetters from 'vuex';
     export default {
-
         name: "Post",
-
         props:[
             'post',
         ],
@@ -105,5 +104,4 @@ import mapGetters from 'vuex';
 </script>
 
 <style scoped>
-
 </style>

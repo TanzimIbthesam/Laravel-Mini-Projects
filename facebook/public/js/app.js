@@ -2083,9 +2083,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       get: function get() {
         return this.$store.getters.postMessage;
       },
-      // set(postMessage){
-      // this.$store.commit('updateMessage',postMessage);
-      // }
       set: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (postMessage) {
         this.$store.commit('updateMessage', postMessage);
       }, 300)
@@ -2105,6 +2102,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
 //
 //
 //
@@ -41936,17 +41934,37 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "ml-6" }, [
-            _c("div", { staticClass: "text-sm font-bold" }, [
-              _vm._v(
-                _vm._s(_vm.post.data.attributes.posted_by.data.attributes.name)
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-sm text-gray-600" }, [
-              _vm._v(_vm._s(_vm.post.data.attributes.posted_at))
-            ])
-          ])
+          _c(
+            "div",
+            { staticClass: "ml-6" },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to:
+                      "/users/" +
+                      _vm.post.data.attributes.posted_by.data.user_id,
+                    target: "_blank"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "text-sm font-bold" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.post.data.attributes.posted_by.data.attributes.name
+                      )
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-sm text-gray-600" }, [
+                _vm._v(_vm._s(_vm.post.data.attributes.posted_at))
+              ])
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "mt-4" }, [
