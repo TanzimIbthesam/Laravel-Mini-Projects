@@ -25,34 +25,57 @@ class PostController extends Controller
                 ->get()
         );
     }
+    // public function store()
+    // {
+
+    //     $data=request()->validate([
+    //         // 'data.attributes.body'=>' ',
+    //         'body'=>'',
+    //         'image'=>'',
+    //         'width'=>'',
+    //         'height'=>''
+
+    //     ]);
+    //     if(isset($data['image'])){
+    //         $image=$data['image']->store('post-images','public');
+    //         Image::make($data['image'])
+    //         ->fit($data['width'],$data['height'])
+    //         ->save(storage_path('app/public/post-images/'.$data['image']->hashName()));
+    //     }
+
+    //     $post=request()->user()->posts()->create(
+    //         ['body' => $data['body'],
+    //         'image'=>$image ?? null,
+    //     ]);
+
+    //     return new ResourcesPost($post);
+
+    // }
+    // }
     public function store()
     {
-
-        $data=request()->validate([
-            // 'data.attributes.body'=>' ',
-            'body'=>' ',
-            'image'=>' ',
-            'width'=>' ',
-            'height'=>' '
-
+        $data = request()->validate([
+            'body' => '',
+            'image' => '',
+            'width' => '',
+            'height' => '',
         ]);
-        if(isset($data['image'])){
-            $image=$data['image']->store('post-images','public');
+
+        if (isset($data['image'])) {
+            $image = $data['image']->store('post-images', 'public');
+
             Image::make($data['image'])
-            ->fit($data['width'],$data['height'])
-            ->save(storage_path('app/public/post-images/'.$data['image']->hashName()));
+                ->fit($data['width'], $data['height'])
+                ->save(storage_path('app/public/post-images/' . $data['image']->hashName()));
+
         }
 
-        $post=request()->user()->posts()->create(
-            ['body' => $data['body'],
-            'image'=>$image ?? null,
-        ]
+        $post = request()->user()->posts()->create([
+            'body' => $data['body'],
+            'image' => $image ?? null,
+        ]);
 
-
-        );
-
-        return new ResourcesPost($post);
-
+         return new ResourcesPost($post);
     }
 
 }
