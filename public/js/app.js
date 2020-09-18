@@ -2134,8 +2134,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         previewsContainer: '.dropzone-previews',
         previewTemplate: document.querySelector('#dz-template').innerHTML,
         params: {
-          'width': 1000,
-          'height': 1000
+          'width': 700,
+          'height': 700
         },
         headers: {
           'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content
@@ -2181,7 +2181,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-//
 //
 //
 //
@@ -6962,104 +6961,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NewPost.vue?vue&type=style&index=0&id=4f84dfc5&scoped=true&lang=css& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".fade-enter-active[data-v-4f84dfc5], .fade-leave-active[data-v-4f84dfc5] {\n  transition: opacity .5s;\n}\n.fade-enter[data-v-4f84dfc5], .fade-leave-to[data-v-4f84dfc5] {\n  opacity: 0;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
-/*! no static exports found */
 /***/ (function(module, exports) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
+throw new Error("Module build failed (from ./node_modules/postcss-loader/src/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\tailwind.config.js'\n    at Object.openSync (fs.js:457:3)\n    at Object.readFileSync (fs.js:359:35)\n    at createModule (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\getModuleDependencies.js:19:30)\n    at getModuleDependencies (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\getModuleDependencies.js:29:22)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\registerConfigAsDependency.js:20:40\n    at LazyResult.run (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:295:14)\n    at LazyResult.asyncTick (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:208:26)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:250:14\n    at new Promise (<anonymous>)\n    at LazyResult.async (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:246:23)\n    at LazyResult.then (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:127:17)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss-loader\\src\\index.js:142:8");
 
 /***/ }),
 
@@ -42736,7 +42640,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.post.data.attributes.image
+      _vm.post.data.attributes.image.length
         ? _c("div", { staticClass: "w-full" }, [
             _c("img", {
               staticClass: "w-full h-64",
@@ -60823,7 +60727,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/postcss-loader/src/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\tailwind.config.js'\n    at Object.openSync (fs.js:457:3)\n    at Object.readFileSync (fs.js:359:35)\n    at createModule (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\getModuleDependencies.js:19:30)\n    at getModuleDependencies (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\getModuleDependencies.js:29:22)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\tailwindcss\\lib\\lib\\registerConfigAsDependency.js:20:40\n    at LazyResult.run (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:295:14)\n    at LazyResult.asyncTick (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:208:26)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:250:14\n    at new Promise (<anonymous>)\n    at LazyResult.async (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:246:23)\n    at LazyResult.then (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss\\lib\\lazy-result.js:127:17)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss-loader\\src\\index.js:142:8\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\Users\\TANZIM\\Desktop\\Laravelproject\\Git\\Laravel-Mini-Projects\\facebook\\node_modules\\postcss-loader\\src\\index.js:208:9");
 
 /***/ }),
 

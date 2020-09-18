@@ -16,10 +16,9 @@
             </div>
         </div>
 
-        <div class="w-full" v-if="post.data.attributes.image">
+        <div class="w-full" v-if="post.data.attributes.image.length">
             <img :src="post.data.attributes.image" alt="post image" class="w-full h-64">
         </div>
-
         <div v-else>
           <p class='text-red-400 text-2xl'>Image not available</p>
         </div>

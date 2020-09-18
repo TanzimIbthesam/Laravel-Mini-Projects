@@ -87,8 +87,8 @@
                     previewsContainer: '.dropzone-previews',
                     previewTemplate: document.querySelector('#dz-template').innerHTML,
                     params: {
-                        'width': 1000,
-                        'height': 1000,
+                        'width':700,
+                        'height':700,
                     },
                     headers: {
                         'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
