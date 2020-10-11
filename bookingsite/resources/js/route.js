@@ -5,11 +5,14 @@ import ExampleComponent from './component/ExampleComponent';
 Vue.use(VueRouter);
 const routes = [
   { path: '/',
-  component: ExampleComponent },
+  component: ExampleComponent,
+name:'home'
+},
 
 ]
 const router = new VueRouter({
-  routes
-});
+    routes,
+  mode: "history"
 
+});
 export default router;
