@@ -20441,11 +20441,7 @@ var render = function() {
                 _c(
                   "li",
                   { staticClass: "nav-item active" },
-                  [
-                    _c("router-link", { attrs: { to: { name: "home" } } }, [
-                      _vm._v("Home")
-                    ])
-                  ],
+                  [_c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")])],
                   1
                 ),
                 _vm._v(" "),
