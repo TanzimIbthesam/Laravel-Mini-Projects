@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-          <router-link to="/">Home</router-link>
+          <router-link :to="{name:'home'}">Home</router-link>
         <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
       </li>
       <li class="nav-item">
