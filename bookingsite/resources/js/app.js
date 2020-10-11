@@ -1,9 +1,17 @@
 require('./bootstrap');
 import router from './route';
+import VueRouter from 'vue-router';
+
+import index from './index.vue'
+
 window.Vue = require('vue');
-Vue.component('example-component', require('./component/ExampleComponent.vue').default);
+Vue.use(VueRouter);
+
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    components:{
+      index:index
+    }
 });
 
