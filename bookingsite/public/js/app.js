@@ -1923,6 +1923,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1931,8 +1933,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       bookables: null,
-      loading: false
+      loading: false,
+      columns: 3
     };
+  },
+  computed: {
+    rows: function rows() {
+      return this.bookables === null ? 0 : Math.ceil(this.bookables.length / this.columns);
+    }
   },
   created: function created() {
     var _this = this;
@@ -1940,6 +1948,24 @@ __webpack_require__.r(__webpack_exports__);
     this.loading = true;
     setTimeout(function () {
       _this.bookables = [{
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }, {
         title: "Cheap Villa !!!",
         content: "A very cheap villa"
       }];
@@ -20438,6 +20464,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm._v("\n   Row is- " + _vm._s(_vm.rows) + "\n        "),
     _vm.loading
       ? _c("div", [
           _c("h1", { staticClass: "text-warning" }, [
