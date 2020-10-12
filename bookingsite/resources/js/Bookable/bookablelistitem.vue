@@ -1,33 +1,14 @@
 <template>
-<div>
-
-
-<div class="card"  v-for="bookable in bookables" :key="bookable">
-    <div class="card-header">
-           <h1 class="text-warning">{{bookable.title}}</h1>
-    </div>
+  <div class="card">
     <div class="card-body">
-               <p class="text-primary">{{bookable.content}}</p>
-
+      <h5 class="card-title">{{ itemTitle }}</h5>
+      <p class="card-text">{{ itemContent }}</p>
     </div>
-
-
-    </div>
-    </div>
-
-
-
-
+  </div>
 </template>
+
 <script>
 export default {
-props:['bookables'],
-mounted() {
-    console.log(this.title);
-},
-
-}
+  props: { itemTitle: String, itemContent: String, price: Number }
+};
 </script>
-<style lang="">
-
-</style>

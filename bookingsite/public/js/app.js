@@ -1925,10 +1925,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    bookablelistitem: _bookablelistitem__WEBPACK_IMPORTED_MODULE_0__["default"]
+    BookableListItem: _bookablelistitem__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -1942,32 +1949,41 @@ __webpack_require__.r(__webpack_exports__);
       return this.bookables === null ? 0 : Math.ceil(this.bookables.length / this.columns);
     }
   },
+  methods: {
+    bookablesInRow: function bookablesInRow(row) {
+      return this.bookables.slice((row - 1) * this.columns, row * this.columns);
+    },
+    placeholdersInRow: function placeholdersInRow(row) {
+      return this.columns - this.bookablesInRow(row).length;
+    }
+  },
   created: function created() {
     var _this = this;
 
     this.loading = true;
     setTimeout(function () {
       _this.bookables = [{
+        id: 1,
         title: "Cheap Villa !!!",
         content: "A very cheap villa"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }, {
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
+        title: "Cheap Villa 2",
+        content: "A very cheap villa 2"
       }];
       _this.loading = false;
     }, 2000);
@@ -1994,22 +2010,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['bookables'],
-  mounted: function mounted() {
-    console.log(this.title);
+  props: {
+    itemTitle: String,
+    itemContent: String,
+    price: Number
   }
 });
 
@@ -20464,17 +20469,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._v("\n   Row is- " + _vm._s(_vm.rows) + "\n        "),
     _vm.loading
-      ? _c("div", [
-          _c("h1", { staticClass: "text-warning" }, [
-            _vm._v("Data is loading .....")
-          ])
-        ])
+      ? _c("div", [_vm._v("Data is loading...")])
       : _c(
           "div",
-          [_c("bookablelistitem", { attrs: { bookables: _vm.bookables } })],
-          1
+          _vm._l(_vm.rows, function(row) {
+            return _c(
+              "div",
+              { key: "row" + row, staticClass: "row mb-4" },
+              [
+                _vm._l(_vm.bookablesInRow(row), function(bookable, column) {
+                  return _c(
+                    "div",
+                    { key: "row" + row + column, staticClass: "col" },
+                    [
+                      _c("bookable-list-item", {
+                        attrs: {
+                          "item-title": bookable.title,
+                          "item-content": bookable.content,
+                          price: 1000
+                        }
+                      })
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.placeholdersInRow(row), function(p) {
+                  return _c("div", {
+                    key: "placeholder" + row + p,
+                    staticClass: "col"
+                  })
+                })
+              ],
+              2
+            )
+          }),
+          0
         )
   ])
 }
@@ -20500,25 +20531,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.bookables, function(bookable) {
-      return _c("div", { key: bookable, staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h1", { staticClass: "text-warning" }, [
-            _vm._v(_vm._s(bookable.title))
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("p", { staticClass: "text-primary" }, [
-            _vm._v(_vm._s(bookable.content))
-          ])
-        ])
-      ])
-    }),
-    0
-  )
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemContent))])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
