@@ -1918,6 +1918,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     bookablelistitem: _bookablelistitem__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  beforeCreate: function beforeCreate() {
+    console.log("Before Created");
+  },
+  created: function created() {
+    console.log("Created");
+  },
+  beforeMount: function beforeMount() {
+    console.log("Before Mount");
+  },
+  mounted: function mounted() {
+    console.log("Mounted");
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log("Before destroy");
+  },
+  destroy: function destroy() {
+    console.log("Destroyed");
   }
 });
 
@@ -1946,6 +1964,9 @@ __webpack_require__.r(__webpack_exports__);
     title: String,
     content: String,
     price: Number
+  },
+  mounted: function mounted() {
+    console.log(this.title);
   }
 });
 

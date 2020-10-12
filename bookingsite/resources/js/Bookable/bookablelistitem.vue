@@ -13,7 +13,10 @@ props:{
 title:String,
 content:String,
 price:Number
-}
+},
+mounted() {
+    console.log(this.title);
+},
 }
 </script>
 <style lang="">
