@@ -1928,6 +1928,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1959,19 +1962,6 @@ __webpack_require__.r(__webpack_exports__);
         'content': 'Content  Three'
       };
     }, 2000);
-    setTimeout(function () {
-      console.log("First change");
-      _this.bookableone.title = "Changed New Villa";
-      _this.bookableone.content = "Resort";
-    }, 2000);
-    setTimeout(function () {
-      _this.bookabletwo.title = "Changed New Villa two";
-      _this.bookabletwo.content = "Resort two";
-    }, 5000);
-    setTimeout(function () {
-      _this.bookablethree.title = "Changed New Villa three";
-      _this.bookablethree.content = "Resort three";
-    }, 8000);
   }
 });
 
@@ -20459,29 +20449,35 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("bookablelistitem", {
-        attrs: {
-          title: _vm.bookableone.title,
-          content: _vm.bookableone.content,
-          price: _vm.bookableone.price
-        }
-      }),
+      _vm.bookableone !== null
+        ? _c("bookablelistitem", {
+            attrs: {
+              title: _vm.bookableone.title,
+              content: _vm.bookableone.content,
+              price: _vm.bookableone.price
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("bookablelistitem", {
-        attrs: {
-          title: _vm.bookabletwo.title,
-          content: _vm.bookabletwo.content,
-          price: _vm.bookabletwo.price
-        }
-      }),
+      _vm.bookabletwo !== null
+        ? _c("bookablelistitem", {
+            attrs: {
+              title: _vm.bookabletwo.title,
+              content: _vm.bookabletwo.content,
+              price: _vm.bookabletwo.price
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("bookablelistitem", {
-        attrs: {
-          title: _vm.bookablethree.title,
-          content: _vm.bookablethree.content,
-          price: _vm.bookablethree.price
-        }
-      })
+      _vm.bookablethree !== null
+        ? _c("bookablelistitem", {
+            attrs: {
+              title: _vm.bookablethree.title,
+              content: _vm.bookablethree.content,
+              price: _vm.bookablethree.price
+            }
+          })
+        : _vm._e()
     ],
     1
   )

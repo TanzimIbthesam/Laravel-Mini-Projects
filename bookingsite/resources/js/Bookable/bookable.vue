@@ -1,16 +1,19 @@
 <template>
     <div>
        <bookablelistitem
+        v-if="bookableone !== null"
        :title="bookableone.title"
       :content="bookableone.content"
        :price="bookableone.price">
        </bookablelistitem>
        <bookablelistitem
+       v-if="bookabletwo !== null"
        :title="bookabletwo.title"
       :content="bookabletwo.content"
        :price="bookabletwo.price">
        </bookablelistitem>
        <bookablelistitem
+        v-if="bookablethree !== null"
        :title="bookablethree.title"
       :content="bookablethree.content"
        :price="bookablethree.price">
@@ -49,19 +52,9 @@ created() {
 
     }, 2000);
 
-    setTimeout(() => {
-        console.log("First change");
-     this.bookableone.title="Changed New Villa";
-     this.bookableone.content="Resort";
-}, 2000);
-    setTimeout(() => {
-     this.bookabletwo.title="Changed New Villa two";
-     this.bookabletwo.content="Resort two";
-}, 5000);
-    setTimeout(() => {
-     this.bookablethree.title="Changed New Villa three";
-     this.bookablethree.content="Resort three";
-}, 8000);
+
+
+
 },
 }
 </script>
