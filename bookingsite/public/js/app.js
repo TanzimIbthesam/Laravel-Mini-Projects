@@ -1937,7 +1937,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // props:['title','content','pri']
+  props: {
+    title: String,
+    content: String,
+    price: Number
+  }
+});
 
 /***/ }),
 
@@ -20389,7 +20399,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("bookablelistitem")], 1)
+  return _c(
+    "div",
+    [
+      _c("bookablelistitem", {
+        attrs: { title: "New Villa", content: "Resort", price: 1000 }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20413,18 +20431,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h1", { staticClass: "text-primary" }, [_vm._v("Bookable list item")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.title))]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.content))]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.price))])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h1", { staticClass: "text-primary" }, [_vm._v("Bookable list item")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

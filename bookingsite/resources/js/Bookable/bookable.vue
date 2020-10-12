@@ -1,6 +1,6 @@
 <template>
     <div>
-       <bookablelistitem></bookablelistitem>
+       <bookablelistitem title="New Villa" content="Resort" :price="1000"></bookablelistitem>
     </div>
 </template>
 <script>
