@@ -1,23 +1,15 @@
 <template>
     <div>
-       <bookablelistitem
-        v-if="bookableone !== null"
-       :title="bookableone.title"
-      :content="bookableone.content"
-       :price="bookableone.price">
+            <div v-if="loading">
+          <h1 class="text-warning">Data is loading .....</h1>
+    </div>
+    <div v-else>
+      <bookablelistitem :bookables="bookables">
        </bookablelistitem>
-       <bookablelistitem
-       v-if="bookabletwo !== null"
-       :title="bookabletwo.title"
-      :content="bookabletwo.content"
-       :price="bookabletwo.price">
-       </bookablelistitem>
-       <bookablelistitem
-        v-if="bookablethree !== null"
-       :title="bookablethree.title"
-      :content="bookablethree.content"
-       :price="bookablethree.price">
-       </bookablelistitem>
+    </div>
+
+
+
     </div>
 </template>
 <script>
@@ -28,34 +20,25 @@ components:{
 },
 data() {
     return {
-        bookableone:null,
-        bookabletwo:null,
-        bookablethree:null
+        bookables:null,
+        loading:false,
+
     }
 },
-created() {
-    console.log("Created");
-    console.log(this.bookableone);
+  created() {
+    this.loading=true;
     setTimeout(() => {
-            this.bookableone={
-         'title':'Villa One',
-         'content':'Content Two'
-    };
-    this.bookabletwo={
-         'title':'Villa Two',
-         'content':'Content  Two'
-    };
-    this.bookablethree={
-         'title':'Villa Three',
-         'content':'Content  Three'
-    };
+      this.bookables = [
+        {
 
+          title: "Cheap Villa !!!",
+          content: "A very cheap villa"
+        },
+
+      ];
+      this.loading = false;
     }, 2000);
-
-
-
-
-},
+  }
 }
 </script>
 <style lang="">

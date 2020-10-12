@@ -1923,14 +1923,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1938,29 +1930,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      bookableone: null,
-      bookabletwo: null,
-      bookablethree: null
+      bookables: null,
+      loading: false
     };
   },
   created: function created() {
     var _this = this;
 
-    console.log("Created");
-    console.log(this.bookableone);
+    this.loading = true;
     setTimeout(function () {
-      _this.bookableone = {
-        'title': 'Villa One',
-        'content': 'Content Two'
-      };
-      _this.bookabletwo = {
-        'title': 'Villa Two',
-        'content': 'Content  Two'
-      };
-      _this.bookablethree = {
-        'title': 'Villa Three',
-        'content': 'Content  Three'
-      };
+      _this.bookables = [{
+        title: "Cheap Villa !!!",
+        content: "A very cheap villa"
+      }];
+      _this.loading = false;
     }, 2000);
   }
 });
@@ -1984,13 +1967,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props:['title','content','pri']
-  props: {
-    title: String,
-    content: String,
-    price: Number
-  },
+  props: ['bookables'],
   mounted: function mounted() {
     console.log(this.title);
   }
@@ -20446,41 +20437,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.bookableone !== null
-        ? _c("bookablelistitem", {
-            attrs: {
-              title: _vm.bookableone.title,
-              content: _vm.bookableone.content,
-              price: _vm.bookableone.price
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.bookabletwo !== null
-        ? _c("bookablelistitem", {
-            attrs: {
-              title: _vm.bookabletwo.title,
-              content: _vm.bookabletwo.content,
-              price: _vm.bookabletwo.price
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.bookablethree !== null
-        ? _c("bookablelistitem", {
-            attrs: {
-              title: _vm.bookablethree.title,
-              content: _vm.bookablethree.content,
-              price: _vm.bookablethree.price
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
+  return _c("div", [
+    _vm.loading
+      ? _c("div", [
+          _c("h1", { staticClass: "text-warning" }, [
+            _vm._v("Data is loading .....")
+          ])
+        ])
+      : _c(
+          "div",
+          [_c("bookablelistitem", { attrs: { bookables: _vm.bookables } })],
+          1
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20504,15 +20473,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", { staticClass: "text-primary" }, [_vm._v("Bookable list item")]),
-    _vm._v(" "),
-    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.title))]),
-    _vm._v(" "),
-    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.content))]),
-    _vm._v(" "),
-    _c("p", { staticClass: "text-primary" }, [_vm._v(_vm._s(_vm.price))])
-  ])
+  return _c(
+    "div",
+    _vm._l(_vm.bookables, function(bookable) {
+      return _c("div", { key: bookable, staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h1", { staticClass: "text-warning" }, [
+            _vm._v(_vm._s(bookable.title))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("p", { staticClass: "text-primary" }, [
+            _vm._v(_vm._s(bookable.content))
+          ])
+        ])
+      ])
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
