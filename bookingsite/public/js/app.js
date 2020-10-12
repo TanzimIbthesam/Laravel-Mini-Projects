@@ -1914,28 +1914,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     bookablelistitem: _bookablelistitem__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  beforeCreate: function beforeCreate() {
-    console.log("Before Created");
+  data: function data() {
+    return {
+      bookableone: {
+        title: "New Villa",
+        content: "Resort",
+        price: 1000
+      }
+    };
   },
   created: function created() {
+    var _this = this;
+
     console.log("Created");
-  },
-  beforeMount: function beforeMount() {
-    console.log("Before Mount");
-  },
-  mounted: function mounted() {
-    console.log("Mounted");
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log("Before destroy");
-  },
-  destroy: function destroy() {
-    console.log("Destroyed");
+    console.log(this.bookableone);
+    setTimeout(function () {
+      _this.bookableone.title = "Changed New Villa";
+    }, 2000);
   }
 });
 
@@ -20424,7 +20428,11 @@ var render = function() {
     "div",
     [
       _c("bookablelistitem", {
-        attrs: { title: "New Villa", content: "Resort", price: 1000 }
+        attrs: {
+          title: _vm.bookableone.title,
+          content: _vm.bookableone.content,
+          price: _vm.bookableone.price
+        }
       })
     ],
     1

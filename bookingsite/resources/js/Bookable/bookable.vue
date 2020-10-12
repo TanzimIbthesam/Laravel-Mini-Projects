@@ -1,6 +1,10 @@
 <template>
     <div>
-       <bookablelistitem title="New Villa" content="Resort" :price=1000></bookablelistitem>
+       <bookablelistitem
+       :title="bookableone.title"
+      :content="bookableone.content"
+       :price="bookableone.price">
+       </bookablelistitem>
     </div>
 </template>
 <script>
@@ -9,24 +13,22 @@ export default {
 components:{
     bookablelistitem
 },
-beforeCreate(){
-    console.log("Before Created");
+data() {
+    return {
+        bookableone:{
+            title:"New Villa",
+            content:"Resort",
+            price:1000
+        }
+    }
 },
-created(){
+created() {
     console.log("Created");
+    console.log(this.bookableone);
+    setTimeout(() => {
+     this.bookableone.title="Changed New Villa";
+}, 2000);
 },
-beforeMount(){
-    console.log("Before Mount");
-},
-mounted(){
-    console.log("Mounted");
-},
-beforeDestroy(){
-    console.log("Before destroy");
-},
-destroy(){
-    console.log("Destroyed");
-}
 }
 </script>
 <style lang="">

@@ -17,6 +17,7 @@ price:Number
 mounted() {
     console.log(this.title);
 },
+
 }
 </script>
 <style lang="">
