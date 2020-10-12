@@ -1918,6 +1918,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1925,11 +1935,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      bookableone: {
-        title: "New Villa",
-        content: "Resort",
-        price: 1000
-      }
+      bookableone: null,
+      bookabletwo: null,
+      bookablethree: null
     };
   },
   created: function created() {
@@ -1938,8 +1946,32 @@ __webpack_require__.r(__webpack_exports__);
     console.log("Created");
     console.log(this.bookableone);
     setTimeout(function () {
-      _this.bookableone.title = "Changed New Villa";
+      _this.bookableone = {
+        'title': 'Villa One',
+        'content': 'Content Two'
+      };
+      _this.bookabletwo = {
+        'title': 'Villa Two',
+        'content': 'Content  Two'
+      };
+      _this.bookablethree = {
+        'title': 'Villa Three',
+        'content': 'Content  Three'
+      };
     }, 2000);
+    setTimeout(function () {
+      console.log("First change");
+      _this.bookableone.title = "Changed New Villa";
+      _this.bookableone.content = "Resort";
+    }, 2000);
+    setTimeout(function () {
+      _this.bookabletwo.title = "Changed New Villa two";
+      _this.bookabletwo.content = "Resort two";
+    }, 5000);
+    setTimeout(function () {
+      _this.bookablethree.title = "Changed New Villa three";
+      _this.bookablethree.content = "Resort three";
+    }, 8000);
   }
 });
 
@@ -20432,6 +20464,22 @@ var render = function() {
           title: _vm.bookableone.title,
           content: _vm.bookableone.content,
           price: _vm.bookableone.price
+        }
+      }),
+      _vm._v(" "),
+      _c("bookablelistitem", {
+        attrs: {
+          title: _vm.bookabletwo.title,
+          content: _vm.bookabletwo.content,
+          price: _vm.bookabletwo.price
+        }
+      }),
+      _vm._v(" "),
+      _c("bookablelistitem", {
+        attrs: {
+          title: _vm.bookablethree.title,
+          content: _vm.bookablethree.content,
+          price: _vm.bookablethree.price
         }
       })
     ],
