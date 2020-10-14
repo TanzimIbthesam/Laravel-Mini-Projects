@@ -15,6 +15,9 @@ class CreateBookablesTable extends Migration
     {
         Schema::create('bookables', function (Blueprint $table) {
             $table->id();
+
+            $table->string('title');
+            $table->text('description');
             $table->timestamps();
         });
     }
