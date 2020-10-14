@@ -23,6 +23,6 @@ return Bookable::all();
 });
 Route::get('bookables/{id}', function (Request $request,$id) {
 
-    return Bookable::find($id);
+    return Bookable::findorFail($id);
 });
 
