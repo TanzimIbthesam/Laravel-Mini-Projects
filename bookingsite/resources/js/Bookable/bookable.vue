@@ -22,6 +22,25 @@
 </template>
 
 <script>
+const p=()=>{
+    return new Promise((resolve,reject)=>{
+        let userleft=true;
+
+        if(!userleft){
+               setTimeout(() => {
+                resolve("Hello World")
+           }, 1000);
+        }else{
+            setTimeout(() => {
+                reject("Please check again")
+            }, 500);
+        }
+
+    })
+}
+p()
+.then((result)=>console.log(result))
+.catch(error=>console.log(error));
 import BookableListItem from "./bookablelistitem";
 export default {
   components: {

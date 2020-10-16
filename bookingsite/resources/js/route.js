@@ -14,10 +14,10 @@ name:'home'
   component:Contact,
 name:'contact'
 },
-  { path: '/contact',
-  component:Contact,
-name:'contact'
-},
+//   { path: '/contact',
+//   component:Contact,
+// name:'contact'
+// },
 
 ]
 const router = new VueRouter({
