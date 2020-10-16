@@ -4,13 +4,13 @@
     <div v-else>
       <div class="row mb-4" v-for="row in rows" :key="'row' + row">
         <div
-          class="col"
+          class="col d-flex align-items-strech"
           v-for="(bookable, column) in bookablesInRow(row)"
           :key="'row' + row + column"
         >
           <bookable-list-item
             :item-title="bookable.title"
-            :item-content="bookable.content"
+            :item-content="bookable.description"
             :price="1000"
           ></bookable-list-item>
         </div>
@@ -22,25 +22,7 @@
 </template>
 
 <script>
-const p=()=>{
-    return new Promise((resolve,reject)=>{
-        let userleft=true;
 
-        if(!userleft){
-               setTimeout(() => {
-                resolve("Hello World")
-           }, 1000);
-        }else{
-            setTimeout(() => {
-                reject("Please check again")
-            }, 500);
-        }
-
-    })
-}
-p()
-.then((result)=>console.log(result))
-.catch(error=>console.log(error));
 import BookableListItem from "./bookablelistitem";
 export default {
   components: {
@@ -70,40 +52,51 @@ export default {
   },
   created() {
     this.loading = true;
-    setTimeout(() => {
-      this.bookables = [
-        {
-          id: 1,
-          title: "Cheap Villa !!!",
-          content: "A very cheap villa"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        },
-        {
-          title: "Cheap Villa 2",
-          content: "A very cheap villa 2"
-        }
-      ];
-      this.loading = false;
-    }, 2000);
+  const result =axios.get("/api/bookables")
+  .then(response=>{
+      this.bookables=response.data;
+      this.bookables.push({
+          title:'New Title'
+      })
+      this.loading=false
+  })
+  ;
+  console.log(result);
+
+    // setTimeout(() => {
+    //   this.bookables = [
+    //     {
+    //       id: 1,
+    //       title: "Cheap Villa !!!",
+    //       content: "A very cheap villa"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     }
+    //   ];
+    //   this.loading = false;
+    // }, 2000);
   }
 };
 </script>

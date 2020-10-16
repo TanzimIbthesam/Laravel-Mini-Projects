@@ -1932,27 +1932,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var p = function p() {
-  return new Promise(function (resolve, reject) {
-    var userleft = true;
-
-    if (!userleft) {
-      setTimeout(function () {
-        resolve("Hello World");
-      }, 1000);
-    } else {
-      setTimeout(function () {
-        reject("Please check again");
-      }, 500);
-    }
-  });
-};
-
-p().then(function (result) {
-  return console.log(result);
-})["catch"](function (error) {
-  return console.log(error);
-});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1982,32 +1961,49 @@ p().then(function (result) {
     var _this = this;
 
     this.loading = true;
-    setTimeout(function () {
-      _this.bookables = [{
-        id: 1,
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }];
+    var result = axios.get("/api/bookables").then(function (response) {
+      _this.bookables = response.data;
+
+      _this.bookables.push({
+        title: 'New Title'
+      });
+
       _this.loading = false;
-    }, 2000);
+    });
+    console.log(result); // setTimeout(() => {
+    //   this.bookables = [
+    //     {
+    //       id: 1,
+    //       title: "Cheap Villa !!!",
+    //       content: "A very cheap villa"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     },
+    //     {
+    //       title: "Cheap Villa 2",
+    //       content: "A very cheap villa 2"
+    //     }
+    //   ];
+    //   this.loading = false;
+    // }, 2000);
   }
 });
 
@@ -37667,12 +37663,15 @@ var render = function() {
                 _vm._l(_vm.bookablesInRow(row), function(bookable, column) {
                   return _c(
                     "div",
-                    { key: "row" + row + column, staticClass: "col" },
+                    {
+                      key: "row" + row + column,
+                      staticClass: "col d-flex align-items-strech"
+                    },
                     [
                       _c("bookable-list-item", {
                         attrs: {
                           "item-title": bookable.title,
-                          "item-content": bookable.content,
+                          "item-content": bookable.description,
                           price: 1000
                         }
                       })
@@ -37717,7 +37716,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card w-100" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
       _vm._v(" "),
