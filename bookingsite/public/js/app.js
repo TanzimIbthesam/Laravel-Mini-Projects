@@ -1949,8 +1949,7 @@ __webpack_require__.r(__webpack_exports__);
     //    console.log(this.$route.params.id);
     this.loading = true;
     axios.get("/api/bookables/".concat(this.$route.params.id)).then(function (response) {
-      _this.bookable = response.data;
-      _this.loading = false;
+      _this.bookable = response.data.data, _this.loading = false;
     });
   }
 });
@@ -2055,12 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.loading = true;
     var result = axios.get("/api/bookables").then(function (response) {
-      _this.bookables = response.data;
-
-      _this.bookables.push({
-        title: 'New Title'
-      });
-
+      _this.bookables = response.data.data;
       _this.loading = false;
     });
   }

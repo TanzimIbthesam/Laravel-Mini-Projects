@@ -58,10 +58,8 @@ export default {
     this.loading = true;
   const result =axios.get("/api/bookables")
   .then(response=>{
-      this.bookables=response.data;
-      this.bookables.push({
-          title:'New Title'
-      })
+      this.bookables=response.data.data;
+
       this.loading=false
   })
   ;
