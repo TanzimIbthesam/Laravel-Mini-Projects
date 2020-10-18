@@ -2,7 +2,7 @@
     <div>
          <div class="container">
          <div class="row">
-               <div class="col-md-8">
+               <div class="col-md-8 pb-4">
                      <div class="card-body">
                          <div v-if="!loading">
                        <h2>  {{bookable.title}}</h2>
@@ -17,8 +17,9 @@
                      </div>
 
                      </div>
-                 <div class="col-md-4">
-                     availability and prices
+                 <div class="col-md-4 pb-4">
+
+                      <availability></availability>
                  </div>
                   </div>
 
@@ -27,13 +28,18 @@
     </div>
 </template>
 <script>
+import availability from './availability';
 export default {
+      components:{
+            availability
+        },
     data(){
         return{
                bookables: null,
       loading: false,
 
-        }
+        };
+
 
     },
        created(){
