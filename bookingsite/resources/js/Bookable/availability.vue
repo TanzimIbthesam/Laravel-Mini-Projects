@@ -5,12 +5,12 @@
           <div class="form-group col-md-6">
             <label for="">From</label>
             <input type="text" name="from" id="" class="form-control form-control-sm"
-             placeholder="Start date">
+             placeholder="Start date" v-model="from">
           </div>
           <div class="form-group col-md-6">
             <label for="">To</label>
             <input type="text" name="to" id="to" class="form-control form-control-sm"
-             placeholder="End date">
+             placeholder="End date" v-model="to">
           </div>
           <button class="btn btn-secondary btn-block">Check </button>
       </div>
@@ -19,7 +19,12 @@
 <script>
 
 export default {
-
+data() {
+    return {
+        from:null,
+        to:null
+    }
+},
 }
 </script>
 <style scoped>

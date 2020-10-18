@@ -1926,7 +1926,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      from: null,
+      to: null
+    };
+  }
+});
 
 /***/ }),
 
@@ -38326,56 +38333,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "h4",
-        { staticClass: "text-uppercase text-secondary font-weight-bolder" },
-        [_vm._v("Availability and prices")]
-      ),
+  return _c("div", [
+    _c(
+      "h4",
+      { staticClass: "text-uppercase text-secondary font-weight-bolder" },
+      [_vm._v("Availability and prices")]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("From")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.from,
+              expression: "from"
+            }
+          ],
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            name: "from",
+            id: "",
+            placeholder: "Start date"
+          },
+          domProps: { value: _vm.from },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.from = $event.target.value
+            }
+          }
+        })
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("From")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: {
-              type: "text",
-              name: "from",
-              id: "",
-              placeholder: "Start date"
-            }
-          })
-        ]),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("To")]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("To")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: {
-              type: "text",
-              name: "to",
-              id: "to",
-              placeholder: "End date"
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.to,
+              expression: "to"
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-secondary btn-block" }, [
-          _vm._v("Check ")
-        ])
+          ],
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            name: "to",
+            id: "to",
+            placeholder: "End date"
+          },
+          domProps: { value: _vm.to },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.to = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-secondary btn-block" }, [
+        _vm._v("Check ")
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
