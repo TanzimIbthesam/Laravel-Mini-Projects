@@ -13,5 +13,11 @@ class Bookable extends Model
     {
         return $this->hasMany(Booking::class);
     }
+    public function availableFor($from,$to) :bool
+    {
+    //    return 0=== $this->bookings()->betweenDates($from, $to)->count();
+
+        return 0=== $this->bookings()->betweenDates($from, $to)->count();
+    }
 
 }
