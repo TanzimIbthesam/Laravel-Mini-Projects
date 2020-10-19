@@ -1930,12 +1930,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       from: null,
-      to: null
+      to: null,
+      loading: false,
+      status: null,
+      errors: null
     };
   },
   methods: {
     check: function check() {
-      alert('I will do something now');
+      var _this = this;
+
+      this.loading = true;
+      this.errors = null;
+      axios.get('/api/bookables/${this.$route.params.id}/availability?from={this.from}&to={this.to}').then(function (response) {
+        _this.status = response.status;
+      })["catch"](function (error) {
+        if (422 === error.response.status) {
+          console.log(error.response.data.errors);
+          _this.errors = error.response.data.errors;
+        }
+
+        _this.status = error.response.status;
+      }).then(function () {
+        return _this.loading = false;
+      });
     }
   }
 });
@@ -38420,6 +38438,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-secondary btn-block",
+          attrs: { disabled: _vm.loading },
           on: {
             click: function($event) {
               return _vm.check()
