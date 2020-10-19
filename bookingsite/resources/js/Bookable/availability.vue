@@ -1,10 +1,20 @@
 <template>
     <div>
-         <h4 class="text-uppercase text-secondary font-weight-bolder">Availability and prices</h4>
+         <h4 class="text-uppercase text-secondary font-weight-bolder">
+             Availability and prices
+             <span v-if="noAvailability" class="text-danger text-uppercase">Not Available</span>
+             <span v-if="hasAvailability" class="text-success text-uppercase">Is Available</span>
+             </h4>
+             <h6 class="text-uppercase text-secondary font-weight-bolder">
+      Check Availability
+      <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
+      <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+    </h6>
       <div class="form-row">
           <div class="form-group col-md-6">
             <label for="">From</label>
             <input @keyup.enter="check"
+
             :class="[{'is-invalid':this.errorFor('from')}]"
                class="form-control form-control-sm"
              placeholder="Start date" v-model="from">
@@ -21,6 +31,7 @@
           <div class="form-group col-md-6">
             <label for="">To</label>
             <input @keyup.enter="check"
+
             :class="[{'is-invalid':this.errorFor('to')}]"
                class="form-control form-control-sm"
              placeholder="Start date" v-model="to">
@@ -54,7 +65,8 @@ methods:{
         this.loading=true;
         this.errors=null;
         axios.get
-        ('/api/bookables/${this.$route.params.id}/availability?from={this.from}&to={this.to}')
+        (`/api/bookables/${this.$route.params.id}/availability?from=${this.from}&to=${this.to}`
+        )
        .then(response=>{
            this.status=response.status
        })
@@ -80,7 +92,7 @@ computed: {
         return 200 === this.status;
     },
     noAvailability(){
-        return 400===this.status;
+        return 404 === this.status;
     }
 },
 }

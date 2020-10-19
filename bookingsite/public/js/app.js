@@ -1947,6 +1947,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1963,7 +1974,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.errors = null;
-      axios.get('/api/bookables/${this.$route.params.id}/availability?from={this.from}&to={this.to}').then(function (response) {
+      axios.get("/api/bookables/".concat(this.$route.params.id, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
         _this.status = response.status;
       })["catch"](function (error) {
         if (422 === error.response.status) {
@@ -1988,7 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
       return 200 === this.status;
     },
     noAvailability: function noAvailability() {
-      return 400 === this.status;
+      return 404 === this.status;
     }
   }
 });
@@ -38395,7 +38406,37 @@ var render = function() {
     _c(
       "h4",
       { staticClass: "text-uppercase text-secondary font-weight-bolder" },
-      [_vm._v("Availability and prices")]
+      [
+        _vm._v("\n         Availability and prices\n         "),
+        _vm.noAvailability
+          ? _c("span", { staticClass: "text-danger text-uppercase" }, [
+              _vm._v("Not Available")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.hasAvailability
+          ? _c("span", { staticClass: "text-success text-uppercase" }, [
+              _vm._v("Is Available")
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "h6",
+      { staticClass: "text-uppercase text-secondary font-weight-bolder" },
+      [
+        _vm._v("\n  Check Availability\n  "),
+        _vm.noAvailability
+          ? _c("span", { staticClass: "text-danger" }, [
+              _vm._v("(NOT AVAILABLE)")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.hasAvailability
+          ? _c("span", { staticClass: "text-success" }, [_vm._v("(AVAILABLE)")])
+          : _vm._e()
+      ]
     ),
     _vm._v(" "),
     _c(
