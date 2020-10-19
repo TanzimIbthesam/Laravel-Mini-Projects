@@ -13,6 +13,7 @@ class BookableController extends Controller
     //
     public function index()
     {
+
         // return Bookable::all();
         return BookableIndexResource::collection(
              Bookable::all()
