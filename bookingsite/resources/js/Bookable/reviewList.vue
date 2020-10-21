@@ -12,7 +12,7 @@
               </div>
               <div class="row">
                   <div class="col-md-12">
-                     {{ review.created_at}}
+                     {{ review.created_at |  fromNow }}
                       </div>
               </div>
 
@@ -47,6 +47,11 @@ props: {
 
          ;
       },
+    //   filters:{
+    //       fromNow(value){
+    //          return
+    //       }
+    //   }
 }
 </script>
 <style scoped>

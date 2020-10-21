@@ -2133,7 +2133,12 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function () {
       return _this.loading = false;
     });
-  }
+  } //   filters:{
+  //       fromNow(value){
+  //          return
+  //       }
+  //   }
+
 });
 
 /***/ }),
@@ -60294,7 +60299,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-12" }, [
                 _vm._v(
                   "\n                 " +
-                    _vm._s(review.created_at) +
+                    _vm._s(_vm._f("fromNow")(review.created_at)) +
                     "\n                  "
                 )
               ])
@@ -76088,13 +76093,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route */ "./resources/js/route.js");
 /* harmony import */ var _index_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue */ "./resources/js/index.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.filter("fromNow", function (value) {
+  return moment__WEBPACK_IMPORTED_MODULE_3___default()(value).fromNow();
+});
 var app = new Vue({
   el: '#app',
   router: _route__WEBPACK_IMPORTED_MODULE_1__["default"],
