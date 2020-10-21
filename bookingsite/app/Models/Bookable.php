@@ -9,9 +9,14 @@ class Bookable extends Model
 {
 
     use HasFactory;
+    protected $guarded=[];
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
     public function availableFor($from,$to):bool
     {

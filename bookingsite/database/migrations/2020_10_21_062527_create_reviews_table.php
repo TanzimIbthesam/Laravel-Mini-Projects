@@ -18,8 +18,11 @@ class CreateReviewsTable extends Migration
             $table->timestamps();
            $table->unsignedTinyInteger('rating');
            $table->text('content');
-            $table->foreignId('bookable_id')->constrained('bookables')->nullable();
-            $table->foreignId('booking_id')->constrained('bookings');
+
+            $table->foreignId('bookable_id')->constrained();
+            $table->foreignId('booking_id')->unique()->nullable()->constrained();
+
+
         });
     }
 
