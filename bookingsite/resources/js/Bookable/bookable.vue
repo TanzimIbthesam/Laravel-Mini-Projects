@@ -15,12 +15,12 @@
                          </div>
 
                      </div>
-                       <reviewList></reviewList>
+                       <reviewList  :bookableId="this.$route.params.id"></reviewList>
                      </div>
 
                  <div class="col-md-4 pb-4">
 
-                      <availability></availability>
+                      <availability :bookableId="this.$route.params.id"></availability>
                  </div>
                   </div>
 
@@ -33,6 +33,8 @@ import availability from './availability';
 import reviewList from './reviewList';
 
 export default {
+
+
       components:{
             availability,
             reviewList
