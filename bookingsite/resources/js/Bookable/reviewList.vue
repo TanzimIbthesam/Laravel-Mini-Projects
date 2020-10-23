@@ -1,11 +1,7 @@
 <template>
     <div style="padding:1.25rem">
           <h4 class="text-uppercase text-secondary font-weight-bolder">Review List</h4>
-          <star-rating :rating="4"></star-rating>
-                       <star-rating :rating="4.4"></star-rating>
-                       <star-rating :rating="4.5"></star-rating>
-                       <star-rating :rating="4.6"></star-rating>
-                       <star-rating :rating="4.7"></star-rating>
+
           <div class="border-bottom d-none d-md-block" v-for="review in reviews" :key="review">
               <div class="row pt-4">
                   <div class="col-md-6">
@@ -14,7 +10,7 @@
                   </div>
                   <div class="col-md-6 d-flex justify-content-end">
                    {{ review.rating }}
-                   <star-rating :rating="review.rating"></star-rating>
+                   <star-rating :rating="review.rating" class="fa-lg"></star-rating>
                   </div>
               </div>
               <div class="row">

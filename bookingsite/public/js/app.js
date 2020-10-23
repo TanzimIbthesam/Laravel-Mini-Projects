@@ -2116,10 +2116,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2280,8 +2276,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     halfStar: function halfStar() {
       // return false;
-      var fraction = Math.round((this.rating - Math.floor(this.rating)) * 100);
-      console.log(fraction);
+      var fraction = Math.round((this.rating - Math.floor(this.rating)) * 100); // console.log(fraction);
+
       return fraction > 0 && fraction < 50;
     },
     fullStar: function fullStar() {
@@ -2290,14 +2286,6 @@ __webpack_require__.r(__webpack_exports__);
     emptyStar: function emptyStar() {
       return 5 - Math.ceil(this.rating);
     }
-  },
-  created: function created() {
-    var numbers = [0.9, 4.0, 4.4, 4.5, 4.6, 4.9]; // numbers.forEach(number => {
-    //  console.log(`Round for ${number} is ${Math.round(number)}`);
-    //    console.log(`Floor for ${number} is ${Math.floor(number)}`);
-    //  console.log(`Ceil for ${number} is ${Math.ceil(number)}`);
-    //  console.log("===========================");
-    // });
   }
 });
 
@@ -60326,16 +60314,6 @@ var render = function() {
         [_vm._v("Review List")]
       ),
       _vm._v(" "),
-      _c("star-rating", { attrs: { rating: 4 } }),
-      _vm._v(" "),
-      _c("star-rating", { attrs: { rating: 4.4 } }),
-      _vm._v(" "),
-      _c("star-rating", { attrs: { rating: 4.5 } }),
-      _vm._v(" "),
-      _c("star-rating", { attrs: { rating: 4.6 } }),
-      _vm._v(" "),
-      _c("star-rating", { attrs: { rating: 4.7 } }),
-      _vm._v(" "),
       _vm._l(_vm.reviews, function(review) {
         return _c(
           "div",
@@ -60355,7 +60333,10 @@ var render = function() {
                       _vm._s(review.rating) +
                       "\n               "
                   ),
-                  _c("star-rating", { attrs: { rating: review.rating } })
+                  _c("star-rating", {
+                    staticClass: "fa-lg",
+                    attrs: { rating: review.rating }
+                  })
                 ],
                 1
               )
@@ -60563,7 +60544,6 @@ var render = function() {
     "div",
     { staticClass: "d-flex" },
     [
-      _vm._v("\n    Actual rating is -" + _vm._s(_vm.rating) + "\n     "),
       _vm._l(_vm.fullStar, function(star) {
         return _c("i", { key: "full" + star, staticClass: "fas fa-star" })
       }),
