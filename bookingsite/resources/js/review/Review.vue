@@ -11,7 +11,7 @@
        </div>
        <div class="form-group">
      <label for="content"  class="text-muted">Describe your experience</label>
-      <textarea  class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+      <textarea  class="form-control" name="content" id="" cols="30" rows="10" v-model="review.content"></textarea>
        </div>
          <button class="btn btn-lg btn-primary btn-block">Submit</button>
      </div>
@@ -26,6 +26,13 @@ export default {
             }
         }
     },
+    created(){
+        //if review already exists(in review table by id)
+        //Fetch a booking by a review key
+        //Storing a review
+
+
+    }
     //  methods: {
     //      onRatingChanged(rating){
     //            console.log(rating);
