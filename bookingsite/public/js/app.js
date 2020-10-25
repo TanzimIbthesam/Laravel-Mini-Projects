@@ -60393,7 +60393,7 @@ var render = function() {
                   ),
                   _c("star-rating", {
                     staticClass: "fa-lg",
-                    attrs: { rating: review.rating }
+                    attrs: { value: review.rating }
                   })
                 ],
                 1
