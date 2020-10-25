@@ -1,6 +1,14 @@
 <template>
     <div>
-        Review Page
+        <div v-if="loading">
+             Loading ...
+        </div>
+        <div v-else>
+              <div v-if=" alreadyReviewed">
+            <h1>You have already reviewed this page</h1>
+        </div>
+        <div v-else>
+              Review Page
        <div class="form-group">
      <label  class="text-muted" for="">Select rating from 1 to 5</label>
      <star-rating
@@ -15,6 +23,10 @@
        </div>
          <button class="btn btn-lg btn-primary btn-block">Submit</button>
      </div>
+        </div>
+        </div>
+
+
 </template>
 <script>
 export default {
@@ -23,15 +35,30 @@ export default {
             review:{
                 rating:5,
                 content:null
-            }
+            },
+            existingReview:null,
+            loading:false
         }
     },
     created(){
+        this.loading=true;
         //if review already exists(in review table by id)
+         axios
+      .get(`/api/reviews/${this.$route.params.id}`)
+      .then(response => (this.existingReview = response.data.data))
+      .catch(err => {
+        //
+      })
+      .then(() => (this.loading = false));
         //Fetch a booking by a review key
         //Storing a review
 
 
+    },
+    computed:{
+      alreadyReviewed(){
+          return this.existingReview !== null;
+      }
     }
     //  methods: {
     //      onRatingChanged(rating){
