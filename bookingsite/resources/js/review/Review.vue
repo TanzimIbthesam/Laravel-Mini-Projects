@@ -3,7 +3,11 @@
         Review Page
        <div class="form-group">
      <label  class="text-muted" for="">Select rating from 1 to 5</label>
-     <star-rating :rating="review.rating" class="fa-3x" v-on:ratingchanged="review.rating=$event"></star-rating>
+     <star-rating
+     class="fa-3x"
+
+     v-model="review.rating"
+     ></star-rating>
        </div>
        <div class="form-group">
      <label for="content"  class="text-muted">Describe your experience</label>

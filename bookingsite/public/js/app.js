@@ -2275,6 +2275,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2321,20 +2325,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    rating: Number
+    value: Number
   },
   computed: {
     halfStar: function halfStar() {
       // return false;
-      var fraction = Math.round((this.rating - Math.floor(this.rating)) * 100); // console.log(fraction);
+      var fraction = Math.round((this.value - Math.floor(this.value)) * 100); // console.log(fraction);
 
       return fraction > 0 && fraction < 50;
     },
     fullStar: function fullStar() {
-      return Math.round(this.rating);
+      return Math.round(this.value);
     },
     emptyStar: function emptyStar() {
-      return 5 - Math.ceil(this.rating);
+      return 5 - Math.ceil(this.value);
     }
   }
 });
@@ -60602,11 +60606,12 @@ var render = function() {
         _vm._v(" "),
         _c("star-rating", {
           staticClass: "fa-3x",
-          attrs: { rating: _vm.review.rating },
-          on: {
-            ratingchanged: function($event) {
-              _vm.review.rating = $event
-            }
+          model: {
+            value: _vm.review.rating,
+            callback: function($$v) {
+              _vm.$set(_vm.review, "rating", $$v)
+            },
+            expression: "review.rating"
           }
         })
       ],
@@ -60668,7 +60673,7 @@ var render = function() {
           staticClass: "fas fa-star",
           on: {
             click: function($event) {
-              return _vm.$emit("ratingchanged", star)
+              return _vm.$emit("input", star)
             }
           }
         })
@@ -60684,7 +60689,7 @@ var render = function() {
           staticClass: "far fa-star",
           on: {
             click: function($event) {
-              return this.$emit("ratingchanged", _vm.fullStar + star)
+              return this.$emit("input", _vm.fullStar + star)
             }
           }
         })
