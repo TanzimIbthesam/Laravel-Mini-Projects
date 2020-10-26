@@ -1,5 +1,20 @@
 <template>
-    <div>
+    <div class="row">
+         <div :class="[{'col-md-4' : loading || !alreadyReviewed},{'d-none' : !loading && alreadyReviewed}]">
+             <div class="card">
+                 <div class="card-body">
+                     <div v-if="loading">Loading...</div>
+                     <div v-else>
+                         <p>
+                           Stayed at <router-link :to="{name:'bookable',params:{id:booking.bookable.bookable_id}}">{{booking.bookable.title}}</router-link>
+                         </p>
+                         <p>Booking-{{booking.from}} to {{booking.to}}</p>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+        <div :class="[{'col-md-8' : loading || !alreadyReviewed},{'col-md-12' : !loading && alreadyReviewed}]">
         <div v-if="loading">
              Loading ...
         </div>
@@ -25,6 +40,8 @@
      </div>
         </div>
         </div>
+        </div>
+
 
 
 </template>
@@ -52,6 +69,7 @@ export default {
       .catch(err => {
         //
         if(err.response && err.response.status && 404 === err.response.status){
+             //Fetch a booking by a review key
             return axios.get(`/api/booking-by-review/${this.$route.params.id}`)
             .then(response=>{
                 this.booking=response.data.data;
@@ -65,20 +83,23 @@ export default {
           this.loading=false;
 
       } );
-        //Fetch a booking by a review key
+
         //Storing a review
 
 
     },
     computed:{
       alreadyReviewed(){
-          return this.existingReview !== null;
-      }
+          return this.hasReview || !this.booking;
+      },
+      hasReview(){
+           return this.existingReview !== null;
+    },
+    hasBooking(){
+        return this.booking !== null;
     }
-    //  methods: {
-    //      onRatingChanged(rating){
-    //            console.log(rating);
-    //      }
-    //  },
+    },
+
+
 }
 </script>
