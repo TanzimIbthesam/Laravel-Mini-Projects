@@ -40,9 +40,23 @@
        <div class="form-group">
 
      <label for="content"  class="text-muted">Describe your experience</label>
-      <textarea  class="form-control" name="content" id="" cols="30" rows="10" v-model="review.content"></textarea>
+      <textarea
+      class="form-control"
+      name="content"
+      id="" cols="30"
+       rows="10"
+       v-model="review.content"
+       :class="[{'is-invalid': errorFor('content')}]"
+       >
+       </textarea>
+       <div
+          class="invalid-feedback"
+          v-for="(error, index) in errorFor('content')"
+          :key="'content' + index"
+        >{{ error }}</div>
        </div>
-         <button @click.prevent="submit" :disabled="loading" class="btn btn-lg btn-primary btn-block">Submit</button>
+
+         <button @click.prevent="submit" :disabled="sending" class="btn btn-lg btn-primary btn-block">Submit</button>
      </div>
         </div>
         </div>
@@ -67,7 +81,8 @@ export default {
             loading:false,
             booking:null,
             error:false,
-            errors:null
+            errors:null,
+            sending:false
 
         }
     },
@@ -126,7 +141,8 @@ export default {
     methods:{
         submit(){
             this.errors=null;
-            this.loading=true;
+            // this.loading=true;
+            this.sending=true;
             axios.post('/api/reviews',this.review)
             .then((response)=>console.log(response))
             .catch(err=>{
@@ -141,11 +157,17 @@ export default {
                 this.error=true;
 
             })
-            .then(()=>this.loading=false)
+            .then(()=>this.sending=false)
             ;
 
-        }
+        },
+        errorFor(field) {
+      return null !== this.errors && this.errors[field]
+      ? this.errors[field]
+      : null;
     }
+    },
+
 
 
 }

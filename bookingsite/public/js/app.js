@@ -2319,6 +2319,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2332,7 +2346,8 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       booking: null,
       error: false,
-      errors: null
+      errors: null,
+      sending: false
     };
   },
   created: function created() {
@@ -2380,8 +2395,9 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this2 = this;
 
-      this.errors = null;
-      this.loading = true;
+      this.errors = null; // this.loading=true;
+
+      this.sending = true;
       axios.post('/api/reviews', this.review).then(function (response) {
         return console.log(response);
       })["catch"](function (err) {
@@ -2396,8 +2412,11 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.error = true;
       }).then(function () {
-        return _this2.loading = false;
+        return _this2.sending = false;
       });
+    },
+    errorFor: function errorFor(field) {
+      return null !== this.errors && this.errors[field] ? this.errors[field] : null;
     }
   }
 });
@@ -60874,53 +60893,75 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "text-muted",
-                                  attrs: { for: "content" }
-                                },
-                                [_vm._v("Describe your experience")]
-                              ),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c(
+                                  "label",
                                   {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.review.content,
-                                    expression: "review.content"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "content",
-                                  id: "",
-                                  cols: "30",
-                                  rows: "10"
-                                },
-                                domProps: { value: _vm.review.content },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                    staticClass: "text-muted",
+                                    attrs: { for: "content" }
+                                  },
+                                  [_vm._v("Describe your experience")]
+                                ),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.review.content,
+                                      expression: "review.content"
                                     }
-                                    _vm.$set(
-                                      _vm.review,
-                                      "content",
-                                      $event.target.value
-                                    )
+                                  ],
+                                  staticClass: "form-control",
+                                  class: [
+                                    { "is-invalid": _vm.errorFor("content") }
+                                  ],
+                                  attrs: {
+                                    name: "content",
+                                    id: "",
+                                    cols: "30",
+                                    rows: "10"
+                                  },
+                                  domProps: { value: _vm.review.content },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.review,
+                                        "content",
+                                        $event.target.value
+                                      )
+                                    }
                                   }
-                                }
-                              })
-                            ]),
+                                }),
+                                _vm._v(" "),
+                                _vm._l(_vm.errorFor("content"), function(
+                                  error,
+                                  index
+                                ) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      key: "content" + index,
+                                      staticClass: "invalid-feedback"
+                                    },
+                                    [_vm._v(_vm._s(error))]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
                             _vm._v(" "),
                             _c(
                               "button",
                               {
                                 staticClass: "btn btn-lg btn-primary btn-block",
-                                attrs: { disabled: _vm.loading },
+                                attrs: { disabled: _vm.sending },
                                 on: {
                                   click: function($event) {
                                     $event.preventDefault()
@@ -76774,14 +76815,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./resources/js/review/Review.vue ***!
   \****************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Review_vue_vue_type_template_id_06d06501___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Review.vue?vue&type=template&id=06d06501& */ "./resources/js/review/Review.vue?vue&type=template&id=06d06501&");
 /* harmony import */ var _Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Review.vue?vue&type=script&lang=js& */ "./resources/js/review/Review.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -76811,7 +76853,7 @@ component.options.__file = "resources/js/review/Review.vue"
 /*!*****************************************************************!*\
   !*** ./resources/js/review/Review.vue?vue&type=script&lang=js& ***!
   \*****************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
