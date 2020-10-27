@@ -1,10 +1,10 @@
 <template>
 <div>
-    <div class="row">
+
         <div class="row" v-if="error">
             Unknown error has occured please try again
         </div>
-        <div v-else>
+        <div class="row" v-else>
             <div :class="[{'col-md-4' :twoColumn},{'d-none' :  oneColumn}]">
              <div class="card">
                  <div class="card-body">
@@ -41,13 +41,13 @@
      <label for="content"  class="text-muted">Describe your experience</label>
       <textarea  class="form-control" name="content" id="" cols="30" rows="10" v-model="review.content"></textarea>
        </div>
-         <button class="btn btn-lg btn-primary btn-block">Submit</button>
+         <button @click.prevent="submit" :disabled="loading" class="btn btn-lg btn-primary btn-block">Submit</button>
      </div>
         </div>
         </div>
         </div>
 
-        </div>
+
       </div>
 
 
@@ -58,6 +58,7 @@ export default {
     data() {
         return {
             review:{
+                id:null,
                 rating:5,
                 content:null
             },
@@ -69,10 +70,11 @@ export default {
         }
     },
     created(){
+        this.review.id=this.$route.params.id;
         this.loading=true;
         //if review already exists(in review table by id)
          axios
-      .get(`/api/reviews/${this.$route.params.id}`)
+      .get(`/api/reviews/${this.review.id}`)
       .then(response =>{
          this.existingReview = response.data.data
       })
@@ -80,7 +82,7 @@ export default {
         //
         if(is404(err)){
              //Fetch a booking by a review key
-            return axios.get(`/api/booking-by-review/${this.$route.params.id}`)
+            return axios.get(`/api/booking-by-review/${this.review.id}`)
             .then(response=>{
                 this.booking=response.data.data;
             }).catch((err)=>{
@@ -113,12 +115,23 @@ export default {
         return this.booking !== null;
     },
     oneColumn(){
-            return  !this.loading || this.alreadyReviewed
+            return  !this.loading && this.alreadyReviewed
     },
     twoColumn(){
             return  this.loading || !this.alreadyReviewed
     }
     },
+    methods:{
+        submit(){
+            this.loading=true;
+            axios.post('/api/reviews',this.review)
+            .then((response)=>console.log(response))
+            .catch((err)=>this.error=true)
+            .then(()=>this.loading=false)
+            ;
+
+        }
+    }
 
 
 }
