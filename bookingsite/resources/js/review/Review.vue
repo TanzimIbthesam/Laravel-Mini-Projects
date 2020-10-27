@@ -9,7 +9,9 @@
                      <div v-if="loading">Loading...</div>
                      <div v-if="hasBooking">
                          <p>
-                           Stayed at <router-link :to="{name:'bookable',params:{id:booking.bookable.bookable_id}}">{{booking.bookable.title}}</router-link>
+                              <router-link target="_blank"
+                  :to="{name: 'bookable', params: { id: booking.bookable.id}}"
+                >{{ booking.bookable.title }}</router-link>
                          </p>
                          <p>Booking-{{booking.from}} to {{booking.to}}</p>
 
@@ -36,6 +38,7 @@
      ></star-rating>
        </div>
        <div class="form-group">
+
      <label for="content"  class="text-muted">Describe your experience</label>
       <textarea  class="form-control" name="content" id="" cols="30" rows="10" v-model="review.content"></textarea>
        </div>
@@ -51,7 +54,7 @@
 
 </template>
 <script>
-import {is404} from './../shared/utils/response';
+import {is404,is422} from './../shared/utils/response';
 export default {
     data() {
         return {
@@ -64,6 +67,7 @@ export default {
             loading:false,
             booking:null,
             error:false,
+            errors:null
 
         }
     },
@@ -84,7 +88,7 @@ export default {
             .then(response=>{
                 this.booking=response.data.data;
             }).catch((err)=>{
-                //   is404(err) ? {} :(this.error=true);
+
                    this.error=!is404(err);
             });
 
@@ -93,7 +97,7 @@ export default {
       })
       .then(()=>{
 
-        //   console.log(response);
+
           this.loading=false;
 
       } );
@@ -121,10 +125,22 @@ export default {
     },
     methods:{
         submit(){
+            this.errors=null;
             this.loading=true;
             axios.post('/api/reviews',this.review)
             .then((response)=>console.log(response))
-            .catch((err)=>this.error=true)
+            .catch(err=>{
+                if(is422(err)){
+                    const errors=err.response.data.errors;
+                    if(errors['content'] && 1===_.size(errors)){
+                        this.errors=errors;
+                        return
+                    }
+
+                }
+                this.error=true;
+
+            })
             .then(()=>this.loading=false)
             ;
 
