@@ -7,6 +7,7 @@ import index from './index.vue';
 import moment from "moment";
 import starRating from './shared/components/starRating.vue';
 import fatalError from './shared/components/fatalError.vue';
+import validationError from './shared/components/validationError.vue';
 
 
 
@@ -15,6 +16,7 @@ Vue.use(VueRouter);
 Vue.filter("fromNow",value=>moment(value).fromNow());
 Vue.component("star-rating",starRating);
 Vue.component("fatal-error",fatalError);
+Vue.component("v-errors",validationError);
 const app = new Vue({
     el: '#app',
     router,

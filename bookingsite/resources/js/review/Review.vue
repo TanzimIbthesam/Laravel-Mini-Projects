@@ -48,13 +48,19 @@
        v-model="review.content"
        :class="[{'is-invalid': errorFor('content')}]"
        >
+
        </textarea>
-       <div
+       <v-errors :errors="errorFor('content')"></v-errors>
+       <div>
+            <!-- <div
           class="invalid-feedback"
           v-for="(error, index) in errorFor('content')"
           :key="'content' + index"
-        >{{ error }}</div>
+        >{{ error }}</div> -->
+
        </div>
+       </div>
+
 
          <button @click.prevent="submit" :disabled="sending" class="btn btn-lg btn-primary btn-block">Submit</button>
      </div>
@@ -69,6 +75,7 @@
 </template>
 <script>
 import {is404,is422} from './../shared/utils/response';
+
 export default {
     data() {
         return {
@@ -172,3 +179,4 @@ export default {
 
 }
 </script>
+
