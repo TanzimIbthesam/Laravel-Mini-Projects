@@ -1,8 +1,10 @@
 <template>
 <div>
-
+        <success v-if="success" >
+            Thanks for your feedback
+        </success>
         <fatal-error v-if="error" ></fatal-error>
-        <div class="row" v-else>
+        <div class="row" v-if="!success && !error">
             <div :class="[{'col-md-4' :twoColumn},{'d-none' :  oneColumn}]">
              <div class="card">
                  <div class="card-body">
@@ -87,7 +89,8 @@ export default {
             booking:null,
             error:false,
           errors:null,
-            sending:false
+            sending:false,
+            success:false
 
         }
     },
@@ -114,33 +117,7 @@ export default {
 
         }
          this.loading=false;
-        //if review already exists(in review table by id)
-    //      axios
-    //   .get(`/api/reviews/${this.review.id}`)
-    //   .then(response =>{
-    //      this.existingReview = response.data.data
-    //   })
-    //   .catch(err => {
-    //     //
-    //     if(is404(err)){
-    //          //Fetch a booking by a review key
-    //         return axios.get(`/api/booking-by-review/${this.review.id}`)
-    //         .then(response=>{
-    //             this.booking=response.data.data;
-    //         }).catch((err)=>{
 
-    //                this.error=!is404(err);
-    //         });
-
-    //     }
-    //     this.error=true;
-    //   })
-    //   .then(()=>{
-
-
-    //       this.loading=false;
-
-    //   } );
 
         //Storing a review
 
@@ -168,8 +145,11 @@ export default {
             this.errors=null;
             // this.loading=true;
             this.sending=true;
+            this.success=false;
             axios.post('/api/reviews',this.review)
-            .then((response)=>console.log(response))
+            .then(response=>{
+                this.success=201 === response.status;
+            })
             .catch(err=>{
                 if(is422(err)){
                     const errors=err.response.data.errors;
