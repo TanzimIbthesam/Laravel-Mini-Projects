@@ -52,11 +52,7 @@
        </textarea>
        <v-errors :errors="errorFor('content')"></v-errors>
        <div>
-            <!-- <div
-          class="invalid-feedback"
-          v-for="(error, index) in errorFor('content')"
-          :key="'content' + index"
-        >{{ error }}</div> -->
+
 
        </div>
        </div>
@@ -95,36 +91,56 @@ export default {
 
         }
     },
-    created(){
+   async created(){
         this.review.id=this.$route.params.id;
         this.loading=true;
-        //if review already exists(in review table by id)
-         axios
-      .get(`/api/reviews/${this.review.id}`)
-      .then(response =>{
-         this.existingReview = response.data.data
-      })
-      .catch(err => {
-        //
-        if(is404(err)){
-             //Fetch a booking by a review key
-            return axios.get(`/api/booking-by-review/${this.review.id}`)
-            .then(response=>{
-                this.booking=response.data.data;
-            }).catch((err)=>{
 
-                   this.error=!is404(err);
-            });
+        try{
+            this.existingReview=(await  axios.get(`/api/reviews/${this.review.id}`)).data.data;
+            // const booking=  axios .get((`/api/booking-by-review/${this.review.id}`))
+        }catch(err){
+            if(is404){
+                try{
+                       this.booking=(await   axios.get(`/api/booking-by-review/${this.review.id}`)).data.data
+                }catch(err){
+                    this.error=!is404(err)
+                }
+
+            }else{
+            this.error=true;
+            }
+
+
 
         }
-        this.error=true;
-      })
-      .then(()=>{
+         this.loading=false;
+        //if review already exists(in review table by id)
+    //      axios
+    //   .get(`/api/reviews/${this.review.id}`)
+    //   .then(response =>{
+    //      this.existingReview = response.data.data
+    //   })
+    //   .catch(err => {
+    //     //
+    //     if(is404(err)){
+    //          //Fetch a booking by a review key
+    //         return axios.get(`/api/booking-by-review/${this.review.id}`)
+    //         .then(response=>{
+    //             this.booking=response.data.data;
+    //         }).catch((err)=>{
+
+    //                this.error=!is404(err);
+    //         });
+
+    //     }
+    //     this.error=true;
+    //   })
+    //   .then(()=>{
 
 
-          this.loading=false;
+    //       this.loading=false;
 
-      } );
+    //   } );
 
         //Storing a review
 
@@ -166,15 +182,10 @@ export default {
                 this.error=true;
 
             })
-            .then(()=>this.sending=false)
-            ;
+            .then(()=>this.sending=false);
 
         },
-    //     errorFor(field) {
-    //   return null !== this.errors && this.errors[field]
-    //   ? this.errors[field]
-    //   : null;
-    // }
+
     },
 
 
