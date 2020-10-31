@@ -2,15 +2,18 @@
   <div>
     <h6 class="text-uppercase text-secondary font-weight-bolder">
       Check Availability
-      <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
+      <transition>
+        <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
       <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+      </transition>
+
     </h6>
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="from">From</label>
         <input
-          type="text"
+          type="date"
           name="from"
           class="form-control form-control-sm"
           placeholder="Start date"
@@ -29,7 +32,7 @@
       <div class="form-group col-md-6">
         <label for="to">To</label>
         <input
-          type="text"
+          type="date"
           name="to"
           class="form-control form-control-sm"
           placeholder="End date"

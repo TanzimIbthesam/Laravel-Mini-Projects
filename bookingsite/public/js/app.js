@@ -1973,6 +1973,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -61343,16 +61346,21 @@ var render = function() {
       { staticClass: "text-uppercase text-secondary font-weight-bolder" },
       [
         _vm._v("\n    Check Availability\n    "),
-        _vm.noAvailability
-          ? _c("span", { staticClass: "text-danger" }, [
-              _vm._v("(NOT AVAILABLE)")
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.hasAvailability
-          ? _c("span", { staticClass: "text-success" }, [_vm._v("(AVAILABLE)")])
-          : _vm._e()
-      ]
+        _c("transition", [
+          _vm.noAvailability
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v("(NOT AVAILABLE)")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.hasAvailability
+            ? _c("span", { staticClass: "text-success" }, [
+                _vm._v("(AVAILABLE)")
+              ])
+            : _vm._e()
+        ])
+      ],
+      1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "form-row" }, [
@@ -61373,7 +61381,7 @@ var render = function() {
             ],
             staticClass: "form-control form-control-sm",
             class: [{ "is-invalid": _vm.errorFor("from") }],
-            attrs: { type: "text", name: "from", placeholder: "Start date" },
+            attrs: { type: "date", name: "from", placeholder: "Start date" },
             domProps: { value: _vm.from },
             on: {
               keyup: function($event) {
@@ -61416,7 +61424,7 @@ var render = function() {
             ],
             staticClass: "form-control form-control-sm",
             class: [{ "is-invalid": _vm.errorFor("to") }],
-            attrs: { type: "text", name: "to", placeholder: "End date" },
+            attrs: { type: "date", name: "to", placeholder: "End date" },
             domProps: { value: _vm.to },
             on: {
               keyup: function($event) {

@@ -18,11 +18,12 @@ class Bookable extends Model
     {
         return $this->hasMany(Review::class);
     }
-    public function availableFor($from,$to):bool
+    public function availableFor($from, $to): bool
     {
-       return  $this->bookings()->betweenDates($from, $to)->count();
+        // if($this->bookings()->betweenDates($from, $to)->count()){
 
-    //    return $this->bookings()->betweenDates($from, $to)->count();
+        // }
+        return  1===$this->bookings()->betweenDates($from, $to)->count();
     }
 
 }

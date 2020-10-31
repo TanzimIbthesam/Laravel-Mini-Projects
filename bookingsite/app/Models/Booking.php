@@ -22,8 +22,8 @@ class Booking extends Model
     }
     public function scopeBetweenDates(Builder $query, $from, $to)
     {
-        return $query->where('to', '>=', $from)
-            ->where('from', '<=', $to);
+        return $query->where('to', '>=', $to)
+        ->where('from', '<=', $from);
     }
     public static function findByReviewKey(string $reviewKey) : ?Booking
     {
