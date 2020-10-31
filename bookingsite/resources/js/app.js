@@ -35,6 +35,9 @@ const app = new Vue({
     store,
     components:{
       index:index
+    },
+    beforeCreate(){
+        this.$store.dispatch('localStorageState');
     }
 });
 
