@@ -54,7 +54,7 @@
     import {is422} from './../shared/utils/response';
 export default {
   props: {
-    bookableId: String
+    bookableId: [String,Number]
   },
   data() {
     return {

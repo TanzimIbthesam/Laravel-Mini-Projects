@@ -32,7 +32,7 @@
 import moment from 'moment';
 export default {
 props: {
-    bookableId: String
+      bookableId: [String,Number]
   },
       data() {
           return {
