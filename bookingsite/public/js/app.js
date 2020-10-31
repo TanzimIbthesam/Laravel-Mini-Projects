@@ -1993,6 +1993,10 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.errors = null;
+      this.$store.commit('setLastSearch', {
+        from: this.from,
+        to: this.to
+      });
       axios.get("/api/bookables/".concat(this.bookableId, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
         _this.status = response.status;
       })["catch"](function (error) {
@@ -78966,10 +78970,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/components/fatalError.vue */ "./resources/js/shared/components/fatalError.vue");
 /* harmony import */ var _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/components/validationError.vue */ "./resources/js/shared/components/validationError.vue");
 /* harmony import */ var _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/components/Success.vue */ "./resources/js/shared/components/Success.vue");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -78979,22 +78981,22 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+ // import Vue from 'vue';
 
 
 
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Vue.use(Vuex);
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_9__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.filter("fromNow", function (value) {
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.filter("fromNow", function (value) {
   return moment__WEBPACK_IMPORTED_MODULE_3___default()(value).fromNow();
 });
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("star-rating", _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("fatal-error", _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("v-errors", _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_8___default.a.component("success", _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_9__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_10__["default"]);
-var app = new vue__WEBPACK_IMPORTED_MODULE_8___default.a({
+Vue.component("star-rating", _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+Vue.component("fatal-error", _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+Vue.component("v-errors", _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.component("success", _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_9__["default"]);
+var app = new Vue({
   el: '#app',
   router: _route__WEBPACK_IMPORTED_MODULE_1__["default"],
   store: store,
