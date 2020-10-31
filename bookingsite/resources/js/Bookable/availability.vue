@@ -50,6 +50,8 @@
     </div>
 
     <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">Check!</button>
+    <span v-if="!loading">Check!</span>
+    <span v-if="loading"><i class="fas fa-circle-notch fa-spin"></i>Checking...</span>
   </div>
 </template>
 
