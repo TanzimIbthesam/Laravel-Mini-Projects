@@ -20,7 +20,7 @@
 
                  <div class="col-md-4 pb-4">
 
-                      <availability :bookableId="this.$route.params.id"></availability>
+                      <availability :bookableId="this.$route.params.id" @availability="  checkPrice($event)"></availability>
                  </div>
                   </div>
 
@@ -56,6 +56,11 @@ export default {
             this.bookable=response.data.data,
             this.loading=false;
         });
+       },
+       methods:{
+           checkPrice(hasAvailability){
+               console.log(hasAvailability);
+           }
        }
 }
 </script>
