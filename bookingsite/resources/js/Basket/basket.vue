@@ -22,11 +22,11 @@
                          </div>
                          <div class="row">
                                <div class="col-md-6 form-group">
-                                 <label for="city">City</label>
+                                 <label for="city">Street</label>
                                  <input type="text" name="city" class="form-control" id="">
                              </div>
                               <div class="col-md-6 form-group">
-                                 <label for="state">State</label>
+                                 <label for="state">City</label>
                                  <input type="text" name="state" class="form-control" id="">
                              </div>
 

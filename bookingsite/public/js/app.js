@@ -61906,7 +61906,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6 form-group" }, [
-          _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
+          _c("label", { attrs: { for: "city" } }, [_vm._v("Street")]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
@@ -61915,7 +61915,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6 form-group" }, [
-          _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+          _c("label", { attrs: { for: "state" } }, [_vm._v("City")]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
