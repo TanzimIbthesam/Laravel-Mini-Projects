@@ -33,5 +33,8 @@ export default {
 
 
         }
+    },
+    getters:{
+        itemsinBasket:state=>state.basket.items.length
     }
 };

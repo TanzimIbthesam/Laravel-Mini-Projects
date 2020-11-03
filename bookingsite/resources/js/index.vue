@@ -4,6 +4,9 @@
 
     <nav class="navbar bg-white border-bottom navbar-light">
       <router-link class="navbar-brand mr-auto" :to="{name: 'home'}">LaravelBnb</router-link>
+      <router-link class="btn nav-button" :to="{name: 'home'}">Basket
+          <span v-if=" itemsinBasket" class="badge badge-secondary">{{ itemsinBasket}}</span>
+      </router-link>
 
     </nav>
 
@@ -16,6 +19,7 @@
 <script>
 // import {mapState} from 'Vuex';
 import { mapState } from 'vuex';
+import {mapGetters} from 'vuex';
 export default {
     data(){
         return{
@@ -26,6 +30,9 @@ export default {
      ...mapState({
           lastSearchComputed: "lastSearch"
      }),
+     ...mapGetters({
+         itemsinBasket:"itemsinBasket"
+     })
     }
 
 }
