@@ -52,7 +52,7 @@ export default {
         }
     },
     getters:{
-        itemsinBasket:state=>state.basket.items.length,
+        itemsInBasket:state=>state.basket.items.length,
            inBasketAlready(state){
 
                 return function(id){

@@ -4,8 +4,8 @@
 
     <nav class="navbar bg-white border-bottom navbar-light">
       <router-link class="navbar-brand mr-auto" :to="{name: 'home'}">LaravelBnb</router-link>
-      <router-link class="btn nav-button" :to="{name: 'home'}">Basket
-          <span v-if=" itemsinBasket" class="badge badge-secondary">{{ itemsinBasket}}</span>
+      <router-link class="btn nav-button" :to="{name: 'basket'}">Basket
+          <span v-if=" itemsInBasket" class="badge badge-secondary">{{ itemsInBasket}}</span>
       </router-link>
 
     </nav>
@@ -31,7 +31,7 @@ export default {
           lastSearchComputed: "lastSearch"
      }),
      ...mapGetters({
-         itemsinBasket:"itemsinBasket"
+         itemsInBasket:"itemsInBasket"
      })
     }
 

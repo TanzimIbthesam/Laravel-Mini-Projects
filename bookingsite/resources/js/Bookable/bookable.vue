@@ -26,20 +26,26 @@
                       class="mb-4"
                       >
                       </availability>
-                      <transition name="fade">
-                          <div v-if="price">
-                                   <priceBreakdown :price="price" class="mb-4"></priceBreakdown>
+                      <div v-if="price">
+                           <transition name="fade">
+
+                                   <priceBreakdown  :price="price" class="mb-4"></priceBreakdown>
+                                   </transition>
                     <button class="btn btn-outline-secondary btn-block"
+
                     @click="addtoBasket()"
                     :disabled="inBasketAlready"
                     >Book Now</button>
+                      </div>
+
+
+
                     <button class="btn btn-outline-secondary btn-block"
                     @click="removeFromBasket()"
                     v-if="inBasketAlready"
                     >Remove from Basket</button>
-                          </div>
 
-                      </transition>
+
                       <div v-if="inBasketAlready" class="mt-4 text-muted warning">Seems like you have added this to Basket already.If you want to change dates remove from basket first</div>
 
                  </div>
