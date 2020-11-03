@@ -96,10 +96,10 @@ import { mapState } from 'vuex';
 import {mapGetters} from 'vuex';
 export default {
     computed: {
-    //   ...mapGetters([" itemsInBasket"]),
-      ...mapGetters({
-         itemsInBasket:"itemsInBasket"
-     }),
+      ...mapGetters([" itemsInBasket"]),
+    //   ...mapGetters({
+    //      itemsInBasket:"itemsInBasket"
+    //  }),
         ...mapState({
             basket:state=>state.basket.items
         })
