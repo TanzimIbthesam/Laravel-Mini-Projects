@@ -86,13 +86,19 @@ export default {
          computed:{
      ...mapState({
           lastSearch: "lastSearch",
-          inBasketAlready(state){
-              if(null===this.bookable){
+        //   inBasketAlready(state){
+        //       if(null===this.bookable){
+        //           return false;
+        //       }
+        //      return state.basket.items.reduce((result,item)=>
+        //          result || item.bookable.id === this.bookable.id
+        //      ,false)
+        //   },
+          inBasketAlready(){
+                   if(null===this.bookable){
                   return false;
               }
-             return state.basket.items.reduce((result,item)=>
-                 result || item.bookable.id === this.bookable.id
-             ,false)
+              return this.$store.getters.inBasketAlready(this.bookable.id);
           }
      }),
     },
