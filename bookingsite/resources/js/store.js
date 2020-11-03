@@ -13,11 +13,15 @@ export default {
             state.lastSearch = payload;
         },
         addtoBasket(state,payload){
+
            state.basket.items.push(payload);
         },
         removeFromBasket(state,payload){
             state.basket.items=state.basket.items.filter(item=>item.bookable.id !==payload);
 
+        },
+        setBasket(state,payload){
+            state.basket=payload;
         }
     },
     actions:{
@@ -31,7 +35,20 @@ export default {
                 context.commit('setLastSearch',JSON.parse(lastSearch));
             }
 
+            const basket=localStorage.getItem("basket");
+            if(basket){
+                context.commit("setBasket",JSON.parse(basket));
+            }
 
+
+        },
+        addtoBasket({commit,state},payload){
+            commit("addtoBasket",payload);
+            localStorage.setItem("basket",JSON.stringify(state.basket));
+        },
+       removeFromBasket({commit,state},payload) {
+            commit('removeFromBasket', payload);
+            localStorage.setItem('basket', JSON.stringify(state.basket));
         }
     },
     getters:{

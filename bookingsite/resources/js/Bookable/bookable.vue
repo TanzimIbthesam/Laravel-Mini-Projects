@@ -86,14 +86,7 @@ export default {
          computed:{
      ...mapState({
           lastSearch: "lastSearch",
-        //   inBasketAlready(state){
-        //       if(null===this.bookable){
-        //           return false;
-        //       }
-        //      return state.basket.items.reduce((result,item)=>
-        //          result || item.bookable.id === this.bookable.id
-        //      ,false)
-        //   },
+
           inBasketAlready(){
                    if(null===this.bookable){
                   return false;
@@ -117,7 +110,7 @@ export default {
                }
            },
            addtoBasket(){
-               this.$store.commit('addtoBasket',{
+               this.$store.dispatch('addtoBasket',{
                    bookable:this.bookable,
                    price:this.price,
                    dates:this.lastSearch
@@ -125,7 +118,7 @@ export default {
                });
            },
              removeFromBasket(){
-                 this.$store.commit("removeFromBasket",this.bookable.id)
+                 this.$store.dispatch("removeFromBasket",this.bookable.id)
 
              }
        }
