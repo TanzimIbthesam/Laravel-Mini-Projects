@@ -15,7 +15,7 @@ export default {
         addtoBasket(state,payload){
            state.basket.items.push(payload);
         },
-        removefromBasket(state,payload){
+        removeFromBasket(state,payload){
             state.basket.items=state.basket.items.filter(item=>item.bookable.id !==payload);
 
         }
