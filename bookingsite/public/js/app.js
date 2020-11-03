@@ -1967,6 +1967,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61700,7 +61753,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8" }, [_vm._v("Basket items")]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
@@ -61812,7 +61865,113 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 form-group" }, [
+          _c("label", { attrs: { for: "first_name" } }, [
+            _vm._v("First Names")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "first_name", id: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 form-group" }, [
+          _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "last_name", id: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12 form-group" }, [
+          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "email", id: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 form-group" }, [
+          _c("label", { attrs: { for: "city" } }, [_vm._v("City")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "city", id: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 form-group" }, [
+          _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "state", id: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 form-group" }, [
+          _c("label", { attrs: { for: "country" } }, [_vm._v("Country")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "country", id: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4  form-group" }, [
+          _c("label", { attrs: { for: "state" } }, [_vm._v("State")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "state", id: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2  form-group" }, [
+          _c("label", { attrs: { for: "zip" } }, [_vm._v("Zip")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", name: "zip", id: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("hr")
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12 form-group" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-lg btn-primary btn-block",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Book Now!")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
