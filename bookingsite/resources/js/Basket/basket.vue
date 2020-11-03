@@ -10,6 +10,7 @@
                               <span v-else>Empty</span>
                           </h6>
                       </div>
+                      <transition-group name="fade">
                       <div v-for="item in basket" :key="item.bookable.id">
                           <div class="pt-2 pb-2 border-top d-flex justify-content-between">
                               <span>
@@ -31,6 +32,8 @@
                               </button>
                           </div>
                       </div>
+                      </transition-group>
+
                   </div>
               </div>
     </div>
