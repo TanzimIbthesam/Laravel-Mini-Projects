@@ -57,7 +57,7 @@
                   </div>
                   <div class="col-md-8" v-else>
                         <div class="jumbotron jumbotron-fluid text-center">
-                            <h1>Empty</h1>
+                            <h1>Empty here</h1>
                         </div>
                   </div>
                   <div class="col-md-4">
@@ -144,7 +144,7 @@ export default {
 
                     }))
                 });
-
+                     this.$store.dispatch("clearBasket");
             }catch(err){}
 
             this.loading=false;
