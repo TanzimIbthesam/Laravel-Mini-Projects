@@ -5,51 +5,136 @@
                          <div class="row">
                              <div class="col-md-6 form-group">
                                  <label for="first_name">First Names</label>
-                                 <input type="text" name="first_name" v-model="customer.first_name" class="form-control" id="">
+                                 <input type="text"
+                                 name="first_name"
+                                 v-model="customer.first_name"
+                                 class="form-control"
+                                  :class="[{'is-invalid': errorFor('customer.first_name')}]"
+                                  id="" />
+                                 <v-errors :errors="errorFor('customer.first_name')"></v-errors>
+
                              </div>
                               <div class="col-md-6 form-group">
                                  <label for="last_name">Last Name</label>
-                                 <input type="text" name="last_name" v-model="customer.last_name" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 name="last_name"
+                                 v-model="customer.last_name"
+
+                                 class="form-control"
+                                 id=""
+                                 :class="[{'is-invalid': errorFor('customer.last_name')}]"
+                                  />
+
+
+
+                                  <v-errors :errors="errorFor('customer.last_name')"></v-errors>
                              </div>
 
                          </div>
                          <div class="row">
                              <div class="col-md-12 form-group">
                                  <label for="email">Email</label>
-                                 <input type="text" name="email" v-model="customer.email" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 name="email"
+                                 v-model="customer.email"
+                                 class="form-control"
+                                 id=""
+                                 :class="[{'is-invalid': errorFor('customer.email')}]"
+                                  />
+                             <v-errors :errors="errorFor('customer.email')"></v-errors>
+
+
                              </div>
 
                          </div>
                          <div class="row">
                                <div class="col-md-6 form-group">
                                  <label for="city">Street</label>
-                                 <input type="text"  v-model="customer.street"  name="city" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 v-model="customer.street"
+                                 name="city"
+                                 class="form-control"
+                                 id=""
+                                :class="[{'is-invalid': errorFor('customer.street')}]"
+                                  />
+
+
+
+                                  <v-errors :errors="errorFor('customer.street')"></v-errors>
+
+
                              </div>
                               <div class="col-md-6 form-group">
                                  <label for="state">City</label>
-                                 <input type="text" v-model="customer.city"  name="state" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 v-model="customer.city"
+                                 name="state"
+                                 class="form-control"
+                                 id=""
+                                  :class="[{'is-invalid': errorFor('customer.street')}]"
+                                  />
+                      <v-errors :errors="errorFor('customer.street')"></v-errors>
+
                              </div>
 
                          </div>
                              <div class="row">
                              <div class="col-md-6 form-group">
                                  <label for="country">Country</label>
-                                 <input type="text" v-model="customer.country" name="country" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 v-model="customer.country"
+                                 name="country"
+                                 class="form-control"
+                                  :class="[{'is-invalid': errorFor('customer.country')}]"
+                                  id=""
+                                  />
+
+
+
+                                  <v-errors :errors="errorFor('customer.country')"></v-errors>
+
                              </div>
                               <div class="col-md-4  form-group">
                                  <label for="state">State</label>
-                                 <input type="text"  v-model="customer.state" name="state" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 v-model="customer.state"
+                                 name="state"
+                                 class="form-control"
+                                 id=""
+                                   :class="[{'is-invalid': errorFor('customer.state')}]"
+                                  />
+                             <v-errors :errors="errorFor('customer.state')"></v-errors>
+
+
+                                 >
                              </div>
                               <div class="col-md-2  form-group">
                                  <label for="zip">Zip</label>
-                                 <input type="text" v-model="customer.zip" name="zip" class="form-control" id="">
+                                 <input
+                                 type="text"
+                                 v-model="customer.zip"
+                                 name="zip"
+                                 class="form-control" id=""
+                                   :class="[{'is-invalid': errorFor('customer.zip')}]"
+                                  />
+                             <v-errors :errors="errorFor('customer.zip')"></v-errors>
+
+
                              </div>
                                 <hr />
                          </div>
                          <hr />
                          <div class="row">
                              <div class="col-md-12 form-group">
-                                 <button @click.prevent="book()" type="submit" class="btn btn-lg btn-primary btn-block">Book Now!</button>
+                                 <button @click.prevent="book()"
+                                 :disabled="loading"
+                                  type="submit" class="btn btn-lg btn-primary btn-block">Book Now!</button>
                              </div>
                          </div>
 
@@ -103,20 +188,17 @@ import validationErrors from "./../shared/mixins/validationErrors";
 export default {
     mixins:[validationErrors],
     data() {
-
         return {
             loading:false,
             customer:{
                 first_name:null,
                 last_name:null,
-
                 email:null,
                 street:null,
                 city:null,
                 country:null,
                 state:null,
                 zip:null
-
             }
         }
     },
@@ -132,7 +214,7 @@ export default {
     methods: {
         async book(){
             this.loading=true;
-
+            this.errors=null;
             try{
                 await axios.post('/api/checkout',{
                     customer:this.customer,
@@ -140,18 +222,15 @@ export default {
                         bookable_id:basketItem.bookable.id,
                         from:basketItem.dates.from,
                         to:basketItem.dates.to,
-
-
                     }))
                 });
                      this.$store.dispatch("clearBasket");
-            }catch(err){}
-
+            }catch(error){
+                this.errors=error.response && error.response.data.errors;
+            }
             this.loading=false;
-
         }
     },
-
 }
 </script>
 <style scoped>

@@ -41,11 +41,7 @@
           @keyup.enter="check"
           :class="[{'is-invalid': errorFor('to')}]"
         />
-        <!-- <div
-          class="invalid-feedback"
-          v-for="(error, index) in this.errorFor('to')"
-          :key="'to' + index"
-        >{{ error }}</div> -->
+
           <v-errors :errors="errorFor('to')"></v-errors>
       </div>
     </div>
