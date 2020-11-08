@@ -49,32 +49,18 @@ class CheckoutController extends Controller
             }]
         ]));
 
-        // $bookingsData=$data['bookings'];
-        // $addressData=$data['customer'];
-
-        // $bookings=collect($bookingsData)->map(function($bookingData) use ($addressData){
-        //     $booking=new Booking();
-        //     $booking->from=$bookingData['from'];
-        //     $booking->to=$bookingData['to'];
-        //     $booking->price=200;
-        //     $booking->bookable_id=$bookingData['bookable_id'];
-        //     $booking->address()->associate(Address::create($addressData));
-        //     $booking->save();
-        //     return $booking;
-
-
-        // });
-        //     return $bookings;
         $bookingsData = $data['bookings'];
         $addressData = $data['customer'];
 
         $bookings = collect($bookingsData)->map(function ($bookingData) use ($addressData) {
                 //
+                $bookable=Bookable::findorFail($bookingData['bookable_id']);
                 $booking = new Booking();
                 $booking->from = $bookingData['from'];
                 $booking->to = $bookingData['to'];
-                $booking->price = 200;
-                $booking->bookable_id = $bookingData['bookable_id'];
+                $booking->price =$bookable->priceFor($booking->from,$booking->to)['total'];
+                // $booking->bookable_id = $bookingData['bookable_id'];
+                $booking->bookable()->associate($bookable);
 
                 $booking->address()->associate(Address::create($addressData));
 
