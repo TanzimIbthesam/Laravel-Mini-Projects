@@ -2279,6 +2279,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -7550,7 +7551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh6 .badge[data-v-2547b101]{\n    font-size: 100%;\n}\n", ""]);
+exports.push([module.i, "\nh6 .badge[data-v-2547b101]{\r\n    font-size: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -7588,7 +7589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.warning[data-v-5c7e8a61]{\n    font-size: 0.7rem;\n}\n", ""]);
+exports.push([module.i, "\n.warning[data-v-5c7e8a61]{\r\n    font-size: 0.7rem;\n}\r\n", ""]);
 
 // exports
 
@@ -7645,7 +7646,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-72075972] {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-72075972] {\r\n  display: block;\n}\r\n", ""]);
 
 // exports
 
@@ -62529,7 +62530,8 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-errors", { attrs: { errors: _vm.errorFor("from") } })
+          _c("v-errors", { attrs: { errors: _vm.errorFor("from") } }),
+          _vm._v("\n       Hello\n    ")
         ],
         1
       ),
@@ -63063,7 +63065,7 @@ var render = function() {
     [
       _vm.success
         ? _c("success", [
-            _vm._v("\n            Thanks for your feedback\n        ")
+            _vm._v("\r\n            Thanks for your feedback\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -63131,7 +63133,9 @@ var render = function() {
               },
               [
                 _vm.loading
-                  ? _c("div", [_vm._v("\n             Loading ...\n        ")])
+                  ? _c("div", [
+                      _vm._v("\r\n             Loading ...\r\n        ")
+                    ])
                   : _c("div", [
                       _vm.alreadyReviewed
                         ? _c("div", [
@@ -63140,7 +63144,7 @@ var render = function() {
                             ])
                           ])
                         : _c("div", [
-                            _vm._v("\n              Review Page\n       "),
+                            _vm._v("\r\n              Review Page\r\n       "),
                             _c(
                               "div",
                               { staticClass: "form-group" },
@@ -80541,6 +80545,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+windows.axios.defaults.withCredentials = true;
 
 /***/ }),
 
