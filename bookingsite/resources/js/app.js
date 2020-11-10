@@ -12,6 +12,7 @@ import Success from './shared/components/Success.vue';
 // import Vue from 'vue';
 import Vuex from 'vuex';
 import storeDefinition from './store';
+import Axios from 'axios';
 
 
 
@@ -36,8 +37,14 @@ const app = new Vue({
     components:{
       index:index
     },
-    beforeCreate(){
+   async beforeCreate(){
         this.$store.dispatch('localStorageState');
+        // await axios.get("/sanctim.csrf-cookie");
+        // await axios.post("/login",{
+        //      email:'eloy16@example.net',
+        //      password:'password'
+        // });
+        await axios.get('/user')
     }
 });
 

@@ -80467,17 +80467,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route */ "./resources/js/route.js");
-/* harmony import */ var _index_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue */ "./resources/js/index.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/components/starRating.vue */ "./resources/js/shared/components/starRating.vue");
-/* harmony import */ var _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/components/fatalError.vue */ "./resources/js/shared/components/fatalError.vue");
-/* harmony import */ var _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/components/validationError.vue */ "./resources/js/shared/components/validationError.vue");
-/* harmony import */ var _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/components/Success.vue */ "./resources/js/shared/components/Success.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./route */ "./resources/js/route.js");
+/* harmony import */ var _index_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.vue */ "./resources/js/index.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/components/starRating.vue */ "./resources/js/shared/components/starRating.vue");
+/* harmony import */ var _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/components/fatalError.vue */ "./resources/js/shared/components/fatalError.vue");
+/* harmony import */ var _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/components/validationError.vue */ "./resources/js/shared/components/validationError.vue");
+/* harmony import */ var _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shared/components/Success.vue */ "./resources/js/shared/components/Success.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -80491,26 +80501,50 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Vue.use(Vuex);
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.filter("fromNow", function (value) {
-  return moment__WEBPACK_IMPORTED_MODULE_3___default()(value).fromNow();
+  return moment__WEBPACK_IMPORTED_MODULE_4___default()(value).fromNow();
 });
-Vue.component("star-rating", _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-Vue.component("fatal-error", _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-Vue.component("v-errors", _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
-Vue.component("success", _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_9__["default"]);
+Vue.component("star-rating", _shared_components_starRating_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+Vue.component("fatal-error", _shared_components_fatalError_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.component("v-errors", _shared_components_validationError_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+Vue.component("success", _shared_components_Success_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_9__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_10__["default"]);
 var app = new Vue({
   el: '#app',
-  router: _route__WEBPACK_IMPORTED_MODULE_1__["default"],
+  router: _route__WEBPACK_IMPORTED_MODULE_2__["default"],
   store: store,
   components: {
-    index: _index_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    index: _index_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   beforeCreate: function beforeCreate() {
-    this.$store.dispatch('localStorageState');
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.$store.dispatch('localStorageState'); // await axios.get("/sanctim.csrf-cookie");
+              // await axios.post("/login",{
+              //      email:'eloy16@example.net',
+              //      password:'password'
+              // });
+
+
+              _context.next = 3;
+              return axios.get('/user');
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -80545,7 +80579,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-windows.axios.defaults.withCredentials = true;
+window.axios.defaults.withCredentials = true;
 
 /***/ }),
 
