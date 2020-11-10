@@ -39,6 +39,8 @@ const app = new Vue({
     },
    async beforeCreate(){
         this.$store.dispatch('localStorageState');
+        this.$store.dispatch("loadUser");
+
 
     }
 });

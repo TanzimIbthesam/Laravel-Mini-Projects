@@ -1,12 +1,11 @@
 export function isLoggedIn() {
-    return localStorage.getItem("isLoggedIn")==='true';
-
+   return localStorage.getItem("isLoggedIn") == "true";
 }
 export function logIn() {
-    return localStorage.getItem("isLoggedIn",true);
+    return localStorage.setItem("isLoggedIn",true);
 
 }
 export function logOut() {
-    return localStorage.getItem("isLoggedIn",false);
+    return localStorage.setItem("isLoggedIn",false);
 
 }
