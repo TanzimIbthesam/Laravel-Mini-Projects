@@ -23,6 +23,8 @@ export default {
         setBasket(state,payload){
             state.basket=payload;
         },
+        isLoggedIn:false,
+        user:{}
 
     },
     actions:{

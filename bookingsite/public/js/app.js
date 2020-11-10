@@ -80802,13 +80802,7 @@ var app = new Vue({
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this.$store.dispatch('localStorageState'); // await axios.get("/sanctim.csrf-cookie");
-              // await axios.post("/login",{
-              //      email:'eloy16@example.net',
-              //      password:'password'
-              // });
-              // await axios.get('/user')
-
+              _this.$store.dispatch('localStorageState');
 
             case 1:
             case "end":
@@ -81506,7 +81500,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     setBasket: function setBasket(state, payload) {
       state.basket = payload;
-    }
+    },
+    isLoggedIn: false,
+    user: {}
   },
   actions: {
     setLastSearch: function setLastSearch(context, payload) {
