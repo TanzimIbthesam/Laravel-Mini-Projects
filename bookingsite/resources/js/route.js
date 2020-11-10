@@ -6,6 +6,7 @@ import Bookable from './Bookable/bookable.vue';
 import Review from './review/Review.vue';
 import Basket from './Basket/basket.vue';
 
+
 const routes = [
     {
         path: "/",
@@ -26,6 +27,11 @@ const routes = [
         path: "/basket",
         component:Basket,
         name: "basket",
+    },
+    {
+        path: "/auth/login",
+        component:require("./auth/Login").default,
+        name: "login",
     }
 ];
 

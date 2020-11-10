@@ -44,7 +44,7 @@ const app = new Vue({
         //      email:'eloy16@example.net',
         //      password:'password'
         // });
-        await axios.get('/user')
+        // await axios.get('/user')
     }
 });
 
