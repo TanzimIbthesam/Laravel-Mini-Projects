@@ -50,6 +50,8 @@ export default {
                 context.commit("setBasket",JSON.parse(basket));
             }
 
+            context.commit("setLoggedIn",isLoggedIn());
+
 
         },
         addtoBasket({commit,state},payload){
@@ -73,9 +75,7 @@ export default {
                     commit("setLoggedIn", true);
                 } catch (error) {
                     dispatch("logout");
-                    // if(401===error.response.status){
-                    //     dispatch("logout");
-                    // }
+
                 }
             }
         },
