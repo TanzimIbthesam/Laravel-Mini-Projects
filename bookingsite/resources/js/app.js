@@ -29,7 +29,7 @@ Vue.component("success",Success);
 
 const store = new Vuex.Store(storeDefinition);
 
-window.axios.interceptors.use(
+window.axios.interceptors.response.use(
     response=>{
            return response;
     },
