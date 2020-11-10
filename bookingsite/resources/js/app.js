@@ -29,7 +29,18 @@ Vue.component("success",Success);
 
 const store = new Vuex.Store(storeDefinition);
 
+window.axios.interceptors.use(
+    response=>{
+           return response;
+    },
+     error=>{
+         if(401===error.response.status){
+             store.dispatch("logout");
+         }
+         return Promise.reject(error);
 
+     }
+)
 const app = new Vue({
     el: '#app',
     router,
